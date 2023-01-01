@@ -73,7 +73,7 @@ internal class FacetimeViewController: UIViewController, UIGestureRecognizerDele
   fileprivate let bottomLeftEndpointIndicatorView: EndpointIndicatorView = .init()
   fileprivate let bottomRightEndpointIndicatorView: EndpointIndicatorView = .init()
 
-  fileprivate let springConfigurationButton: UIButton = .init(.alpha)
+  fileprivate let springConfigurationButton: UIButton = .init(style: .alpha)
 
   override public func viewDidLoad() {
     super.viewDidLoad()
@@ -108,10 +108,6 @@ internal class FacetimeViewController: UIViewController, UIGestureRecognizerDele
     self.bottomLeftEndpointIndicatorView.frame = self.frame(for: .bottomLeft)
     self.bottomRightEndpointIndicatorView.frame = self.frame(for: .bottomRight)
 
-    self.springConfigurationButton.frame = CGRect(x: Int(view.frame.center.x - 50), y: Int(view.frame.maxY - 100), width: 100, height: 50)
-    self.springConfigurationButton.layer.cornerRadius = 10
-    self.springConfigurationButton.backgroundColor = .systemBlue
-
     switch self.state {
     case .idle(at: let endpoint):
       self.pictureInPictureView.frame = self.frame(for: endpoint)
@@ -120,6 +116,8 @@ internal class FacetimeViewController: UIViewController, UIGestureRecognizerDele
     case .interaction:
       break
     }
+
+    self.configureButton()
   }
 
   // MARK: - Gesture Management
@@ -158,6 +156,28 @@ internal class FacetimeViewController: UIViewController, UIGestureRecognizerDele
     }
 
     return true
+  }
+
+  // MARK: - Configure button
+
+  fileprivate func configureButton() {
+    // Form
+    let buttonSize = view.frame.maxX / 4.0
+    NSLayoutConstraint.activate([
+      self.springConfigurationButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      self.springConfigurationButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(view.frame.maxY / 12)),
+      self.springConfigurationButton.widthAnchor.constraint(equalToConstant: buttonSize),
+      self.springConfigurationButton.heightAnchor.constraint(equalToConstant: buttonSize)
+    ])
+    self.springConfigurationButton.layer.cornerRadius = 0.5 * self.springConfigurationButton.bounds.size.width
+    self.springConfigurationButton.clipsToBounds = true
+
+    self.springConfigurationButton.addTarget(self, action: #selector(self.buttonClicked), for: .touchUpInside)
+  }
+
+  // Function
+  @objc func buttonClicked() {
+    print("Button Clicked")
   }
 
   // MARK: - Interaction Management

@@ -10,11 +10,25 @@ import Foundation
 import UIKit
 
 extension UIButton {
-  enum customStyle {
+  enum CustomStyle {
     case alpha
   }
-  convenience init(_ style: UIButton.customStyle) {
+
+  convenience init(style: UIButton.CustomStyle) {
     self.init()
-    print("Init Ain't it?")
+    self.configure(style: style)
+  }
+
+  func configure(style: CustomStyle){
+    translatesAutoresizingMaskIntoConstraints = false
+
+    switch style {
+    case .alpha:
+      if #available(iOS 13.0, *) {
+        self.setBackgroundImage( UIImage(systemName: "theatermask.and.paintbrush.fill"), for: .normal)
+      } else {
+        self.setTitle("Setup", for: .normal)
+      }
+    }
   }
 }
