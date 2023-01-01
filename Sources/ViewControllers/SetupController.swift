@@ -8,42 +8,41 @@
 
 import UIKit
 
+typealias SetSpringCallback = (_ spring: DampedHarmonicSpring) -> Void
+
 class SetupController: UIViewController {
-  var dampingRatio: Double
-  var frequencyResponse: Double
+  private var dampingRatio: Double
+  private var frequencyResponse: Double
+  private var setSpringCallback: SetSpringCallback
 
   @IBOutlet var dampingRatioSlider: UISlider!
   @IBOutlet var frequencyResponseSlider: UISlider!
-  
-  var dampedHarmonicSpring: DampedHarmonicSpring {
-    get { DampedHarmonicSpring(dampingRatio: dampingRatio, frequencyResponse: frequencyResponse) }
-    set {
-      dampingRatio = newValue.dampingRatio
-      frequencyResponse = newValue.frequencyResponse
-    }
-  }
+
+  var dampedHarmonicSpring: DampedHarmonicSpring { DampedHarmonicSpring(dampingRatio: dampingRatio, frequencyResponse: frequencyResponse) }
 
   override func viewDidLayoutSubviews() {
-    self.dampingRatioSlider.setValue(Float(dampingRatio), animated: true)
-    self.frequencyResponseSlider.setValue(Float(frequencyResponse), animated: true)
+    dampingRatioSlider.setValue(Float(dampingRatio), animated: true)
+    frequencyResponseSlider.setValue(Float(frequencyResponse), animated: true)
   }
 
-  init(dampingRatio: Double, frequencyResponse: Double) {
+  init(dampingRatio: Double, frequencyResponse: Double, setSpringCallback: @escaping SetSpringCallback) {
     self.dampingRatio = dampingRatio
     self.frequencyResponse = frequencyResponse
+    self.setSpringCallback = setSpringCallback
     super.init(nibName: nil, bundle: nil)
   }
 
+  @available(*, unavailable)
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
   @IBAction func dampingRatioChanged(_ sender: UISlider) {
-    dampedHarmonicSpring = DampedHarmonicSpring(dampingRatio: dampedHarmonicSpring.dampingRatio, frequencyResponse: CGFloat(sender.value))
+    frequencyResponse = Double(sender.value)
   }
 
   @IBAction func frquencyResponseChanged(_ sender: UISlider) {
-    dampedHarmonicSpring = DampedHarmonicSpring(dampingRatio: CGFloat(sender.value), frequencyResponse: dampedHarmonicSpring.frequencyResponse)
+    dampingRatio = Double(sender.value)
   }
 
   override func viewDidLoad() {
@@ -52,13 +51,7 @@ class SetupController: UIViewController {
     // Do any additional setup after loading the view.
   }
 
-  /*
-   // MARK: - Navigation
-
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       // Get the new view controller using segue.destination.
-       // Pass the selected object to the new view controller.
-   }
-   */
+  override func viewWillDisappear(_ animated: Bool) {
+    setSpringCallback(dampedHarmonicSpring)
+  }
 }

@@ -39,7 +39,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   // MARK: - Configuration
 
   /// The spring driving animations of the PIP view.
-  fileprivate let spring: DampedHarmonicSpring = .init(dampingRatio: 0.35, frequencyResponse: 0.95)
+  fileprivate var spring: DampedHarmonicSpring = .init(dampingRatio: 0.35, frequencyResponse: 0.95)
 
   // MARK: - State
 
@@ -178,8 +178,10 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   // Function
   @objc func buttonClicked() {
     print("Button Clicked")
-    let vc = SetupController(dampingRatio: spring.dampingRatio, frequencyResponse: spring.frequencyResponse)
-    vc.dampedHarmonicSpring = spring
+    let vc = SetupController(dampingRatio: spring.dampingRatio, frequencyResponse: spring.frequencyResponse) {
+      spring in
+      self.spring = spring
+    }
     present(vc, animated: true)
   }
 
