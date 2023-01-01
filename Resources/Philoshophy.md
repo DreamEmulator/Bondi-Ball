@@ -1,0 +1,17 @@
+# Philosophy
+
+> This is an experiment in fluid gestures and UX art.
+
+_Sketch_
+The main stage is a _board with pockets_.
+The user can _flick the ball_ to land in the pockets.
+This creates a _visual and haptic trail_.
+Sound can be a element.
+
+_Purpose_
+None. A fun fidget app.
+A great way to learn.
+ 
+ 
+### Credit 
+The basis for this project is this [**phenomenal** post](https://medium.com/@nathangitter/building-fluid-interfaces-ios-swift-9732bb934bf5)
