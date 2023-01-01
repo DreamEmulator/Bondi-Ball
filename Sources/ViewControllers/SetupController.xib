@@ -11,6 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetupController" customModule="Gestures_In_Fluid_Interfaces" customModuleProvider="target">
             <connections>
+                <outlet property="DampingRatioSlider" destination="7KW-Gh-gVV" id="vHv-Zc-JNP"/>
+                <outlet property="dampingRatioSlider" destination="7KW-Gh-gVV" id="iuF-TJ-Jz6"/>
+                <outlet property="frequencyResponseSlider" destination="nCS-el-fDj" id="c8D-t9-PqE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -44,22 +47,28 @@
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7KW-Gh-gVV">
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7KW-Gh-gVV" userLabel="DampingRatioSlider">
                                     <rect key="frame" x="-2" y="38.333333333333343" width="357" height="31"/>
+                                    <connections>
+                                        <action selector="dampingRatioChanged:" destination="-1" eventType="valueChanged" id="z6W-LK-t4m"/>
+                                    </connections>
                                 </slider>
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="KMR-gg-ipB" userLabel="FrequencyResponse">
                             <rect key="frame" x="0.0" y="157" width="353" height="68.333333333333314"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequency Response" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vg9-MI-LQC" userLabel="DampingRatioLabel">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequency Response" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vg9-MI-LQC" userLabel="FrequencyResponseLabel">
                                     <rect key="frame" x="0.0" y="0.0" width="353" height="26.333333333333332"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="nCS-el-fDj">
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="nCS-el-fDj" userLabel="FrequencyResponseSlider">
                                     <rect key="frame" x="-2" y="38.333333333333314" width="357" height="31"/>
+                                    <connections>
+                                        <action selector="frquencyResponseChanged:" destination="-1" eventType="valueChanged" id="bBT-zF-niT"/>
+                                    </connections>
                                 </slider>
                             </subviews>
                         </stackView>
