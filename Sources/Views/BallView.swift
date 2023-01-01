@@ -24,35 +24,42 @@
 
 import UIKit
 
-
 internal final class PictureInPictureView: UIView {
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+  override public init(frame: CGRect) {
+    super.init(frame: frame)
+    self.setup()
+  }
 
-        self.isOpaque = false
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 1
-        self.layer.shadowRadius = 5
-        self.layer.shadowOffset = .zero
-    }
+  @available(*, unavailable)
+  public required init?(coder: NSCoder) {
+    fatalError()
+  }
 
-    public required init?(coder: NSCoder) {
-        fatalError()
-    }
+  func setup(){
+    self.isOpaque = false
+    self.layer.shadowColor = UIColor.label.cgColor
+    self.layer.shadowOpacity = 0.25
+    self.layer.shadowRadius = 3
+    self.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+  }
 
-    public override func draw(_ rect: CGRect) {
-        let topColor = UIColor(red: 0.95, green: 0.93, blue: 0.16, alpha: 1.0)
-        let bottomColor = UIColor(red: 0.97, green: 0.67, blue: 0.16, alpha: 1.0)
-        let colors = [topColor.cgColor, bottomColor.cgColor] as CFArray
-        let gradient = CGGradient(colorsSpace: nil, colors: colors, locations: nil)!
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    setup()
+  }
 
-        let bounds = CGRect(origin: .zero, size: self.bounds.size)
-        let path = UIBezierPath(roundedRect: bounds, cornerRadius: 100)
+  override public func draw(_ rect: CGRect) {
+    let topColor = UIColor(red: 0.95, green: 0.93, blue: 0.16, alpha: 1.0)
+    let bottomColor = UIColor(red: 0.97, green: 0.67, blue: 0.16, alpha: 1.0)
+    let colors = [topColor.cgColor, bottomColor.cgColor] as CFArray
+    let gradient = CGGradient(colorsSpace: nil, colors: colors, locations: nil)!
 
-        let context = UIGraphicsGetCurrentContext()!
-        context.beginPath()
-        context.addPath(path.cgPath)
-        context.clip()
-        context.drawLinearGradient(gradient, start: CGPoint(x: bounds.midX, y: bounds.minY), end: CGPoint(x: bounds.midX, y: bounds.maxY), options: [])
-    }
+    let bounds = CGRect(origin: .zero, size: self.bounds.size)
+    let path = UIBezierPath(roundedRect: bounds, cornerRadius: 100)
+
+    let context = UIGraphicsGetCurrentContext()!
+    context.beginPath()
+    context.addPath(path.cgPath)
+    context.clip()
+    context.drawLinearGradient(gradient, start: CGPoint(x: bounds.midX, y: bounds.minY), end: CGPoint(x: bounds.midX, y: bounds.maxY), options: [])
+  }
 }

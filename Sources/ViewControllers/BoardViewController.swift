@@ -24,7 +24,7 @@
 
 import UIKit
 
-internal class FacetimeViewController: UIViewController, UIGestureRecognizerDelegate {
+internal class BoardViewController: UIViewController, UIGestureRecognizerDelegate {
   // MARK: - Lifecycle
 
   public init() {
@@ -78,7 +78,7 @@ internal class FacetimeViewController: UIViewController, UIGestureRecognizerDele
   override public func viewDidLoad() {
     super.viewDidLoad()
 
-    self.view.backgroundColor = UIColor(white: 0.12, alpha: 1.0)
+    self.view.backgroundColor = .systemBackground
 
     self.view.addSubview(self.topLeftEndpointIndicatorView)
     self.view.addSubview(self.topRightEndpointIndicatorView)
@@ -178,6 +178,8 @@ internal class FacetimeViewController: UIViewController, UIGestureRecognizerDele
   // Function
   @objc func buttonClicked() {
     print("Button Clicked")
+    let vc = SetupController()
+    present(vc, animated: true)
   }
 
   // MARK: - Interaction Management

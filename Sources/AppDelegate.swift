@@ -30,7 +30,7 @@ internal class AppDelegate: UIResponder, UIApplicationDelegate {
 
   public func application(_ application: UIApplication, didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     let window = UIWindow()
-    window.rootViewController = FacetimeViewController()
+    window.rootViewController = BoardViewController()
 
     self.window = window
 

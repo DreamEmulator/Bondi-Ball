@@ -20,6 +20,8 @@
 		AA4CE8D62961A48900AD289F /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D12961A48900AD289F /* CGPoint.swift */; };
 		AA4CE8D72961A48900AD289F /* UIGestureRecognizer+Projection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D22961A48900AD289F /* UIGestureRecognizer+Projection.swift */; };
 		AA4CE8D92961A69A00AD289F /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D82961A69A00AD289F /* Sequence+Extensions.swift */; };
+		AA4CE8E02961C6AB00AD289F /* SetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8DE2961C6AB00AD289F /* SetupController.swift */; };
+		AA4CE8E12961C6AB00AD289F /* SetupController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4CE8DF2961C6AB00AD289F /* SetupController.xib */; };
 		CB0556A620D05B8A00095934 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0556A520D05B8A00095934 /* AppDelegate.swift */; };
 		CB0556AD20D05B8B00095934 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB0556AC20D05B8B00095934 /* Assets.xcassets */; };
 		CB0556B020D05B8B00095934 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB0556AE20D05B8B00095934 /* LaunchScreen.storyboard */; };
@@ -39,6 +41,8 @@
 		AA4CE8D12961A48900AD289F /* CGPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
 		AA4CE8D22961A48900AD289F /* UIGestureRecognizer+Projection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Projection.swift"; sourceTree = "<group>"; };
 		AA4CE8D82961A69A00AD289F /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
+		AA4CE8DE2961C6AB00AD289F /* SetupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupController.swift; sourceTree = "<group>"; };
+		AA4CE8DF2961C6AB00AD289F /* SetupController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetupController.xib; sourceTree = "<group>"; };
 		CB0556A220D05B8A00095934 /* Gestures-In-Fluid-Interfaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gestures-In-Fluid-Interfaces.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0556A520D05B8A00095934 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB0556AC20D05B8B00095934 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,6 +83,8 @@
 			isa = PBXGroup;
 			children = (
 				AA4CE8C52961A41C00AD289F /* BoardViewController.swift */,
+				AA4CE8DE2961C6AB00AD289F /* SetupController.swift */,
+				AA4CE8DF2961C6AB00AD289F /* SetupController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -200,6 +206,7 @@
 				AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */,
 				CB0556AD20D05B8B00095934 /* Assets.xcassets in Resources */,
 				CB0556B020D05B8B00095934 /* LaunchScreen.storyboard in Resources */,
+				AA4CE8E12961C6AB00AD289F /* SetupController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +227,7 @@
 				AA4CE8C92961A41C00AD289F /* BallView.swift in Sources */,
 				AA4CE8CA2961A41C00AD289F /* BoardViewController.swift in Sources */,
 				AA4CE8D72961A48900AD289F /* UIGestureRecognizer+Projection.swift in Sources */,
+				AA4CE8E02961C6AB00AD289F /* SetupController.swift in Sources */,
 				AA4CE8D62961A48900AD289F /* CGPoint.swift in Sources */,
 				AA4CE8D42961A48900AD289F /* CGRect.swift in Sources */,
 			);
@@ -320,6 +328,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8W7Y9LA367;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -339,6 +348,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8W7Y9LA367;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
