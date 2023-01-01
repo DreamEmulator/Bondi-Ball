@@ -47,10 +47,11 @@
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7KW-Gh-gVV" userLabel="DampingRatioSlider">
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.01" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7KW-Gh-gVV" userLabel="DampingRatioSlider">
                                     <rect key="frame" x="-2" y="38.333333333333343" width="357" height="31"/>
                                     <connections>
                                         <action selector="dampingRatioChanged:" destination="-1" eventType="valueChanged" id="z6W-LK-t4m"/>
+                                        <action selector="finished:" destination="-1" eventType="editingDidEndOnExit" id="QqR-y7-Raf"/>
                                     </connections>
                                 </slider>
                             </subviews>
@@ -64,7 +65,7 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="nCS-el-fDj" userLabel="FrequencyResponseSlider">
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.01" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="nCS-el-fDj" userLabel="FrequencyResponseSlider">
                                     <rect key="frame" x="-2" y="38.333333333333314" width="357" height="31"/>
                                     <connections>
                                         <action selector="frquencyResponseChanged:" destination="-1" eventType="valueChanged" id="bBT-zF-niT"/>

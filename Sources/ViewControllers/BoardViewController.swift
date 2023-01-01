@@ -178,10 +178,11 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   // Function
   @objc func buttonClicked() {
     print("Button Clicked")
-    let vc = SetupController(dampingRatio: spring.dampingRatio, frequencyResponse: spring.frequencyResponse) {
+    let vc = SetupController {
       spring in
       self.spring = spring
     }
+    vc.dampedHarmonicSpring = spring
     present(vc, animated: true)
   }
 

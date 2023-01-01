@@ -11,23 +11,14 @@ import UIKit
 typealias SetSpringCallback = (_ spring: DampedHarmonicSpring) -> Void
 
 class SetupController: UIViewController {
-  private var dampingRatio: Double
-  private var frequencyResponse: Double
   private var setSpringCallback: SetSpringCallback
 
   @IBOutlet var dampingRatioSlider: UISlider!
   @IBOutlet var frequencyResponseSlider: UISlider!
 
-  var dampedHarmonicSpring: DampedHarmonicSpring { DampedHarmonicSpring(dampingRatio: dampingRatio, frequencyResponse: frequencyResponse) }
+  var dampedHarmonicSpring: DampedHarmonicSpring?
 
-  override func viewDidLayoutSubviews() {
-    dampingRatioSlider.setValue(Float(dampingRatio), animated: true)
-    frequencyResponseSlider.setValue(Float(frequencyResponse), animated: true)
-  }
-
-  init(dampingRatio: Double, frequencyResponse: Double, setSpringCallback: @escaping SetSpringCallback) {
-    self.dampingRatio = dampingRatio
-    self.frequencyResponse = frequencyResponse
+  init(setSpringCallback: @escaping SetSpringCallback) {
     self.setSpringCallback = setSpringCallback
     super.init(nibName: nil, bundle: nil)
   }
@@ -37,21 +28,33 @@ class SetupController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
-  @IBAction func dampingRatioChanged(_ sender: UISlider) {
-    frequencyResponse = Double(sender.value)
-  }
-
-  @IBAction func frquencyResponseChanged(_ sender: UISlider) {
-    dampingRatio = Double(sender.value)
-  }
+  // MARK: - View Lifecycle
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    // Do any additional setup after loading the view.
+    if let spring = dampedHarmonicSpring {
+      setSliderValues(spring: spring)
+    }
   }
 
-  override func viewWillDisappear(_ animated: Bool) {
-    setSpringCallback(dampedHarmonicSpring)
+  // MARK: - Handlers
+
+  @IBAction func dampingRatioChanged(_ sender: UISlider) {
+    if let spring = dampedHarmonicSpring {
+      let newSpring = DampedHarmonicSpring(dampingRatio: CGFloat(sender.value), frequencyResponse: CGFloat(spring.frequencyResponse))
+      setSpringCallback(newSpring)
+    }
+  }
+
+  @IBAction func frquencyResponseChanged(_ sender: UISlider) {
+    if let spring = dampedHarmonicSpring {
+      let newSpring = DampedHarmonicSpring(dampingRatio: spring.dampingRatio, frequencyResponse: CGFloat(sender.value))
+      setSpringCallback(newSpring)
+    }
+  }
+
+  func setSliderValues(spring: DampedHarmonicSpring) {
+    dampingRatioSlider.setValue(Float(spring.dampingRatio), animated: true)
+    frequencyResponseSlider.setValue(Float(spring.frequencyResponse), animated: true)
   }
 }
