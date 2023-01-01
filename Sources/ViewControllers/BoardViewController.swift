@@ -275,24 +275,3 @@ internal class FacetimeViewController: UIViewController, UIGestureRecognizerDele
     return .lightContent
   }
 }
-
-// MARK: - Miscellaneous
-
-public extension Sequence {
-  func min<T>(by closure: (Element) throws -> T) rethrows -> Element? where T: Comparable {
-    let tuples = try self.lazy.map { (element: $0, value: try closure($0)) }
-    let minimum = tuples.min(by: { $0.value < $1.value })
-
-    return minimum?.element
-  }
-}
-
-fileprivate extension UIButton {
-  enum customStyle {
-    case alpha
-  }
-  convenience init(_ style: UIButton.customStyle) {
-    self.init()
-    print("Init Ain't it?")
-  }
-}

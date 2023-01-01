@@ -19,6 +19,7 @@
 		AA4CE8D52961A48900AD289F /* DampedHarmonicSpring.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D02961A48900AD289F /* DampedHarmonicSpring.swift */; };
 		AA4CE8D62961A48900AD289F /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D12961A48900AD289F /* CGPoint.swift */; };
 		AA4CE8D72961A48900AD289F /* UIGestureRecognizer+Projection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D22961A48900AD289F /* UIGestureRecognizer+Projection.swift */; };
+		AA4CE8D92961A69A00AD289F /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D82961A69A00AD289F /* Sequence+Extensions.swift */; };
 		CB0556A620D05B8A00095934 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0556A520D05B8A00095934 /* AppDelegate.swift */; };
 		CB0556AD20D05B8B00095934 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB0556AC20D05B8B00095934 /* Assets.xcassets */; };
 		CB0556B020D05B8B00095934 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB0556AE20D05B8B00095934 /* LaunchScreen.storyboard */; };
@@ -37,6 +38,7 @@
 		AA4CE8D02961A48900AD289F /* DampedHarmonicSpring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DampedHarmonicSpring.swift; sourceTree = "<group>"; };
 		AA4CE8D12961A48900AD289F /* CGPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
 		AA4CE8D22961A48900AD289F /* UIGestureRecognizer+Projection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Projection.swift"; sourceTree = "<group>"; };
+		AA4CE8D82961A69A00AD289F /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
 		CB0556A220D05B8A00095934 /* Gestures-In-Fluid-Interfaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gestures-In-Fluid-Interfaces.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0556A520D05B8A00095934 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB0556AC20D05B8B00095934 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,6 +69,8 @@
 		AA4CE8C32961A41C00AD289F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */,
+				AA4CE8D82961A69A00AD289F /* Sequence+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -96,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				CB0556A420D05B8A00095934 /* Sources */,
-				CBC5499F20E00C72004BF4D1 /* Shared Sources */,
 				CBB6FE3620DA892B0099567C /* Resources */,
 				CB0556A320D05B8A00095934 /* Products */,
 			);
@@ -132,14 +135,6 @@
 				AA4CE8CC2961A42A00AD289F /* Original ReadMe.md */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		CBC5499F20E00C72004BF4D1 /* Shared Sources */ = {
-			isa = PBXGroup;
-			children = (
-				AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */,
-			);
-			name = "Shared Sources";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA4CE8D92961A69A00AD289F /* Sequence+Extensions.swift in Sources */,
 				AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */,
 				AA4CE8CB2961A41C00AD289F /* PanGestureRecognizer.swift in Sources */,
 				AA4CE8D32961A48900AD289F /* CGVector.swift in Sources */,
