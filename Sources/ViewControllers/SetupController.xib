@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,57 +23,26 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" distribution="fillProportionally" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="dPa-66-u6q">
-                    <rect key="frame" x="20" y="79.000000000000014" width="353" height="225.33333333333337"/>
+                <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" distribution="equalSpacing" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="dPa-66-u6q">
+                    <rect key="frame" x="20" y="79.000000000000014" width="353" height="128.33333333333337"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bfm-PW-Qp0" userLabel="Title">
-                            <rect key="frame" x="0.0" y="0.0" width="353" height="40.666666666666664"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkP-O1-JjB">
-                                    <rect key="frame" x="0.0" y="0.0" width="86.333333333333329" height="40.666666666666664"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="theatermask.and.paintbrush.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="giL-GI-LSl">
-                                    <rect key="frame" x="86.333333333333343" y="-1.3333333333333321" width="266.66666666666663" height="43.666666666666657"/>
-                                </imageView>
-                            </subviews>
-                        </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="N8B-su-65D" userLabel="DampingRatio">
-                            <rect key="frame" x="0.0" y="64.666666666666657" width="353" height="68.333333333333343"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Damping Ratio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7e-Wz-I96" userLabel="DampingRatioLabel">
-                                    <rect key="frame" x="0.0" y="0.0" width="353" height="26.333333333333332"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.01" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7KW-Gh-gVV" userLabel="DampingRatioSlider">
-                                    <rect key="frame" x="-2" y="38.333333333333343" width="357" height="31"/>
-                                    <connections>
-                                        <action selector="dampingRatioChanged:" destination="-1" eventType="valueChanged" id="z6W-LK-t4m"/>
-                                        <action selector="finished:" destination="-1" eventType="editingDidEndOnExit" id="QqR-y7-Raf"/>
-                                    </connections>
-                                </slider>
-                            </subviews>
-                        </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="KMR-gg-ipB" userLabel="FrequencyResponse">
-                            <rect key="frame" x="0.0" y="157" width="353" height="68.333333333333314"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequency Response" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vg9-MI-LQC" userLabel="FrequencyResponseLabel">
-                                    <rect key="frame" x="0.0" y="0.0" width="353" height="26.333333333333332"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.01" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="nCS-el-fDj" userLabel="FrequencyResponseSlider">
-                                    <rect key="frame" x="-2" y="38.333333333333314" width="357" height="31"/>
-                                    <connections>
-                                        <action selector="frquencyResponseChanged:" destination="-1" eventType="valueChanged" id="bBT-zF-niT"/>
-                                    </connections>
-                                </slider>
-                            </subviews>
-                        </stackView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="giL-GI-LSl">
+                            <rect key="frame" x="0.0" y="-5.6666666666666679" width="353" height="31.666666666666668"/>
+                            <imageReference key="image" image="theatermask.and.paintbrush.fill" catalog="system" symbolScale="large"/>
+                        </imageView>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.01" maxValue="1" minimumValueImage="scribble.variable" catalog="system" maximumValueImage="line.diagonal" translatesAutoresizingMaskIntoConstraints="NO" id="7KW-Gh-gVV" userLabel="DampingRatioSlider">
+                            <rect key="frame" x="-2" y="44.333333333333329" width="357" height="31"/>
+                            <connections>
+                                <action selector="dampingRatioChanged:" destination="-1" eventType="valueChanged" id="z6W-LK-t4m"/>
+                                <action selector="finished:" destination="-1" eventType="editingDidEndOnExit" id="QqR-y7-Raf"/>
+                            </connections>
+                        </slider>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.01" maxValue="1" minimumValueImage="hare.fill" catalog="system" maximumValueImage="tortoise.fill" translatesAutoresizingMaskIntoConstraints="NO" id="nCS-el-fDj" userLabel="FrequencyResponseSlider">
+                            <rect key="frame" x="-2" y="98.333333333333343" width="357" height="31"/>
+                            <connections>
+                                <action selector="frquencyResponseChanged:" destination="-1" eventType="valueChanged" id="bBT-zF-niT"/>
+                            </connections>
+                        </slider>
                     </subviews>
                 </stackView>
             </subviews>
@@ -87,7 +57,11 @@
         </view>
     </objects>
     <resources>
+        <image name="hare.fill" catalog="system" width="128" height="88"/>
+        <image name="line.diagonal" catalog="system" width="128" height="113"/>
+        <image name="scribble.variable" catalog="system" width="128" height="119"/>
         <image name="theatermask.and.paintbrush.fill" catalog="system" width="128" height="122"/>
+        <image name="tortoise.fill" catalog="system" width="128" height="64"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -328,6 +328,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8W7Y9LA367;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Fidget;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -348,6 +349,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8W7Y9LA367;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Fidget;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

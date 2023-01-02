@@ -162,7 +162,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
   fileprivate func configureButton() {
     // Form
-    let buttonSize = view.frame.maxX / 4.0
+    let buttonSize = view.frame.maxX / 6.0
     NSLayoutConstraint.activate([
       self.springConfigurationButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       self.springConfigurationButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(view.frame.maxY / 12)),
@@ -182,7 +182,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
       spring in
       self.spring = spring
     }
-    vc.dampedHarmonicSpring = spring
+    vc.dampedHarmonicSpring = self.spring
     present(vc, animated: true)
   }
 
