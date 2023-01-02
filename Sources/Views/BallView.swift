@@ -24,7 +24,7 @@
 
 import UIKit
 
-internal final class PictureInPictureView: UIView {
+internal final class PaintBallView: UIView {
   override public init(frame: CGRect) {
     super.init(frame: frame)
     self.setup()

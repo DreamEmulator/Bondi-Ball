@@ -62,7 +62,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
   // MARK: - View Management
 
-  fileprivate let pictureInPictureView: PictureInPictureView = .init()
+  fileprivate let paintBall: PaintBallView = .init()
 
   fileprivate let topLeftEndpointIndicatorView: EndpointIndicatorView = .init()
   fileprivate let topRightEndpointIndicatorView: EndpointIndicatorView = .init()
@@ -80,16 +80,47 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
     self.view.backgroundColor = .systemBackground
 
-    self.view.addSubview(self.topLeftEndpointIndicatorView)
-    self.view.addSubview(self.topRightEndpointIndicatorView)
+    // Container
+    let containerStack = UIStackView()
+    containerStack.translatesAutoresizingMaskIntoConstraints = false
+    containerStack.axis = .vertical
+    containerStack.distribution = .fillEqually
 
-    self.view.addSubview(self.leftEndpointIndicatorView)
-    self.view.addSubview(self.rightEndpointIndicatorView)
+    view.addSubview(containerStack)
 
-    self.view.addSubview(self.bottomLeftEndpointIndicatorView)
-    self.view.addSubview(self.bottomRightEndpointIndicatorView)
+    NSLayoutConstraint.activate([
+      containerStack.topAnchor.constraint(equalTo: view.topAnchor),
+      containerStack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      containerStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      containerStack.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+    ])
 
-    self.view.addSubview(self.pictureInPictureView)
+    // Rows
+
+    let topStack = UIStackView()
+    topStack.translatesAutoresizingMaskIntoConstraints = false
+
+    topStack.addSubview(self.topRightEndpointIndicatorView)
+    topStack.addSubview(self.topLeftEndpointIndicatorView)
+
+
+    let centerStack = UIStackView()
+    centerStack.translatesAutoresizingMaskIntoConstraints = false
+
+    centerStack.addSubview(self.leftEndpointIndicatorView)
+    centerStack.addSubview(self.rightEndpointIndicatorView)
+
+    let bottomStack = UIStackView()
+    bottomStack.translatesAutoresizingMaskIntoConstraints = false
+
+    bottomStack.addSubview(self.bottomLeftEndpointIndicatorView)
+    bottomStack.addSubview(self.bottomRightEndpointIndicatorView)
+
+    self.view.addSubview(self.paintBall)
+
+    containerStack.addSubview(topStack)
+    containerStack.addSubview(centerStack)
+    containerStack.addSubview(bottomStack)
 
     self.view.addSubview(self.springConfigurationButton)
 
@@ -110,9 +141,9 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
     switch self.state {
     case .idle(at: let endpoint):
-      self.pictureInPictureView.frame = self.frame(for: endpoint)
+      self.paintBall.frame = self.frame(for: endpoint)
     case .animating(to: let endpoint, using: _):
-      self.pictureInPictureView.frame = self.frame(for: endpoint)
+      self.paintBall.frame = self.frame(for: endpoint)
     case .interaction:
       break
     }
@@ -128,7 +159,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     self.panGestureRecognizer.addTarget(self, action: #selector(self.panGestureDidChange))
     self.panGestureRecognizer.delegate = self
 
-    self.pictureInPictureView.addGestureRecognizer(self.panGestureRecognizer)
+    self.paintBall.addGestureRecognizer(self.panGestureRecognizer)
   }
 
   @objc private func panGestureDidChange(_ gesture: UIPanGestureRecognizer) {
@@ -225,7 +256,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
       animator.stopAnimation(true)
     }
 
-    let startPoint = self.pictureInPictureView.center
+    let startPoint = self.paintBall.center
 
     self.state = .interaction(with: gesture, from: startPoint)
   }
@@ -242,7 +273,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     center.x = round(center.x * scale) / scale
     center.y = round(center.y * scale) / scale
 
-    self.pictureInPictureView.center = center
+    self.paintBall.center = center
   }
 
   /// Finishes the ongoing interactive transition driven by the specified pan
@@ -251,15 +282,15 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     guard case .interaction(with: gesture, from: _) = self.state else { return }
 
     let velocity = CGVector(to: gesture.velocity(in: self.view))
-    let currentCenter = self.pictureInPictureView.center
+    let currentCenter = self.paintBall.center
     let endpoint = self.intendedEndpoint(with: velocity, from: currentCenter)
     let targetCenter = self.frame(for: endpoint).center
 
-    let parameters = self.spring.timingFunction(withInitialVelocity: velocity, from: &self.pictureInPictureView.center, to: targetCenter, context: self)
+    let parameters = self.spring.timingFunction(withInitialVelocity: velocity, from: &self.paintBall.center, to: targetCenter, context: self)
     let animator = UIViewPropertyAnimator(duration: 0, timingParameters: parameters)
 
     animator.addAnimations {
-      self.pictureInPictureView.center = targetCenter
+      self.paintBall.center = targetCenter
     }
 
     animator.addCompletion { _ in
