@@ -348,9 +348,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     return Endpoint.allCases.min(by: { point.distance(to: self.frame(for: $0).center) })!
   }
 
-  // MARK: - Status Bar Management
-
-  override public var preferredStatusBarStyle: UIStatusBarStyle {
-    return .lightContent
+  override var prefersHomeIndicatorAutoHidden: Bool {
+    true
   }
 }

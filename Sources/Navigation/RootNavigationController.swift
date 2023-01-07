@@ -52,6 +52,11 @@ extension RootNavigationController {
 
 extension RootNavigationController {
   private func setupGestures() {
+    splashScreen.onTapHandler = {
+      print("YOLO")
+      self.navigate()
+    }
+    // TODO: Get this working
     edgeSwipeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
     edgeSwipeGestureRecognizer!.edges = .left
     view.addGestureRecognizer(edgeSwipeGestureRecognizer!)
