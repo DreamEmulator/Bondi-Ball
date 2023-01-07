@@ -8,13 +8,16 @@
 
 import UIKit
 
-class SplashViewController: UIViewController {
+class SplashViewController: UIViewController, UINavigationControllerDelegate {
+  private var interactionController: UIPercentDrivenInteractiveTransition?
+  private var edgeSwipeGestureRecognizer: UIScreenEdgePanGestureRecognizer?
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
   }
 
-  func setupUI() {
+  private func setupUI() {
     // Background
     view.backgroundColor = .white
 
@@ -47,5 +50,11 @@ class SplashViewController: UIViewController {
       imageView.widthAnchor.constraint(equalToConstant: 256),
       imageView.heightAnchor.constraint(equalToConstant: 256),
     ])
+  }
+}
+
+extension SplashViewController {
+  func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    return interactionController
   }
 }

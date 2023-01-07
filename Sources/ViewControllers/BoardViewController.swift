@@ -103,7 +103,6 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     topStack.addSubview(self.topRightEndpointIndicatorView)
     topStack.addSubview(self.topLeftEndpointIndicatorView)
 
-
     let centerStack = UIStackView()
     centerStack.translatesAutoresizingMaskIntoConstraints = false
 
@@ -193,28 +192,31 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
   fileprivate func configureButton() {
     // Form
-    let buttonSize = view.frame.maxX / 6.0
+    let button = self.springConfigurationButton
+    let buttonSize = min(view.frame.maxX / 6, 100)
     NSLayoutConstraint.activate([
-      self.springConfigurationButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      self.springConfigurationButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(view.frame.maxY / 12)),
-      self.springConfigurationButton.widthAnchor.constraint(equalToConstant: buttonSize),
-      self.springConfigurationButton.heightAnchor.constraint(equalToConstant: buttonSize)
+      button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(view.frame.maxY / 12)),
+      button.widthAnchor.constraint(equalToConstant: buttonSize),
+      button.heightAnchor.constraint(equalToConstant: buttonSize)
     ])
-    self.springConfigurationButton.layer.cornerRadius = 0.5 * self.springConfigurationButton.bounds.size.width
-    self.springConfigurationButton.clipsToBounds = true
+    button.layer.cornerRadius = 0.5 * self.springConfigurationButton.bounds.size.width
+    button.clipsToBounds = true
 
-    self.springConfigurationButton.addTarget(self, action: #selector(self.buttonClicked), for: .touchUpInside)
+    button.addTarget(self, action: #selector(self.buttonClicked), for: .touchUpInside)
+    button.tintColor = .systemTeal
+    button.alpha = 0.5
+    button.layer.zPosition = -1000
   }
 
   // Function
   @objc func buttonClicked() {
-    print("Button Clicked")
-    let vc = SetupController {
+    let gearController = SetupController {
       spring in
       self.spring = spring
     }
-    vc.dampedHarmonicSpring = self.spring
-    present(vc, animated: true)
+    gearController.dampedHarmonicSpring = self.spring
+    present(gearController, animated: true)
   }
 
   // MARK: - Interaction Management
