@@ -65,12 +65,15 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   fileprivate let paintBall: PaintBallView = .init()
 
   fileprivate let topLeftEndpointIndicatorView: EndpointIndicatorView = .init()
+  fileprivate let topMidEndpointIndicatorView: EndpointIndicatorView = .init()
   fileprivate let topRightEndpointIndicatorView: EndpointIndicatorView = .init()
 
   fileprivate let leftEndpointIndicatorView: EndpointIndicatorView = .init()
+  fileprivate let midEndpointIndicatorView: EndpointIndicatorView = .init()
   fileprivate let rightEndpointIndicatorView: EndpointIndicatorView = .init()
 
   fileprivate let bottomLeftEndpointIndicatorView: EndpointIndicatorView = .init()
+  fileprivate let bottomMidEndpointIndicatorView: EndpointIndicatorView = .init()
   fileprivate let bottomRightEndpointIndicatorView: EndpointIndicatorView = .init()
 
   fileprivate let springConfigurationButton: UIButton = .init(style: .alpha)
@@ -101,18 +104,21 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     topStack.translatesAutoresizingMaskIntoConstraints = false
 
     topStack.addSubview(self.topRightEndpointIndicatorView)
+    topStack.addSubview(self.topMidEndpointIndicatorView)
     topStack.addSubview(self.topLeftEndpointIndicatorView)
 
     let centerStack = UIStackView()
     centerStack.translatesAutoresizingMaskIntoConstraints = false
 
     centerStack.addSubview(self.leftEndpointIndicatorView)
+    centerStack.addSubview(self.midEndpointIndicatorView)
     centerStack.addSubview(self.rightEndpointIndicatorView)
 
     let bottomStack = UIStackView()
     bottomStack.translatesAutoresizingMaskIntoConstraints = false
 
     bottomStack.addSubview(self.bottomLeftEndpointIndicatorView)
+    bottomStack.addSubview(self.bottomMidEndpointIndicatorView)
     bottomStack.addSubview(self.bottomRightEndpointIndicatorView)
 
     self.view.addSubview(self.paintBall)
@@ -130,12 +136,15 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     super.viewDidLayoutSubviews()
 
     self.topLeftEndpointIndicatorView.frame = self.frame(for: .topLeft)
+    self.topMidEndpointIndicatorView.frame = self.frame(for: .topMid)
     self.topRightEndpointIndicatorView.frame = self.frame(for: .topRight)
 
     self.leftEndpointIndicatorView.frame = self.frame(for: .left)
+    self.midEndpointIndicatorView.frame = self.frame(for: .mid)
     self.rightEndpointIndicatorView.frame = self.frame(for: .right)
 
     self.bottomLeftEndpointIndicatorView.frame = self.frame(for: .bottomLeft)
+    self.bottomMidEndpointIndicatorView.frame = self.frame(for: .bottomMid)
     self.bottomRightEndpointIndicatorView.frame = self.frame(for: .bottomRight)
 
     switch self.state {
@@ -225,10 +234,13 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   fileprivate enum Endpoint: CaseIterable {
     case left
     case topLeft
+    case topMid
     case topRight
     case right
     case bottomLeft
+    case bottomMid
     case bottomRight
+    case mid
   }
 
   /// Returns the frame of the specified endpoint.
@@ -237,13 +249,21 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     let rect = self.view.safeAreaLayoutGuide.layoutFrame.inset(by: padding)
     let size = CGSize(width: 100, height: 100)
 
+    let midX = (rect.maxX / 2) - (size.width / 2)
+    let maxY = (rect.maxY) - (size.height / 2)
+
     switch endpoint {
-    case .left: return CGRect(x: rect.minX, y: rect.center.y - size.height / 2, width: size.width, height: size.height).standardized
     case .topLeft: return CGRect(x: rect.minX, y: rect.minY, width: size.width, height: size.height).standardized
+    case .topMid: return CGRect(x: midX, y: rect.minY, width: size.width, height: size.height).standardized
     case .topRight: return CGRect(x: rect.maxX, y: rect.minY, width: -size.width, height: size.height).standardized
+
+    case .left: return CGRect(x: rect.minX, y: rect.center.y - size.height / 2, width: size.width, height: size.height).standardized
+    case .mid: return CGRect(x: midX, y: rect.maxY / 2, width: size.width, height: size.height).standardized
     case .right: return CGRect(x: rect.maxX, y: rect.center.y - size.height / 2, width: -size.width, height: size.height).standardized
-    case .bottomLeft: return CGRect(x: rect.minX, y: rect.maxY, width: size.width, height: -size.height).standardized
-    case .bottomRight: return CGRect(x: rect.maxX, y: rect.maxY, width: -size.width, height: -size.height).standardized
+
+    case .bottomLeft: return CGRect(x: rect.minX, y: maxY, width: size.width, height: -size.height).standardized
+    case .bottomMid: return CGRect(x: midX, y: maxY, width: size.width, height: -size.height).standardized
+    case .bottomRight: return CGRect(x: rect.maxX, y: maxY, width: -size.width, height: -size.height).standardized
     }
   }
 

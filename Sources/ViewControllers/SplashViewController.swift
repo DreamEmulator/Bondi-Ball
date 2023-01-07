@@ -19,7 +19,7 @@ class SplashViewController: UIViewController, UINavigationControllerDelegate {
 
   private func setupUI() {
     // Background
-    view.backgroundColor = .white
+    view.backgroundColor = .systemBackground
 
     // V-Stack
     let vStack = UIStackView()
