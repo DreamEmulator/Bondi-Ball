@@ -205,7 +205,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     let buttonSize = min(view.frame.maxX / 6, 100)
     NSLayoutConstraint.activate([
       button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(view.frame.maxY / 12)),
+      button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height / 4),
       button.widthAnchor.constraint(equalToConstant: buttonSize),
       button.heightAnchor.constraint(equalToConstant: buttonSize)
     ])
@@ -258,7 +258,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     case .topRight: return CGRect(x: rect.maxX, y: rect.minY, width: -size.width, height: size.height).standardized
 
     case .left: return CGRect(x: rect.minX, y: rect.center.y - size.height / 2, width: size.width, height: size.height).standardized
-    case .mid: return CGRect(x: midX, y: rect.maxY / 2, width: size.width, height: size.height).standardized
+    case .mid: return CGRect(x: midX, y: rect.center.y - size.height / 2, width: size.width, height: size.height).standardized
     case .right: return CGRect(x: rect.maxX, y: rect.center.y - size.height / 2, width: -size.width, height: size.height).standardized
 
     case .bottomLeft: return CGRect(x: rect.minX, y: maxY, width: size.width, height: -size.height).standardized
