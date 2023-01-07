@@ -55,7 +55,7 @@
 		AA4CE8D82961A69A00AD289F /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
 		AA4CE8DE2961C6AB00AD289F /* SetupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupController.swift; sourceTree = "<group>"; };
 		AA4CE8DF2961C6AB00AD289F /* SetupController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetupController.xib; sourceTree = "<group>"; };
-		CB0556A220D05B8A00095934 /* Gestures-In-Fluid-Interfaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gestures-In-Fluid-Interfaces.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB0556A220D05B8A00095934 /* Bondi Ball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bondi Ball.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0556A520D05B8A00095934 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB0556AC20D05B8B00095934 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB0556AF20D05B8B00095934 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 		CB0556A320D05B8A00095934 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CB0556A220D05B8A00095934 /* Gestures-In-Fluid-Interfaces.app */,
+				CB0556A220D05B8A00095934 /* Bondi Ball.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -180,9 +180,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CB0556A120D05B8A00095934 /* Gestures-In-Fluid-Interfaces */ = {
+		CB0556A120D05B8A00095934 /* Bondi Ball */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CB0556B420D05B8B00095934 /* Build configuration list for PBXNativeTarget "Gestures-In-Fluid-Interfaces" */;
+			buildConfigurationList = CB0556B420D05B8B00095934 /* Build configuration list for PBXNativeTarget "Bondi Ball" */;
 			buildPhases = (
 				CB05569E20D05B8A00095934 /* Sources */,
 				CB05569F20D05B8A00095934 /* Frameworks */,
@@ -192,9 +192,9 @@
 			);
 			dependencies = (
 			);
-			name = "Gestures-In-Fluid-Interfaces";
+			name = "Bondi Ball";
 			productName = Animations;
-			productReference = CB0556A220D05B8A00095934 /* Gestures-In-Fluid-Interfaces.app */;
+			productReference = CB0556A220D05B8A00095934 /* Bondi Ball.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -226,7 +226,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CB0556A120D05B8A00095934 /* Gestures-In-Fluid-Interfaces */,
+				CB0556A120D05B8A00095934 /* Bondi Ball */,
 			);
 		};
 /* End PBXProject section */
@@ -374,7 +374,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.jenox.Gestures-In-Fluid-Interfaces";
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.dream-emulator.bondi-ball";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -398,7 +398,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.jenox.Gestures-In-Fluid-Interfaces";
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.dream-emulator.bondi-ball";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -420,7 +420,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CB0556B420D05B8B00095934 /* Build configuration list for PBXNativeTarget "Gestures-In-Fluid-Interfaces" */ = {
+		CB0556B420D05B8B00095934 /* Build configuration list for PBXNativeTarget "Bondi Ball" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CB0556B520D05B8B00095934 /* Debug */,
