@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetupController" customModule="Gestures_In_Fluid_Interfaces" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetupController" customModule="Bondi_Ball" customModuleProvider="target">
             <connections>
                 <outlet property="DampingRatioSlider" destination="7KW-Gh-gVV" id="vHv-Zc-JNP"/>
                 <outlet property="dampingRatioSlider" destination="7KW-Gh-gVV" id="iuF-TJ-Jz6"/>
@@ -28,10 +28,12 @@
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="giL-GI-LSl">
                             <rect key="frame" x="0.0" y="-5.6666666666666679" width="353" height="31.666666666666668"/>
+                            <color key="tintColor" systemColor="secondarySystemFillColor"/>
                             <imageReference key="image" image="theatermask.and.paintbrush.fill" catalog="system" symbolScale="large"/>
                         </imageView>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.01" maxValue="1" minimumValueImage="scribble.variable" catalog="system" maximumValueImage="line.diagonal" translatesAutoresizingMaskIntoConstraints="NO" id="7KW-Gh-gVV" userLabel="DampingRatioSlider">
                             <rect key="frame" x="-2" y="44.333333333333329" width="357" height="31"/>
+                            <color key="tintColor" systemColor="secondaryLabelColor"/>
                             <connections>
                                 <action selector="dampingRatioChanged:" destination="-1" eventType="valueChanged" id="z6W-LK-t4m"/>
                                 <action selector="finished:" destination="-1" eventType="editingDidEndOnExit" id="QqR-y7-Raf"/>
@@ -39,6 +41,7 @@
                         </slider>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.01" maxValue="1" minimumValueImage="hare.fill" catalog="system" maximumValueImage="tortoise.fill" translatesAutoresizingMaskIntoConstraints="NO" id="nCS-el-fDj" userLabel="FrequencyResponseSlider">
                             <rect key="frame" x="-2" y="98.333333333333343" width="357" height="31"/>
+                            <color key="tintColor" systemColor="secondaryLabelColor"/>
                             <connections>
                                 <action selector="frquencyResponseChanged:" destination="-1" eventType="valueChanged" id="bBT-zF-niT"/>
                             </connections>
@@ -62,6 +65,12 @@
         <image name="scribble.variable" catalog="system" width="128" height="119"/>
         <image name="theatermask.and.paintbrush.fill" catalog="system" width="128" height="122"/>
         <image name="tortoise.fill" catalog="system" width="128" height="64"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemFillColor">
+            <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

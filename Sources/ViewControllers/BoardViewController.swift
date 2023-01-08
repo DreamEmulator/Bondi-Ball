@@ -22,9 +22,17 @@
  SOFTWARE.
  */
 
+import AVFAudio
+import SpriteKit
 import UIKit
 
 internal class BoardViewController: UIViewController, UIGestureRecognizerDelegate {
+  // MARK: - Vars
+
+  private let skView = SKView()
+  private var song: AVAudioPlayer?
+  let magicParticles = SKEmitterNode(fileNamed: "MagicParticles")
+
   // MARK: - Lifecycle
 
   public init() {
@@ -81,6 +89,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   override public func viewDidLoad() {
     super.viewDidLoad()
 
+    self.navigationItem.setHidesBackButton(true, animated: true)
     self.view.backgroundColor = .systemBackground
 
     // Container
@@ -88,6 +97,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     containerStack.translatesAutoresizingMaskIntoConstraints = false
     containerStack.axis = .vertical
     containerStack.distribution = .fillEqually
+    containerStack.contentMode = .center
 
     view.addSubview(containerStack)
 
@@ -101,21 +111,21 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     // Rows
 
     let topStack = UIStackView()
-    topStack.translatesAutoresizingMaskIntoConstraints = false
+    topStack.distribution = .fillEqually
 
     topStack.addSubview(self.topRightEndpointIndicatorView)
     topStack.addSubview(self.topMidEndpointIndicatorView)
     topStack.addSubview(self.topLeftEndpointIndicatorView)
 
     let centerStack = UIStackView()
-    centerStack.translatesAutoresizingMaskIntoConstraints = false
+    centerStack.distribution = .fillEqually
 
     centerStack.addSubview(self.leftEndpointIndicatorView)
     centerStack.addSubview(self.midEndpointIndicatorView)
     centerStack.addSubview(self.rightEndpointIndicatorView)
 
     let bottomStack = UIStackView()
-    bottomStack.translatesAutoresizingMaskIntoConstraints = false
+    bottomStack.distribution = .fillEqually
 
     bottomStack.addSubview(self.bottomLeftEndpointIndicatorView)
     bottomStack.addSubview(self.bottomMidEndpointIndicatorView)
@@ -128,6 +138,8 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     containerStack.addSubview(bottomStack)
 
     self.view.addSubview(self.springConfigurationButton)
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2) { self.setupParticles() }
 
     self.configureGestureRecognizers()
   }
@@ -213,7 +225,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     button.clipsToBounds = true
 
     button.addTarget(self, action: #selector(self.buttonClicked), for: .touchUpInside)
-    button.tintColor = .systemTeal
+    button.tintColor = .secondaryLabel
     button.alpha = 0.5
     button.layer.zPosition = -1000
   }
@@ -350,5 +362,48 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
   override var prefersHomeIndicatorAutoHidden: Bool {
     true
+  }
+}
+
+// MARK: - Particle effects
+
+extension BoardViewController {
+  func setupParticles() {
+    self.skView.translatesAutoresizingMaskIntoConstraints = false
+    self.initialize()
+  }
+
+  private func initialize() {
+    self.skView.isUserInteractionEnabled = false
+    self.skView.scene?.view?.isUserInteractionEnabled = false
+
+    view.backgroundColor = .clear
+    view.addSubview(self.skView)
+
+    NSLayoutConstraint.activate([
+      self.skView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      self.skView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      self.skView.topAnchor.constraint(equalTo: view.topAnchor),
+      self.skView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    ])
+
+    self.setupSceneView()
+    self.setupScene()
+    // playSong()
+  }
+
+  private func setupSceneView() {
+    self.skView.translatesAutoresizingMaskIntoConstraints = false
+    self.skView.scene?.backgroundColor = .clear
+    self.skView.scene?.view?.frame = view.frame
+    self.skView.backgroundColor = .clear
+    self.skView.allowsTransparency = true
+  }
+
+  private func setupScene() {
+    let scene = MagicParticlesScene(size: view.frame.size)
+    scene.scaleMode = .aspectFill
+    scene.backgroundColor = .clear
+    self.skView.presentScene(scene)
   }
 }

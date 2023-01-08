@@ -10,14 +10,11 @@ import UIKit
 
 class SplashViewController: UIViewController, UINavigationControllerDelegate {
   private var interactionController: UIPercentDrivenInteractiveTransition?
-  private var edgeSwipeGestureRecognizer: UIScreenEdgePanGestureRecognizer?
-  var onTapHandler: AnonymousClosure?
   var imageView = UIImageView()
 
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
-    setupGestures()
   }
 
   private func setupUI() {
@@ -54,15 +51,8 @@ class SplashViewController: UIViewController, UINavigationControllerDelegate {
     ])
   }
 
-  private func setupGestures() {
-    let gesture = UITapGestureRecognizer(target: self, action: #selector(buttonClicked))
-    imageView.addGestureRecognizer(gesture)
-    imageView.isUserInteractionEnabled = true
-  }
-
-  // Function
-  @objc func buttonClicked() {
-    onTapHandler?()
+  override var prefersHomeIndicatorAutoHidden: Bool {
+    true
   }
 }
 

@@ -13,8 +13,10 @@
 		AA0076202969F93F00380FFF /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00761F2969F93F00380FFF /* Aliases.swift */; };
 		AA0076232969F9E200380FFF /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0076222969F9E200380FFF /* Animations.swift */; };
 		AA0076252969FAE600380FFF /* UINavigationController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0076242969FAE600380FFF /* UINavigationController+Extensions.swift */; };
-		AA007628296A15CB00380FFF /* MagicParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA007626296A15CB00380FFF /* MagicParticles.sks */; };
 		AA007629296A15CB00380FFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA007627296A15CB00380FFF /* Assets.xcassets */; };
+		AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00762F296AD3D800380FFF /* MagicParticlesScene.swift */; };
+		AA007635296B01EA00380FFF /* MagicParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA007633296B01EA00380FFF /* MagicParticles.sks */; };
+		AA007636296B01EA00380FFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA007634296B01EA00380FFF /* Assets.xcassets */; };
 		AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */; };
 		AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */ = {isa = PBXBuildFile; fileRef = AA43E4142961A0CB001EF225 /* Philoshophy.md */; };
 		AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */; };
@@ -42,8 +44,10 @@
 		AA00761F2969F93F00380FFF /* Aliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
 		AA0076222969F9E200380FFF /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		AA0076242969FAE600380FFF /* UINavigationController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extensions.swift"; sourceTree = "<group>"; };
-		AA007626296A15CB00380FFF /* MagicParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MagicParticles.sks; sourceTree = "<group>"; };
 		AA007627296A15CB00380FFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA00762F296AD3D800380FFF /* MagicParticlesScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicParticlesScene.swift; sourceTree = "<group>"; };
+		AA007633296B01EA00380FFF /* MagicParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MagicParticles.sks; sourceTree = "<group>"; };
+		AA007634296B01EA00380FFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AA43E4142961A0CB001EF225 /* Philoshophy.md */ = {isa = PBXFileReference; explicitFileType = net.daringfireball.markdown; path = Philoshophy.md; sourceTree = "<group>"; };
 		AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PocketIndicatorView.swift; sourceTree = "<group>"; };
@@ -89,10 +93,20 @@
 			isa = PBXGroup;
 			children = (
 				AA0076222969F9E200380FFF /* Animations.swift */,
-				AA007626296A15CB00380FFF /* MagicParticles.sks */,
+				AA00762E296AD3B000380FFF /* Scenes */,
 				AA007627296A15CB00380FFF /* Assets.xcassets */,
 			);
 			path = Animations;
+			sourceTree = "<group>";
+		};
+		AA00762E296AD3B000380FFF /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				AA00762F296AD3D800380FFF /* MagicParticlesScene.swift */,
+				AA007633296B01EA00380FFF /* MagicParticles.sks */,
+				AA007634296B01EA00380FFF /* Assets.xcassets */,
+			);
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 		AA4CE8C02961A41C00AD289F /* Views */ = {
@@ -245,9 +259,10 @@
 				AA4CE8CD2961A42A00AD289F /* Original ReadMe.md in Resources */,
 				AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */,
 				CB0556AD20D05B8B00095934 /* Assets.xcassets in Resources */,
-				AA007628296A15CB00380FFF /* MagicParticles.sks in Resources */,
 				AA007629296A15CB00380FFF /* Assets.xcassets in Resources */,
+				AA007635296B01EA00380FFF /* MagicParticles.sks in Resources */,
 				CB0556B020D05B8B00095934 /* LaunchScreen.storyboard in Resources */,
+				AA007636296B01EA00380FFF /* Assets.xcassets in Resources */,
 				AA4CE8E12961C6AB00AD289F /* SetupController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,6 +277,7 @@
 				AA0076172968C16900380FFF /* UIView+Extensions.swift in Sources */,
 				AA4CE8D92961A69A00AD289F /* Sequence+Extensions.swift in Sources */,
 				AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */,
+				AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */,
 				AA0076252969FAE600380FFF /* UINavigationController+Extensions.swift in Sources */,
 				AA4CE8CB2961A41C00AD289F /* PanGestureRecognizer.swift in Sources */,
 				AA4CE8D32961A48900AD289F /* CGVector.swift in Sources */,
