@@ -86,6 +86,9 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
   fileprivate let springConfigurationButton: UIButton = .init(style: .alpha)
 
+  let rows = 4
+  let columns = 3
+
   override public func viewDidLoad() {
     super.viewDidLoad()
 
@@ -96,46 +99,71 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     let containerStack = UIStackView()
     containerStack.translatesAutoresizingMaskIntoConstraints = false
     containerStack.axis = .vertical
-    containerStack.distribution = .fillEqually
+    containerStack.spacing = 12
+    containerStack.distribution = .equalSpacing
     containerStack.contentMode = .center
 
     view.addSubview(containerStack)
 
     NSLayoutConstraint.activate([
-      containerStack.topAnchor.constraint(equalTo: view.topAnchor),
-      containerStack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      containerStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      containerStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
       containerStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       containerStack.trailingAnchor.constraint(equalTo: view.trailingAnchor)
     ])
 
+    // MARK: - Build up grid
+
+    let pocketSize = CGFloat(Float(view.frame.width) / Float(self.columns) - 16)
+    for _ in 1 ... self.rows {
+      let rowStack = UIStackView()
+      rowStack.translatesAutoresizingMaskIntoConstraints = false
+      rowStack.axis = .horizontal
+      rowStack.distribution = .equalSpacing
+      rowStack.spacing = 12
+      containerStack.addArrangedSubview(rowStack)
+
+      for _ in 1 ... self.columns {
+        let column = EndpointIndicatorView()
+        NSLayoutConstraint.activate([
+          column.widthAnchor.constraint(equalToConstant: pocketSize),
+          column.heightAnchor.constraint(equalToConstant: pocketSize)
+        ])
+        column.translatesAutoresizingMaskIntoConstraints = false
+        rowStack.addArrangedSubview(column)
+      }
+    }
+
     // Rows
 
-    let topStack = UIStackView()
-    topStack.distribution = .fillEqually
+//    let topStack = UIStackView()
+//    topStack.translatesAutoresizingMaskIntoConstraints = false
+//    topStack.backgroundColor = .systemRed
+//    topStack.distribution = .fillEqually
+//
+//    topStack.addArrangedSubview(self.topRightEndpointIndicatorView)
+//    topStack.addArrangedSubview(self.topMidEndpointIndicatorView)
+//    topStack.addArrangedSubview(self.topLeftEndpointIndicatorView)
 
-    topStack.addSubview(self.topRightEndpointIndicatorView)
-    topStack.addSubview(self.topMidEndpointIndicatorView)
-    topStack.addSubview(self.topLeftEndpointIndicatorView)
+//    let centerStack = UIStackView()
+//    centerStack.distribution = .fillEqually
+//
+//    centerStack.addSubview(self.leftEndpointIndicatorView)
+//    centerStack.addSubview(self.midEndpointIndicatorView)
+//    centerStack.addSubview(self.rightEndpointIndicatorView)
 
-    let centerStack = UIStackView()
-    centerStack.distribution = .fillEqually
-
-    centerStack.addSubview(self.leftEndpointIndicatorView)
-    centerStack.addSubview(self.midEndpointIndicatorView)
-    centerStack.addSubview(self.rightEndpointIndicatorView)
-
-    let bottomStack = UIStackView()
-    bottomStack.distribution = .fillEqually
-
-    bottomStack.addSubview(self.bottomLeftEndpointIndicatorView)
-    bottomStack.addSubview(self.bottomMidEndpointIndicatorView)
-    bottomStack.addSubview(self.bottomRightEndpointIndicatorView)
+//    let bottomStack = UIStackView()
+//    bottomStack.distribution = .fillEqually
+//
+//    bottomStack.addSubview(self.bottomLeftEndpointIndicatorView)
+//    bottomStack.addSubview(self.bottomMidEndpointIndicatorView)
+//    bottomStack.addSubview(self.bottomRightEndpointIndicatorView)
 
     self.view.addSubview(self.paintBall)
 
-    containerStack.addSubview(topStack)
-    containerStack.addSubview(centerStack)
-    containerStack.addSubview(bottomStack)
+//    containerStack.addArrangedSubview(topStack)
+//    containerStack.addSubview(centerStack)
+//    containerStack.addSubview(bottomStack)
 
     self.view.addSubview(self.springConfigurationButton)
 
@@ -216,8 +244,8 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     let button = self.springConfigurationButton
     let buttonSize = min(view.frame.maxX / 6, 100)
     NSLayoutConstraint.activate([
-      button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height / 4),
+      button.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+      button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
       button.widthAnchor.constraint(equalToConstant: buttonSize),
       button.heightAnchor.constraint(equalToConstant: buttonSize)
     ])
