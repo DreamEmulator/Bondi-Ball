@@ -52,11 +52,11 @@
                                 <action selector="frquencyResponseChanged:" destination="-1" eventType="valueChanged" id="bBT-zF-niT"/>
                             </connections>
                         </slider>
-                        <stackView opaque="NO" contentMode="scaleAspectFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="kNr-8F-cU1" userLabel="Grid Controls">
+                        <stackView opaque="NO" contentMode="scaleAspectFill" distribution="equalCentering" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="kNr-8F-cU1" userLabel="Grid Controls">
                             <rect key="frame" x="0.0" y="152.33333333333334" width="353" height="32"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9Wh-GN-pRP" userLabel="Rows">
-                                    <rect key="frame" x="0.0" y="0.0" width="170.66666666666666" height="32"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9Wh-GN-pRP" userLabel="Rows">
+                                    <rect key="frame" x="0.0" y="0.0" width="151" height="32"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5HV-xk-sSC" userLabel="Icon">
                                             <rect key="frame" x="0.0" y="0.0" width="23.666666666666668" height="32"/>
@@ -85,7 +85,7 @@
                                             </connections>
                                         </stepper>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nt9-OP-uJh" userLabel="Amount of rows">
-                                            <rect key="frame" x="137.66666666666666" y="0.0" width="33" height="32"/>
+                                            <rect key="frame" x="137.66666666666666" y="2.9999999999999982" width="13.333333333333343" height="26.333333333333329"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                             <nil key="highlightedColor"/>
@@ -93,7 +93,7 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="2qQ-2u-fSD" userLabel="Columns">
-                                    <rect key="frame" x="182.66666666666663" y="0.0" width="170.33333333333337" height="32"/>
+                                    <rect key="frame" x="193.66666666666663" y="0.0" width="159.33333333333337" height="32"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6jE-sB-iZ0" userLabel="Icon">
                                             <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -114,14 +114,14 @@
                                                 </imageView>
                                             </subviews>
                                         </stackView>
-                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="L7E-li-fwd" userLabel="Columns stepper">
+                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="6" translatesAutoresizingMaskIntoConstraints="NO" id="L7E-li-fwd" userLabel="Columns stepper">
                                             <rect key="frame" x="42" y="0.0" width="94" height="32"/>
                                             <connections>
                                                 <action selector="columnsChanged:" destination="-1" eventType="valueChanged" id="YKe-ab-ESE"/>
                                             </connections>
                                         </stepper>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmq-aT-muv" userLabel="Amount of columns">
-                                            <rect key="frame" x="146.00000000000003" y="0.0" width="24.333333333333343" height="32"/>
+                                            <rect key="frame" x="146.00000000000003" y="0.0" width="13.333333333333343" height="32"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                             <nil key="highlightedColor"/>

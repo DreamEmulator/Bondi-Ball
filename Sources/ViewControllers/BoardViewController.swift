@@ -188,6 +188,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     self.containerStack.contentMode = .center
 
     view.addSubview(self.containerStack)
+    view.sendSubviewToBack(self.containerStack)
 
     NSLayoutConstraint.activate([
       self.containerStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -202,16 +203,17 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
       rowStack.translatesAutoresizingMaskIntoConstraints = false
       rowStack.axis = .horizontal
       rowStack.distribution = .equalSpacing
+      rowStack.alignment = .center
       rowStack.spacing = 12
       self.containerStack.addArrangedSubview(rowStack)
 
       for _ in 1 ... config.columns {
         let column = EndpointIndicatorView()
+        column.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
           column.widthAnchor.constraint(equalToConstant: pocketSize),
           column.heightAnchor.constraint(equalToConstant: pocketSize)
         ])
-        column.translatesAutoresizingMaskIntoConstraints = false
         rowStack.addArrangedSubview(column)
       }
     }

@@ -27,28 +27,11 @@ import UIKit
 internal final class PaintBallView: UIView {
   override public init(frame: CGRect) {
     super.init(frame: frame)
-    self.setup()
   }
 
   @available(*, unavailable)
   public required init?(coder: NSCoder) {
     fatalError()
-  }
-
-  func setup() {
-    self.isOpaque = false
-    self.layer.masksToBounds = false
-    self.layer.shadowColor = UIColor.systemMint.cgColor
-    self.layer.shadowOpacity = 0.75
-    self.layer.shadowRadius = 3
-    self.layer.shadowOffset = CGSize(width: 3, height: 3)
-    layer.shadowPath = UIBezierPath(rect: bounds).cgPath
-    layer.shouldRasterize = true
-    layer.rasterizationScale = UIScreen.main.scale
-  }
-
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    self.setup()
   }
 
   override public func draw(_ rect: CGRect) {
