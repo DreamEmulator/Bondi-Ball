@@ -29,9 +29,15 @@ import UIKit
 internal class BoardViewController: UIViewController, UIGestureRecognizerDelegate {
   // MARK: - Vars
 
-  private let skView = SKView()
   private var song: AVAudioPlayer?
-  let magicParticles = SKEmitterNode(fileNamed: "MagicParticles")
+
+  private var skView = SKView()
+  private let magicParticles = SKEmitterNode(fileNamed: "MagicParticles")
+  private var containerStack = UIStackView()
+
+  private var boardConfig = BoardConfig() { didSet {
+    self.setupGrid(config: self.boardConfig)
+  }}
 
   // MARK: - Lifecycle
 
@@ -86,85 +92,17 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
   fileprivate let springConfigurationButton: UIButton = .init(style: .alpha)
 
-  let rows = 4
-  let columns = 3
-
   override public func viewDidLoad() {
     super.viewDidLoad()
 
     self.navigationItem.setHidesBackButton(true, animated: true)
     self.view.backgroundColor = .systemBackground
 
-    // Container
-    let containerStack = UIStackView()
-    containerStack.translatesAutoresizingMaskIntoConstraints = false
-    containerStack.axis = .vertical
-    containerStack.spacing = 12
-    containerStack.distribution = .equalSpacing
-    containerStack.contentMode = .center
-
-    view.addSubview(containerStack)
-
-    NSLayoutConstraint.activate([
-      containerStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      containerStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-      containerStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      containerStack.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-    ])
-
     // MARK: - Build up grid
 
-    let pocketSize = CGFloat(Float(view.frame.width) / Float(self.columns) - 16)
-    for _ in 1 ... self.rows {
-      let rowStack = UIStackView()
-      rowStack.translatesAutoresizingMaskIntoConstraints = false
-      rowStack.axis = .horizontal
-      rowStack.distribution = .equalSpacing
-      rowStack.spacing = 12
-      containerStack.addArrangedSubview(rowStack)
-
-      for _ in 1 ... self.columns {
-        let column = EndpointIndicatorView()
-        NSLayoutConstraint.activate([
-          column.widthAnchor.constraint(equalToConstant: pocketSize),
-          column.heightAnchor.constraint(equalToConstant: pocketSize)
-        ])
-        column.translatesAutoresizingMaskIntoConstraints = false
-        rowStack.addArrangedSubview(column)
-      }
-    }
-
-    // Rows
-
-//    let topStack = UIStackView()
-//    topStack.translatesAutoresizingMaskIntoConstraints = false
-//    topStack.backgroundColor = .systemRed
-//    topStack.distribution = .fillEqually
-//
-//    topStack.addArrangedSubview(self.topRightEndpointIndicatorView)
-//    topStack.addArrangedSubview(self.topMidEndpointIndicatorView)
-//    topStack.addArrangedSubview(self.topLeftEndpointIndicatorView)
-
-//    let centerStack = UIStackView()
-//    centerStack.distribution = .fillEqually
-//
-//    centerStack.addSubview(self.leftEndpointIndicatorView)
-//    centerStack.addSubview(self.midEndpointIndicatorView)
-//    centerStack.addSubview(self.rightEndpointIndicatorView)
-
-//    let bottomStack = UIStackView()
-//    bottomStack.distribution = .fillEqually
-//
-//    bottomStack.addSubview(self.bottomLeftEndpointIndicatorView)
-//    bottomStack.addSubview(self.bottomMidEndpointIndicatorView)
-//    bottomStack.addSubview(self.bottomRightEndpointIndicatorView)
+    self.setupGrid(config: self.boardConfig)
 
     self.view.addSubview(self.paintBall)
-
-//    containerStack.addArrangedSubview(topStack)
-//    containerStack.addSubview(centerStack)
-//    containerStack.addSubview(bottomStack)
-
     self.view.addSubview(self.springConfigurationButton)
 
     DispatchQueue.main.asyncAfter(deadline: .now() + 2) { self.setupParticles() }
@@ -196,7 +134,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
       break
     }
 
-    self.configureButton()
+    self.setupButton()
   }
 
   // MARK: - Gesture Management
@@ -237,9 +175,49 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     return true
   }
 
-  // MARK: - Configure button
+  // MARK: - Setup UI
 
-  fileprivate func configureButton() {
+  private func setupGrid(config: BoardConfig) {
+    self.containerStack.removeFromSuperview()
+    self.containerStack = UIStackView()
+    // Container
+    self.containerStack.translatesAutoresizingMaskIntoConstraints = false
+    self.containerStack.axis = .vertical
+    self.containerStack.spacing = 12
+    self.containerStack.distribution = .equalSpacing
+    self.containerStack.contentMode = .center
+
+    view.addSubview(self.containerStack)
+
+    NSLayoutConstraint.activate([
+      self.containerStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      self.containerStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      self.containerStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      self.containerStack.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+    ])
+
+    let pocketSize = CGFloat(Float(view.frame.width) / Float(self.boardConfig.columns) - 16)
+    for _ in 1 ... config.rows {
+      let rowStack = UIStackView()
+      rowStack.translatesAutoresizingMaskIntoConstraints = false
+      rowStack.axis = .horizontal
+      rowStack.distribution = .equalSpacing
+      rowStack.spacing = 12
+      self.containerStack.addArrangedSubview(rowStack)
+
+      for _ in 1 ... config.columns {
+        let column = EndpointIndicatorView()
+        NSLayoutConstraint.activate([
+          column.widthAnchor.constraint(equalToConstant: pocketSize),
+          column.heightAnchor.constraint(equalToConstant: pocketSize)
+        ])
+        column.translatesAutoresizingMaskIntoConstraints = false
+        rowStack.addArrangedSubview(column)
+      }
+    }
+  }
+
+  fileprivate func setupButton() {
     // Form
     let button = self.springConfigurationButton
     let buttonSize = min(view.frame.maxX / 6, 100)
@@ -261,10 +239,10 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   // Function
   @objc func buttonClicked() {
     let gearController = SetupController {
-      spring in
-      self.spring = spring
+      config in
+      self.boardConfig = config
     }
-    gearController.dampedHarmonicSpring = self.spring
+    gearController.config = self.boardConfig
     present(gearController, animated: true)
   }
 
@@ -348,7 +326,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     let endpoint = self.intendedEndpoint(with: velocity, from: currentCenter)
     let targetCenter = self.frame(for: endpoint).center
 
-    let parameters = self.spring.timingFunction(withInitialVelocity: velocity, from: &self.paintBall.center, to: targetCenter, context: self)
+    let parameters = self.boardConfig.spring.timingFunction(withInitialVelocity: velocity, from: &self.paintBall.center, to: targetCenter, context: self)
     let animator = UIViewPropertyAnimator(duration: 0, timingParameters: parameters)
 
     animator.addAnimations {

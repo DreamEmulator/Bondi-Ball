@@ -17,6 +17,7 @@
 		AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00762F296AD3D800380FFF /* MagicParticlesScene.swift */; };
 		AA007635296B01EA00380FFF /* MagicParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA007633296B01EA00380FFF /* MagicParticles.sks */; };
 		AA007636296B01EA00380FFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA007634296B01EA00380FFF /* Assets.xcassets */; };
+		AA007638296BECD500380FFF /* BoardConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA007637296BECD500380FFF /* BoardConfig.swift */; };
 		AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */; };
 		AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */ = {isa = PBXBuildFile; fileRef = AA43E4142961A0CB001EF225 /* Philoshophy.md */; };
 		AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */; };
@@ -48,6 +49,7 @@
 		AA00762F296AD3D800380FFF /* MagicParticlesScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicParticlesScene.swift; sourceTree = "<group>"; };
 		AA007633296B01EA00380FFF /* MagicParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MagicParticles.sks; sourceTree = "<group>"; };
 		AA007634296B01EA00380FFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA007637296BECD500380FFF /* BoardConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardConfig.swift; sourceTree = "<group>"; };
 		AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AA43E4142961A0CB001EF225 /* Philoshophy.md */ = {isa = PBXFileReference; explicitFileType = net.daringfireball.markdown; path = Philoshophy.md; sourceTree = "<group>"; };
 		AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PocketIndicatorView.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				AA4CE8D22961A48900AD289F /* UIGestureRecognizer+Projection.swift */,
 				AA4CE8C72961A41C00AD289F /* PanGestureRecognizer.swift */,
 				AA00761F2969F93F00380FFF /* Aliases.swift */,
+				AA007637296BECD500380FFF /* BoardConfig.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				AA0076252969FAE600380FFF /* UINavigationController+Extensions.swift in Sources */,
 				AA4CE8CB2961A41C00AD289F /* PanGestureRecognizer.swift in Sources */,
 				AA4CE8D32961A48900AD289F /* CGVector.swift in Sources */,
+				AA007638296BECD500380FFF /* BoardConfig.swift in Sources */,
 				AA4CE8D52961A48900AD289F /* DampedHarmonicSpring.swift in Sources */,
 				CB0556A620D05B8A00095934 /* AppDelegate.swift in Sources */,
 				AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */,

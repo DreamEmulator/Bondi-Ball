@@ -36,7 +36,7 @@ internal final class PaintBallView: UIView {
   }
 
   func setup() {
-    self.isOpaque = true
+    self.isOpaque = false
     self.layer.masksToBounds = false
     self.layer.shadowColor = UIColor.systemMint.cgColor
     self.layer.shadowOpacity = 0.75
