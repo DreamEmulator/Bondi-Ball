@@ -9,12 +9,22 @@
 import UIKit
 
 class RootNavigationController: UINavigationController, UINavigationControllerDelegate {
+  // MARK: - Interactions
+
+  private var interactionController: UIPercentDrivenInteractiveTransition?
+  private var edgeSwipeGestureRecognizer: UIScreenEdgePanGestureRecognizer?
+
+  // MARK: - Visuals
+
   private let splashScreen: SplashViewController = .init()
   private let boardScreen: BoardViewController = .init()
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
     delegate = self
+
+    setupUI()
     hold { navigate() }
   }
 
@@ -26,5 +36,21 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
 
   private func navigate() {
     pushViewController(boardScreen, animated: true)
+  }
+}
+
+// MARK: - UI
+
+extension RootNavigationController {
+  private func setupUI() {
+    navigationBar.tintColor = .systemTeal
+  }
+}
+
+// MARK: - Gestures
+
+extension RootNavigationController {
+  func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    return interactionController
   }
 }

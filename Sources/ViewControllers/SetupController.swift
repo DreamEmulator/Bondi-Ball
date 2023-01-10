@@ -8,18 +8,22 @@
 
 import UIKit
 
-typealias SetSpringCallback = (_ spring: DampedHarmonicSpring) -> Void
+typealias SetConfig = (_ config: BoardConfig) -> Void
 
 class SetupController: UIViewController {
-  private var setSpringCallback: SetSpringCallback
+  private var setConfig: SetConfig
+  var config: BoardConfig?
 
   @IBOutlet var dampingRatioSlider: UISlider!
   @IBOutlet var frequencyResponseSlider: UISlider!
 
-  var dampedHarmonicSpring: DampedHarmonicSpring?
+  @IBOutlet var rowStepper: UIStepper!
+  @IBOutlet var rowsLabel: UILabel!
+  @IBOutlet var columnStepper: UIStepper!
+  @IBOutlet var columnsLabel: UILabel!
 
-  init(setSpringCallback: @escaping SetSpringCallback) {
-    self.setSpringCallback = setSpringCallback
+  init(setConfig: @escaping SetConfig) {
+    self.setConfig = setConfig
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -32,29 +36,53 @@ class SetupController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    if let spring = dampedHarmonicSpring {
-      setSliderValues(spring: spring)
+    if let config {
+      setupSliderValues(config: config)
+      setupGridValues(config: config)
+      rowStepper.value = Double(config.rows)
+      columnStepper.value = Double(config.columns)
     }
+  }
+
+  // MARK: - Setup
+
+  func setupSliderValues(config: BoardConfig) {
+    dampingRatioSlider.setValue(Float(config.spring.dampingRatio), animated: true)
+    frequencyResponseSlider.setValue(Float(config.spring.frequencyResponse), animated: true)
+  }
+
+  func setupGridValues(config: BoardConfig) {
+    rowStepper.value = Double(config.rows)
+    rowsLabel.text = String(config.rows)
+    columnStepper.value = Double(config.columns)
+    columnsLabel.text = String(config.columns)
   }
 
   // MARK: - Handlers
 
+  func handleChanges() {
+    let newConfig = BoardConfig(rows: Int(rowStepper.value), columns: Int(columnStepper.value), spring: DampedHarmonicSpring(dampingRatio: CGFloat(dampingRatioSlider.value), frequencyResponse: CGFloat(frequencyResponseSlider.value)))
+
+    rowsLabel.text = String(newConfig.rows)
+    columnsLabel.text = String(newConfig.columns)
+
+    config = newConfig
+    setConfig(newConfig)
+  }
+
   @IBAction func dampingRatioChanged(_ sender: UISlider) {
-    if let spring = dampedHarmonicSpring {
-      let newSpring = DampedHarmonicSpring(dampingRatio: CGFloat(sender.value), frequencyResponse: CGFloat(spring.frequencyResponse))
-      setSpringCallback(newSpring)
-    }
+    handleChanges()
   }
 
   @IBAction func frquencyResponseChanged(_ sender: UISlider) {
-    if let spring = dampedHarmonicSpring {
-      let newSpring = DampedHarmonicSpring(dampingRatio: spring.dampingRatio, frequencyResponse: CGFloat(sender.value))
-      setSpringCallback(newSpring)
-    }
+    handleChanges()
   }
 
-  func setSliderValues(spring: DampedHarmonicSpring) {
-    dampingRatioSlider.setValue(Float(spring.dampingRatio), animated: true)
-    frequencyResponseSlider.setValue(Float(spring.frequencyResponse), animated: true)
+  @IBAction func rowsChanged(_ sender: UIStepper) {
+    handleChanges()
+  }
+
+  @IBAction func columnsChanged(_ sender: UIStepper) {
+    handleChanges()
   }
 }

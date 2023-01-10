@@ -30,8 +30,8 @@ internal class AppDelegate: UIResponder, UIApplicationDelegate {
 
   public func application(_ application: UIApplication, didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     let window = UIWindow()
-    
-    window.rootViewController = RootNavigationController(rootViewController: SplashViewController.init())
+
+    window.rootViewController = RootNavigationController(rootViewController: SplashViewController())
 
     self.window = window
 

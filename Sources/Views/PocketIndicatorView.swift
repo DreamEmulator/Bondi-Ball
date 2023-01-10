@@ -24,31 +24,31 @@
 
 import UIKit
 
-
 internal final class EndpointIndicatorView: UIView {
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+  override public init(frame: CGRect) {
+    super.init(frame: frame)
 
-        self.isOpaque = false
-    }
+    self.isOpaque = false
+  }
 
-    public required init?(coder: NSCoder) {
-        fatalError()
-    }
+  @available(*, unavailable)
+  public required init?(coder: NSCoder) {
+    fatalError()
+  }
 
-    public override func draw(_ rect: CGRect) {
-        let radius = 100 as CGFloat
-        let thickness = 4 as CGFloat
+  override public func draw(_ rect: CGRect) {
+    let radius = 100 as CGFloat
+    let thickness = 4 as CGFloat
 
-        let bounds = CGRect(origin: .zero, size: self.bounds.size).insetBy(dx: thickness / 2, dy: thickness / 2)
-        let path = UIBezierPath(roundedRect: bounds, cornerRadius: radius)
+    let bounds = CGRect(origin: .zero, size: self.bounds.size).insetBy(dx: thickness / 2, dy: thickness / 2)
+    let path = UIBezierPath(roundedRect: bounds, cornerRadius: radius)
 
-        let context = UIGraphicsGetCurrentContext()!
-        context.beginPath()
-        context.addPath(path.cgPath)
-        context.setStrokeColor(UIColor.white.withAlphaComponent(0.15).cgColor)
-        context.setLineDash(phase: 0, lengths: [7])
-        context.setLineWidth(thickness)
-        context.strokePath()
-    }
+    let context = UIGraphicsGetCurrentContext()!
+    context.beginPath()
+    context.addPath(path.cgPath)
+    context.setStrokeColor(UIColor.white.withAlphaComponent(0.15).cgColor)
+    context.setLineDash(phase: 0, lengths: [7])
+    context.setLineWidth(thickness)
+    context.strokePath()
+  }
 }

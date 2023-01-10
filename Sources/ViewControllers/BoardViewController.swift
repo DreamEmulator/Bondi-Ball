@@ -22,9 +22,23 @@
  SOFTWARE.
  */
 
+import AVFAudio
+import SpriteKit
 import UIKit
 
 internal class BoardViewController: UIViewController, UIGestureRecognizerDelegate {
+  // MARK: - Vars
+
+  private var song: AVAudioPlayer?
+
+  private var skView = SKView()
+  private let magicParticles = SKEmitterNode(fileNamed: "MagicParticles")
+  private var containerStack = UIStackView()
+
+  private var boardConfig = BoardConfig() { didSet {
+    self.setupGrid(config: self.boardConfig)
+  }}
+
   // MARK: - Lifecycle
 
   public init() {
@@ -38,10 +52,6 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
   // MARK: - Configuration
 
-  /// Number of spots the ball can come to rest
-  fileprivate var numberOfPockets = 6
-  fileprivate var pockets: [EndpointIndicatorView] = .init()
-
   /// The spring driving animations of the PIP view.
   fileprivate var spring: DampedHarmonicSpring = .init(dampingRatio: 0.35, frequencyResponse: 0.95)
 
@@ -50,7 +60,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   /// The different states the PIP view can be in.
   fileprivate enum State {
     /// The PIP view is at rest at the specified endpoint.
-    case idle(at: EndpointIndicatorView)
+    case idle(at: Endpoint)
 
     /// The user is actively moving the PIP view starting from the specified
     /// initial position using the specified gesture recognizer.
@@ -58,23 +68,26 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
     /// The PIP view is being animated towards the specified endpoint with
     /// the specified animator.
-    case animating(to: EndpointIndicatorView, using: UIViewPropertyAnimator)
+    case animating(to: Endpoint, using: UIViewPropertyAnimator)
   }
 
   /// The current state of the PIP view.
-  fileprivate var state: State?
+  fileprivate var state: State = .idle(at: .bottomRight)
 
   // MARK: - View Management
 
   fileprivate let paintBall: PaintBallView = .init()
 
   fileprivate let topLeftEndpointIndicatorView: EndpointIndicatorView = .init()
+  fileprivate let topMidEndpointIndicatorView: EndpointIndicatorView = .init()
   fileprivate let topRightEndpointIndicatorView: EndpointIndicatorView = .init()
 
   fileprivate let leftEndpointIndicatorView: EndpointIndicatorView = .init()
+  fileprivate let midEndpointIndicatorView: EndpointIndicatorView = .init()
   fileprivate let rightEndpointIndicatorView: EndpointIndicatorView = .init()
 
   fileprivate let bottomLeftEndpointIndicatorView: EndpointIndicatorView = .init()
+  fileprivate let bottomMidEndpointIndicatorView: EndpointIndicatorView = .init()
   fileprivate let bottomRightEndpointIndicatorView: EndpointIndicatorView = .init()
 
   fileprivate let springConfigurationButton: UIButton = .init(style: .alpha)
@@ -82,60 +95,17 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   override public func viewDidLoad() {
     super.viewDidLoad()
 
+    self.navigationItem.setHidesBackButton(true, animated: true)
     self.view.backgroundColor = .systemBackground
 
-    for _ in 0 ... self.numberOfPockets {
-      self.pockets.append(.init())
-    }
+    // MARK: - Build up grid
 
-    if let firstPocket = self.pockets.first {
-      self.state = .idle(at: firstPocket)
-    } else {
-      return
-    }
-
-    // Container
-    let containerStack = UIStackView()
-    containerStack.translatesAutoresizingMaskIntoConstraints = false
-    containerStack.axis = .vertical
-    containerStack.distribution = .fillEqually
-
-    view.addSubview(containerStack)
-
-    NSLayoutConstraint.activate([
-      containerStack.topAnchor.constraint(equalTo: view.topAnchor),
-      containerStack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-      containerStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      containerStack.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-    ])
-
-    // Rows
-
-    let topStack = UIStackView()
-    topStack.translatesAutoresizingMaskIntoConstraints = false
-
-    topStack.addSubview(self.topRightEndpointIndicatorView)
-    topStack.addSubview(self.topLeftEndpointIndicatorView)
-
-    let centerStack = UIStackView()
-    centerStack.translatesAutoresizingMaskIntoConstraints = false
-
-    centerStack.addSubview(self.leftEndpointIndicatorView)
-    centerStack.addSubview(self.rightEndpointIndicatorView)
-
-    let bottomStack = UIStackView()
-    bottomStack.translatesAutoresizingMaskIntoConstraints = false
-
-    bottomStack.addSubview(self.bottomLeftEndpointIndicatorView)
-    bottomStack.addSubview(self.bottomRightEndpointIndicatorView)
+    self.setupGrid(config: self.boardConfig)
 
     self.view.addSubview(self.paintBall)
-
-    containerStack.addSubview(topStack)
-    containerStack.addSubview(centerStack)
-    containerStack.addSubview(bottomStack)
-
     self.view.addSubview(self.springConfigurationButton)
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2) { self.setupParticles() }
 
     self.configureGestureRecognizers()
   }
@@ -143,14 +113,17 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   override public func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
 
-//    self.topLeftEndpointIndicatorView.frame = self.frame(for: .topLeft)
-//    self.topRightEndpointIndicatorView.frame = self.frame(for: .topRight)
-//
-//    self.leftEndpointIndicatorView.frame = self.frame(for: .left)
-//    self.rightEndpointIndicatorView.frame = self.frame(for: .right)
-//
-//    self.bottomLeftEndpointIndicatorView.frame = self.frame(for: .bottomLeft)
-//    self.bottomRightEndpointIndicatorView.frame = self.frame(for: .bottomRight)
+    self.topLeftEndpointIndicatorView.frame = self.frame(for: .topLeft)
+    self.topMidEndpointIndicatorView.frame = self.frame(for: .topMid)
+    self.topRightEndpointIndicatorView.frame = self.frame(for: .topRight)
+
+    self.leftEndpointIndicatorView.frame = self.frame(for: .left)
+    self.midEndpointIndicatorView.frame = self.frame(for: .mid)
+    self.rightEndpointIndicatorView.frame = self.frame(for: .right)
+
+    self.bottomLeftEndpointIndicatorView.frame = self.frame(for: .bottomLeft)
+    self.bottomMidEndpointIndicatorView.frame = self.frame(for: .bottomMid)
+    self.bottomRightEndpointIndicatorView.frame = self.frame(for: .bottomRight)
 
     switch self.state {
     case .idle(at: let endpoint):
@@ -159,11 +132,9 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
       self.paintBall.frame = self.frame(for: endpoint)
     case .interaction:
       break
-    case .none:
-      break
     }
 
-    self.configureButton()
+    self.setupButton()
   }
 
   // MARK: - Gesture Management
@@ -204,62 +175,116 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     return true
   }
 
-  // MARK: - Configure button
+  // MARK: - Setup UI
 
-  fileprivate func configureButton() {
-    // Form
-    let buttonSize = view.frame.maxX / 6.0
+  private func setupGrid(config: BoardConfig) {
+    self.containerStack.removeFromSuperview()
+    self.containerStack = UIStackView()
+    // Container
+    self.containerStack.translatesAutoresizingMaskIntoConstraints = false
+    self.containerStack.axis = .vertical
+    self.containerStack.spacing = 12
+    self.containerStack.distribution = .equalSpacing
+    self.containerStack.contentMode = .center
+
+    view.addSubview(self.containerStack)
+    view.sendSubviewToBack(self.containerStack)
+
     NSLayoutConstraint.activate([
-      self.springConfigurationButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      self.springConfigurationButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(view.frame.maxY / 12)),
-      self.springConfigurationButton.widthAnchor.constraint(equalToConstant: buttonSize),
-      self.springConfigurationButton.heightAnchor.constraint(equalToConstant: buttonSize)
+      self.containerStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      self.containerStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      self.containerStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      self.containerStack.trailingAnchor.constraint(equalTo: view.trailingAnchor)
     ])
-    self.springConfigurationButton.layer.cornerRadius = 0.5 * self.springConfigurationButton.bounds.size.width
-    self.springConfigurationButton.clipsToBounds = true
 
-    self.springConfigurationButton.addTarget(self, action: #selector(self.buttonClicked), for: .touchUpInside)
+    let pocketSize = CGFloat(Float(view.frame.width) / Float(self.boardConfig.columns) - 16)
+    for _ in 1 ... config.rows {
+      let rowStack = UIStackView()
+      rowStack.translatesAutoresizingMaskIntoConstraints = false
+      rowStack.axis = .horizontal
+      rowStack.distribution = .equalSpacing
+      rowStack.alignment = .center
+      rowStack.spacing = 12
+      self.containerStack.addArrangedSubview(rowStack)
+
+      for _ in 1 ... config.columns {
+        let column = EndpointIndicatorView()
+        column.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+          column.widthAnchor.constraint(equalToConstant: pocketSize),
+          column.heightAnchor.constraint(equalToConstant: pocketSize)
+        ])
+        rowStack.addArrangedSubview(column)
+      }
+    }
+  }
+
+  fileprivate func setupButton() {
+    // Form
+    let button = self.springConfigurationButton
+    let buttonSize = min(view.frame.maxX / 6, 100)
+    NSLayoutConstraint.activate([
+      button.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+      button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      button.widthAnchor.constraint(equalToConstant: buttonSize),
+      button.heightAnchor.constraint(equalToConstant: buttonSize)
+    ])
+    button.layer.cornerRadius = 0.5 * self.springConfigurationButton.bounds.size.width
+    button.clipsToBounds = true
+
+    button.addTarget(self, action: #selector(self.buttonClicked), for: .touchUpInside)
+    button.tintColor = .secondaryLabel
+    button.alpha = 0.5
+    button.layer.zPosition = -1000
   }
 
   // Function
   @objc func buttonClicked() {
-    print("Button Clicked")
-    let vc = SetupController {
-      spring in
-      self.spring = spring
+    let gearController = SetupController {
+      config in
+      self.boardConfig = config
     }
-    vc.dampedHarmonicSpring = self.spring
-    present(vc, animated: true)
+    gearController.config = self.boardConfig
+    present(gearController, animated: true)
   }
 
   // MARK: - Interaction Management
 
   /// The possible locations at which the PIP view can rest.
-//  fileprivate enum Endpoint: CaseIterable {
-//    case left
-//    case topLeft
-//    case topRight
-//    case right
-//    case bottomLeft
-//    case bottomRight
-//  }
+  fileprivate enum Endpoint: CaseIterable {
+    case left
+    case topLeft
+    case topMid
+    case topRight
+    case right
+    case bottomLeft
+    case bottomMid
+    case bottomRight
+    case mid
+  }
 
   /// Returns the frame of the specified endpoint.
-  fileprivate func frame(for endpoint: EndpointIndicatorView) -> CGRect {
+  fileprivate func frame(for endpoint: Endpoint) -> CGRect {
     let padding = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     let rect = self.view.safeAreaLayoutGuide.layoutFrame.inset(by: padding)
     let size = CGSize(width: 100, height: 100)
 
-    return endpoint.frame
+    let midX = (rect.maxX / 2) - (size.width / 2)
+    let maxY = (rect.maxY) - (size.height / 2)
 
-//    switch endpoint {
-//    case .left: return CGRect(x: rect.minX, y: rect.center.y - size.height / 2, width: size.width, height: size.height).standardized
-//    case .topLeft: return CGRect(x: rect.minX, y: rect.minY, width: size.width, height: size.height).standardized
-//    case .topRight: return CGRect(x: rect.maxX, y: rect.minY, width: -size.width, height: size.height).standardized
-//    case .right: return CGRect(x: rect.maxX, y: rect.center.y - size.height / 2, width: -size.width, height: size.height).standardized
-//    case .bottomLeft: return CGRect(x: rect.minX, y: rect.maxY, width: size.width, height: -size.height).standardized
-//    case .bottomRight: return CGRect(x: rect.maxX, y: rect.maxY, width: -size.width, height: -size.height).standardized
-//    }
+    switch endpoint {
+    case .topLeft: return CGRect(x: rect.minX, y: rect.minY, width: size.width, height: size.height).standardized
+    case .topMid: return CGRect(x: midX, y: rect.minY, width: size.width, height: size.height).standardized
+    case .topRight: return CGRect(x: rect.maxX, y: rect.minY, width: -size.width, height: size.height).standardized
+
+    case .left: return CGRect(x: rect.minX, y: rect.center.y - size.height / 2, width: size.width, height: size.height).standardized
+    case .mid: return CGRect(x: midX, y: rect.center.y - size.height / 2, width: size.width, height: size.height).standardized
+    case .right: return CGRect(x: rect.maxX, y: rect.center.y - size.height / 2, width: -size.width, height: size.height).standardized
+
+    case .bottomLeft: return CGRect(x: rect.minX, y: maxY, width: size.width, height: -size.height).standardized
+    case .bottomMid: return CGRect(x: midX, y: maxY, width: size.width, height: -size.height).standardized
+    case .bottomRight: return CGRect(x: rect.maxX, y: maxY, width: -size.width, height: -size.height).standardized
+    }
   }
 
   /// Initiates a new interactive transition that will be driven by the
@@ -271,8 +296,6 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     case .interaction: return
     case .animating(to: _, using: let animator):
       animator.stopAnimation(true)
-    case .none:
-      break
     }
 
     let startPoint = self.paintBall.center
@@ -295,17 +318,17 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     self.paintBall.center = center
   }
 
-  /// Deprecated: Finishes the ongoing interactive transition driven by the specified pan
+  /// Finishes the ongoing interactive transition driven by the specified pan
   /// gesture recognizer.
   fileprivate func endInteractiveTransition(with gesture: UIPanGestureRecognizer) {
     guard case .interaction(with: gesture, from: _) = self.state else { return }
 
     let velocity = CGVector(to: gesture.velocity(in: self.view))
     let currentCenter = self.paintBall.center
-    let endpoint = self.intendedPocket(with: velocity, from: currentCenter)
+    let endpoint = self.intendedEndpoint(with: velocity, from: currentCenter)
     let targetCenter = self.frame(for: endpoint).center
 
-    let parameters = self.spring.timingFunction(withInitialVelocity: velocity, from: &self.paintBall.center, to: targetCenter, context: self)
+    let parameters = self.boardConfig.spring.timingFunction(withInitialVelocity: velocity, from: &self.paintBall.center, to: targetCenter, context: self)
     let animator = UIViewPropertyAnimator(duration: 0, timingParameters: parameters)
 
     animator.addAnimations {
@@ -321,35 +344,9 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     animator.startAnimation()
   }
 
-  /// Finishes the ongoing interactive transition driven by the specified pan
-  /// gesture recognizer.
-  fileprivate func endInteractiveTransitionToPocket(with gesture: UIPanGestureRecognizer) {
-    guard case .interaction(with: gesture, from: _) = self.state else { return }
-
-    let velocity = CGVector(to: gesture.velocity(in: self.view))
-    let currentCenter = self.paintBall.center
-    let pocket = self.intendedPocket(with: velocity, from: currentCenter)
-    let targetCenter = pocket.center
-
-    let parameters = self.spring.timingFunction(withInitialVelocity: velocity, from: &self.paintBall.center, to: targetCenter, context: self)
-    let animator = UIViewPropertyAnimator(duration: 0, timingParameters: parameters)
-
-    animator.addAnimations {
-      self.paintBall.center = targetCenter
-    }
-
-    animator.addCompletion { _ in
-      self.state = .idle(at: pocket)
-    }
-
-    self.state = .animating(to: pocket, using: animator)
-
-    animator.startAnimation()
-  }
-
   /// Calculates the endpoint to which the PIP view should move from the
   /// specified current position with the specified velocity.
-  private func intendedPocket(with velocity: CGVector, from currentPosition: CGPoint) -> EndpointIndicatorView {
+  private func intendedEndpoint(with velocity: CGVector, from currentPosition: CGPoint) -> Endpoint {
     var velocity = velocity
 
     // Reduce movement along the secondary axis of the gesture.
@@ -361,24 +358,60 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     }
 
     let projectedPosition = UIGestureRecognizer.project(velocity, onto: currentPosition)
-    let pocket = self.pocket(closestTo: projectedPosition)
+    let endpoint = self.endpoint(closestTo: projectedPosition)
 
-    return pocket
+    return endpoint
   }
 
-  /// Deprecated: Returns the endpoint closest to the specified point.
-//  private func endpoint(closestTo point: CGPoint) -> Endpoint {
-//    return Endpoint.allCases.min(by: { point.distance(to: self.frame(for: $0).center) })!
-//  }
-
-  /// Returns the pocket closest to the specified point.
-  private func pocket(closestTo point: CGPoint) -> EndpointIndicatorView {
-    return self.pockets.min(by: { point.distance(to: $0.center) })!
+  /// Returns the endpoint closest to the specified point.
+  private func endpoint(closestTo point: CGPoint) -> Endpoint {
+    return Endpoint.allCases.min(by: { point.distance(to: self.frame(for: $0).center) })!
   }
 
-  // MARK: - Status Bar Management
+  override var prefersHomeIndicatorAutoHidden: Bool {
+    true
+  }
+}
 
-  override public var preferredStatusBarStyle: UIStatusBarStyle {
-    return .lightContent
+// MARK: - Particle effects
+
+extension BoardViewController {
+  func setupParticles() {
+    self.skView.translatesAutoresizingMaskIntoConstraints = false
+    self.initialize()
+  }
+
+  private func initialize() {
+    self.skView.isUserInteractionEnabled = false
+    self.skView.scene?.view?.isUserInteractionEnabled = false
+
+    view.backgroundColor = .clear
+    view.addSubview(self.skView)
+
+    NSLayoutConstraint.activate([
+      self.skView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      self.skView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      self.skView.topAnchor.constraint(equalTo: view.topAnchor),
+      self.skView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    ])
+
+    self.setupSceneView()
+    self.setupScene()
+    // playSong()
+  }
+
+  private func setupSceneView() {
+    self.skView.translatesAutoresizingMaskIntoConstraints = false
+    self.skView.scene?.backgroundColor = .clear
+    self.skView.scene?.view?.frame = view.frame
+    self.skView.backgroundColor = .clear
+    self.skView.allowsTransparency = true
+  }
+
+  private func setupScene() {
+    let scene = MagicParticlesScene(size: view.frame.size)
+    scene.scaleMode = .aspectFill
+    scene.backgroundColor = .clear
+    self.skView.presentScene(scene)
   }
 }

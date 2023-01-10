@@ -10,11 +10,17 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetupController" customModule="Gestures_In_Fluid_Interfaces" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetupController" customModule="Bondi_Ball" customModuleProvider="target">
             <connections>
+                <outlet property="ColumnStepper" destination="L7E-li-fwd" id="egD-ag-QeG"/>
                 <outlet property="DampingRatioSlider" destination="7KW-Gh-gVV" id="vHv-Zc-JNP"/>
+                <outlet property="RowStepper" destination="LKm-PF-jwu" id="2MO-tt-bSl"/>
+                <outlet property="columnStepper" destination="L7E-li-fwd" id="vjk-Nx-bLE"/>
+                <outlet property="columnsLabel" destination="jmq-aT-muv" id="SA6-qi-KHD"/>
                 <outlet property="dampingRatioSlider" destination="7KW-Gh-gVV" id="iuF-TJ-Jz6"/>
                 <outlet property="frequencyResponseSlider" destination="nCS-el-fDj" id="c8D-t9-PqE"/>
+                <outlet property="rowStepper" destination="LKm-PF-jwu" id="ywI-0h-ghp"/>
+                <outlet property="rowsLabel" destination="nt9-OP-uJh" id="Mrk-ro-K7k"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,14 +30,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" distribution="equalSpacing" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="dPa-66-u6q">
-                    <rect key="frame" x="20" y="79.000000000000014" width="353" height="128.33333333333337"/>
+                    <rect key="frame" x="20" y="79.000000000000014" width="353" height="184.33333333333337"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="giL-GI-LSl">
                             <rect key="frame" x="0.0" y="-5.6666666666666679" width="353" height="31.666666666666668"/>
+                            <color key="tintColor" systemColor="secondarySystemFillColor"/>
                             <imageReference key="image" image="theatermask.and.paintbrush.fill" catalog="system" symbolScale="large"/>
                         </imageView>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.01" maxValue="1" minimumValueImage="scribble.variable" catalog="system" maximumValueImage="line.diagonal" translatesAutoresizingMaskIntoConstraints="NO" id="7KW-Gh-gVV" userLabel="DampingRatioSlider">
                             <rect key="frame" x="-2" y="44.333333333333329" width="357" height="31"/>
+                            <color key="tintColor" systemColor="secondaryLabelColor"/>
                             <connections>
                                 <action selector="dampingRatioChanged:" destination="-1" eventType="valueChanged" id="z6W-LK-t4m"/>
                                 <action selector="finished:" destination="-1" eventType="editingDidEndOnExit" id="QqR-y7-Raf"/>
@@ -39,10 +47,89 @@
                         </slider>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.01" maxValue="1" minimumValueImage="hare.fill" catalog="system" maximumValueImage="tortoise.fill" translatesAutoresizingMaskIntoConstraints="NO" id="nCS-el-fDj" userLabel="FrequencyResponseSlider">
                             <rect key="frame" x="-2" y="98.333333333333343" width="357" height="31"/>
+                            <color key="tintColor" systemColor="secondaryLabelColor"/>
                             <connections>
                                 <action selector="frquencyResponseChanged:" destination="-1" eventType="valueChanged" id="bBT-zF-niT"/>
                             </connections>
                         </slider>
+                        <stackView opaque="NO" contentMode="scaleAspectFill" distribution="equalCentering" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="kNr-8F-cU1" userLabel="Grid Controls">
+                            <rect key="frame" x="0.0" y="152.33333333333334" width="353" height="32"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9Wh-GN-pRP" userLabel="Rows">
+                                    <rect key="frame" x="0.0" y="0.0" width="151" height="32"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5HV-xk-sSC" userLabel="Icon">
+                                            <rect key="frame" x="0.0" y="0.0" width="23.666666666666668" height="32"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ON5-Lr-Sr3">
+                                                    <rect key="frame" x="0.0" y="1.6666666666666643" width="23.666666666666668" height="13.000000000000004"/>
+                                                    <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="hz0-b7-aU0"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="QiR-7D-ucX">
+                                                    <rect key="frame" x="0.0" y="17.666666666666664" width="23.666666666666668" height="13.000000000000007"/>
+                                                    <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="d2T-A8-zMK"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                        </stackView>
+                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" toolTip="Rows" value="1" minimumValue="1" maximumValue="6" translatesAutoresizingMaskIntoConstraints="NO" id="LKm-PF-jwu" userLabel="Rows stepper">
+                                            <rect key="frame" x="33.666666666666657" y="0.0" width="94" height="32"/>
+                                            <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                            <connections>
+                                                <action selector="rowsChanged:" destination="-1" eventType="valueChanged" id="HOn-uu-2M4"/>
+                                            </connections>
+                                        </stepper>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nt9-OP-uJh" userLabel="Amount of rows">
+                                            <rect key="frame" x="137.66666666666666" y="2.9999999999999982" width="13.333333333333343" height="26.333333333333329"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                            <color key="textColor" systemColor="secondaryLabelColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="2qQ-2u-fSD" userLabel="Columns">
+                                    <rect key="frame" x="193.66666666666663" y="0.0" width="159.33333333333337" height="32"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6jE-sB-iZ0" userLabel="Icon">
+                                            <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle.portrait" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HdU-uw-9oZ">
+                                                    <rect key="frame" x="0.0" y="0.33333333333333037" width="16" height="31.666666666666671"/>
+                                                    <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="16" id="1Nz-sI-3mB"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle.portrait" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zj6-ye-kzF">
+                                                    <rect key="frame" x="16" y="0.33333333333333037" width="16" height="31.666666666666671"/>
+                                                    <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="16" id="Key-R1-3PW"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                        </stackView>
+                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="6" translatesAutoresizingMaskIntoConstraints="NO" id="L7E-li-fwd" userLabel="Columns stepper">
+                                            <rect key="frame" x="42" y="0.0" width="94" height="32"/>
+                                            <connections>
+                                                <action selector="columnsChanged:" destination="-1" eventType="valueChanged" id="YKe-ab-ESE"/>
+                                            </connections>
+                                        </stepper>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmq-aT-muv" userLabel="Amount of columns">
+                                            <rect key="frame" x="146.00000000000003" y="0.0" width="13.333333333333343" height="32"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                            <color key="textColor" systemColor="secondaryLabelColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
                     </subviews>
                 </stackView>
             </subviews>
@@ -59,9 +146,17 @@
     <resources>
         <image name="hare.fill" catalog="system" width="128" height="88"/>
         <image name="line.diagonal" catalog="system" width="128" height="113"/>
+        <image name="rectangle" catalog="system" width="128" height="93"/>
+        <image name="rectangle.portrait" catalog="system" width="115" height="128"/>
         <image name="scribble.variable" catalog="system" width="128" height="119"/>
         <image name="theatermask.and.paintbrush.fill" catalog="system" width="128" height="122"/>
         <image name="tortoise.fill" catalog="system" width="128" height="64"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemFillColor">
+            <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
