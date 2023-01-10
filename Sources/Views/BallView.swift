@@ -27,6 +27,11 @@ import UIKit
 internal final class PaintBallView: UIView {
   override public init(frame: CGRect) {
     super.init(frame: frame)
+    self.isOpaque = false
+    self.layer.shadowColor = UIColor.black.cgColor
+    self.layer.shadowOpacity = 1
+    self.layer.shadowRadius = 5
+    self.layer.shadowOffset = .zero
   }
 
   @available(*, unavailable)

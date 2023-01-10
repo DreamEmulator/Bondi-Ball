@@ -35,6 +35,8 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   private let magicParticles = SKEmitterNode(fileNamed: "MagicParticles")
   private var containerStack = UIStackView()
 
+  private var pockets: [EndpointIndicatorView] = .init()
+
   private var boardConfig = BoardConfig() { didSet {
     self.setupGrid(config: self.boardConfig)
   }}
@@ -59,8 +61,10 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
   /// The different states the PIP view can be in.
   fileprivate enum State {
+    /// Starting scenario
+    case initial
     /// The PIP view is at rest at the specified endpoint.
-    case idle(at: Endpoint)
+    case idle(at: EndpointIndicatorView)
 
     /// The user is actively moving the PIP view starting from the specified
     /// initial position using the specified gesture recognizer.
@@ -68,27 +72,15 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
     /// The PIP view is being animated towards the specified endpoint with
     /// the specified animator.
-    case animating(to: Endpoint, using: UIViewPropertyAnimator)
+    case animating(to: EndpointIndicatorView, using: UIViewPropertyAnimator)
   }
 
   /// The current state of the PIP view.
-  fileprivate var state: State = .idle(at: .bottomRight)
+  fileprivate var state: State = .initial
 
   // MARK: - View Management
 
   fileprivate let paintBall: PaintBallView = .init()
-
-  fileprivate let topLeftEndpointIndicatorView: EndpointIndicatorView = .init()
-  fileprivate let topMidEndpointIndicatorView: EndpointIndicatorView = .init()
-  fileprivate let topRightEndpointIndicatorView: EndpointIndicatorView = .init()
-
-  fileprivate let leftEndpointIndicatorView: EndpointIndicatorView = .init()
-  fileprivate let midEndpointIndicatorView: EndpointIndicatorView = .init()
-  fileprivate let rightEndpointIndicatorView: EndpointIndicatorView = .init()
-
-  fileprivate let bottomLeftEndpointIndicatorView: EndpointIndicatorView = .init()
-  fileprivate let bottomMidEndpointIndicatorView: EndpointIndicatorView = .init()
-  fileprivate let bottomRightEndpointIndicatorView: EndpointIndicatorView = .init()
 
   fileprivate let springConfigurationButton: UIButton = .init(style: .alpha)
 
@@ -108,33 +100,26 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     DispatchQueue.main.asyncAfter(deadline: .now() + 2) { self.setupParticles() }
 
     self.configureGestureRecognizers()
+
+    // MARK: - Sort z-indexes
   }
 
   override public func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-
-    self.topLeftEndpointIndicatorView.frame = self.frame(for: .topLeft)
-    self.topMidEndpointIndicatorView.frame = self.frame(for: .topMid)
-    self.topRightEndpointIndicatorView.frame = self.frame(for: .topRight)
-
-    self.leftEndpointIndicatorView.frame = self.frame(for: .left)
-    self.midEndpointIndicatorView.frame = self.frame(for: .mid)
-    self.rightEndpointIndicatorView.frame = self.frame(for: .right)
-
-    self.bottomLeftEndpointIndicatorView.frame = self.frame(for: .bottomLeft)
-    self.bottomMidEndpointIndicatorView.frame = self.frame(for: .bottomMid)
-    self.bottomRightEndpointIndicatorView.frame = self.frame(for: .bottomRight)
-
     switch self.state {
     case .idle(at: let endpoint):
-      self.paintBall.frame = self.frame(for: endpoint)
+      self.paintBall.frame = endpoint.frame
     case .animating(to: let endpoint, using: _):
-      self.paintBall.frame = self.frame(for: endpoint)
+      self.paintBall.frame = endpoint.frame
     case .interaction:
+      break
+    case .initial:
       break
     }
 
     self.setupButton()
+
+    orderViews()
   }
 
   // MARK: - Gesture Management
@@ -178,6 +163,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   // MARK: - Setup UI
 
   private func setupGrid(config: BoardConfig) {
+    pockets = .init()
     self.containerStack.removeFromSuperview()
     self.containerStack = UIStackView()
     // Container
@@ -188,7 +174,6 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     self.containerStack.contentMode = .center
 
     view.addSubview(self.containerStack)
-    view.sendSubviewToBack(self.containerStack)
 
     NSLayoutConstraint.activate([
       self.containerStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -207,7 +192,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
       rowStack.spacing = 12
       self.containerStack.addArrangedSubview(rowStack)
 
-      for _ in 1 ... config.columns {
+      for pocket in 1 ... config.columns {
         let column = EndpointIndicatorView()
         column.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -215,6 +200,9 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
           column.heightAnchor.constraint(equalToConstant: pocketSize)
         ])
         rowStack.addArrangedSubview(column)
+//        column.backgroundColor = .systemMint
+        pockets.append(column)
+        if pocket == config.columns { state = .idle(at: pockets.last!) }
       }
     }
   }
@@ -238,7 +226,15 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     button.layer.zPosition = -1000
   }
 
-  // Function
+  // MARK: - Order views
+
+  /// Here you manage the z-layout of the views
+  func orderViews() {
+    view.sendSubviewToBack(skView)
+    view.sendSubviewToBack(containerStack)
+  }
+
+  // Handlers
   @objc func buttonClicked() {
     let gearController = SetupController {
       config in
@@ -250,43 +246,6 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
   // MARK: - Interaction Management
 
-  /// The possible locations at which the PIP view can rest.
-  fileprivate enum Endpoint: CaseIterable {
-    case left
-    case topLeft
-    case topMid
-    case topRight
-    case right
-    case bottomLeft
-    case bottomMid
-    case bottomRight
-    case mid
-  }
-
-  /// Returns the frame of the specified endpoint.
-  fileprivate func frame(for endpoint: Endpoint) -> CGRect {
-    let padding = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-    let rect = self.view.safeAreaLayoutGuide.layoutFrame.inset(by: padding)
-    let size = CGSize(width: 100, height: 100)
-
-    let midX = (rect.maxX / 2) - (size.width / 2)
-    let maxY = (rect.maxY) - (size.height / 2)
-
-    switch endpoint {
-    case .topLeft: return CGRect(x: rect.minX, y: rect.minY, width: size.width, height: size.height).standardized
-    case .topMid: return CGRect(x: midX, y: rect.minY, width: size.width, height: size.height).standardized
-    case .topRight: return CGRect(x: rect.maxX, y: rect.minY, width: -size.width, height: size.height).standardized
-
-    case .left: return CGRect(x: rect.minX, y: rect.center.y - size.height / 2, width: size.width, height: size.height).standardized
-    case .mid: return CGRect(x: midX, y: rect.center.y - size.height / 2, width: size.width, height: size.height).standardized
-    case .right: return CGRect(x: rect.maxX, y: rect.center.y - size.height / 2, width: -size.width, height: size.height).standardized
-
-    case .bottomLeft: return CGRect(x: rect.minX, y: maxY, width: size.width, height: -size.height).standardized
-    case .bottomMid: return CGRect(x: midX, y: maxY, width: size.width, height: -size.height).standardized
-    case .bottomRight: return CGRect(x: rect.maxX, y: maxY, width: -size.width, height: -size.height).standardized
-    }
-  }
-
   /// Initiates a new interactive transition that will be driven by the
   /// specified pan gesture recognizer. If an animation is currently in
   /// progress, it is cancelled on the spot.
@@ -296,6 +255,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     case .interaction: return
     case .animating(to: _, using: let animator):
       animator.stopAnimation(true)
+    case .initial: break
     }
 
     let startPoint = self.paintBall.center
@@ -326,7 +286,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     let velocity = CGVector(to: gesture.velocity(in: self.view))
     let currentCenter = self.paintBall.center
     let endpoint = self.intendedEndpoint(with: velocity, from: currentCenter)
-    let targetCenter = self.frame(for: endpoint).center
+    let targetCenter = endpoint.frame.center // TODO: Make sure this is in the global space and not in the UIStack...
 
     let parameters = self.boardConfig.spring.timingFunction(withInitialVelocity: velocity, from: &self.paintBall.center, to: targetCenter, context: self)
     let animator = UIViewPropertyAnimator(duration: 0, timingParameters: parameters)
@@ -346,7 +306,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
   /// Calculates the endpoint to which the PIP view should move from the
   /// specified current position with the specified velocity.
-  private func intendedEndpoint(with velocity: CGVector, from currentPosition: CGPoint) -> Endpoint {
+  private func intendedEndpoint(with velocity: CGVector, from currentPosition: CGPoint) -> EndpointIndicatorView {
     var velocity = velocity
 
     // Reduce movement along the secondary axis of the gesture.
@@ -358,14 +318,24 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     }
 
     let projectedPosition = UIGestureRecognizer.project(velocity, onto: currentPosition)
+
     let endpoint = self.endpoint(closestTo: projectedPosition)
 
     return endpoint
   }
 
   /// Returns the endpoint closest to the specified point.
-  private func endpoint(closestTo point: CGPoint) -> Endpoint {
-    return Endpoint.allCases.min(by: { point.distance(to: self.frame(for: $0).center) })!
+  private func endpoint(closestTo point: CGPoint) -> EndpointIndicatorView {
+    func convertToContainerSpace(pocket: EndpointIndicatorView) -> CGPoint {
+      pocket.convert(pocket.bounds.center, to: view)
+    }
+    for pocket in pockets {
+      print(convertToContainerSpace(pocket: pocket))
+    }
+
+    let closest = pockets.min(by: { pocket in point.distance(to: convertToContainerSpace(pocket: pocket)) })!
+    print(closest)
+    return closest
   }
 
   override var prefersHomeIndicatorAutoHidden: Bool {
