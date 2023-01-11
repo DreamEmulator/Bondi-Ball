@@ -36,6 +36,8 @@ internal final class EndpointIndicatorView: UIView {
     fatalError()
   }
 
+  var name: Int?
+
   override public func draw(_ rect: CGRect) {
     let radius = 100 as CGFloat
     let thickness = 4 as CGFloat

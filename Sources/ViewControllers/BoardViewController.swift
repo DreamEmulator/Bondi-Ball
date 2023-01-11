@@ -90,18 +90,16 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     self.navigationItem.setHidesBackButton(true, animated: true)
     self.view.backgroundColor = .systemBackground
 
-    // MARK: - Build up grid
-
-    self.setupGrid(config: self.boardConfig)
-
-    self.view.addSubview(self.paintBall)
     self.view.addSubview(self.springConfigurationButton)
 
-    DispatchQueue.main.asyncAfter(deadline: .now() + 2) { self.setupParticles() }
+    self.setupButton()
+    self.setupGrid(config: self.boardConfig)
+
+    orderViews()
 
     self.configureGestureRecognizers()
-
-    // MARK: - Sort z-indexes
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2) { self.setupParticles() }
+    self.view.addSubview(self.paintBall)
   }
 
   override public func viewDidLayoutSubviews() {
@@ -116,10 +114,6 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     case .initial:
       break
     }
-
-    self.setupButton()
-
-    orderViews()
   }
 
   // MARK: - Gesture Management
@@ -183,7 +177,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     ])
 
     let pocketSize = CGFloat(Float(view.frame.width) / Float(self.boardConfig.columns) - 16)
-    for _ in 1 ... config.rows {
+    for i in 1 ... config.rows {
       let rowStack = UIStackView()
       rowStack.translatesAutoresizingMaskIntoConstraints = false
       rowStack.axis = .horizontal
@@ -192,7 +186,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
       rowStack.spacing = 12
       self.containerStack.addArrangedSubview(rowStack)
 
-      for pocket in 1 ... config.columns {
+      for j in 1 ... config.columns {
         let column = EndpointIndicatorView()
         column.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -200,9 +194,9 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
           column.heightAnchor.constraint(equalToConstant: pocketSize)
         ])
         rowStack.addArrangedSubview(column)
-//        column.backgroundColor = .systemMint
         pockets.append(column)
-        if pocket == config.columns { state = .idle(at: pockets.last!) }
+        column.name = i * j // TODO: remove
+        if i == config.columns { state = .idle(at: pockets.last!) }
       }
     }
   }
@@ -246,6 +240,11 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
   // MARK: - Interaction Management
 
+  /// Get the position of the pocket in the view coordinatespace
+  func convertToContainerSpace(pocket: EndpointIndicatorView) -> CGPoint {
+    pocket.convert(pocket.bounds.center, to: view)
+  }
+
   /// Initiates a new interactive transition that will be driven by the
   /// specified pan gesture recognizer. If an animation is currently in
   /// progress, it is cancelled on the spot.
@@ -255,7 +254,8 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     case .interaction: return
     case .animating(to: _, using: let animator):
       animator.stopAnimation(true)
-    case .initial: break
+    case .initial:
+      break
     }
 
     let startPoint = self.paintBall.center
@@ -274,7 +274,6 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     var center = startPoint + CGVector(to: translation)
     center.x = round(center.x * scale) / scale
     center.y = round(center.y * scale) / scale
-
     self.paintBall.center = center
   }
 
@@ -286,8 +285,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     let velocity = CGVector(to: gesture.velocity(in: self.view))
     let currentCenter = self.paintBall.center
     let endpoint = self.intendedEndpoint(with: velocity, from: currentCenter)
-    let targetCenter = endpoint.frame.center // TODO: Make sure this is in the global space and not in the UIStack...
-
+    let targetCenter = convertToContainerSpace(pocket: endpoint) // TODO: Make sure this is in the global space and not in the UIStack...
     let parameters = self.boardConfig.spring.timingFunction(withInitialVelocity: velocity, from: &self.paintBall.center, to: targetCenter, context: self)
     let animator = UIViewPropertyAnimator(duration: 0, timingParameters: parameters)
 
@@ -326,15 +324,10 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
   /// Returns the endpoint closest to the specified point.
   private func endpoint(closestTo point: CGPoint) -> EndpointIndicatorView {
-    func convertToContainerSpace(pocket: EndpointIndicatorView) -> CGPoint {
-      pocket.convert(pocket.bounds.center, to: view)
-    }
-    for pocket in pockets {
-      print(convertToContainerSpace(pocket: pocket))
-    }
-
-    let closest = pockets.min(by: { pocket in point.distance(to: convertToContainerSpace(pocket: pocket)) })!
-    print(closest)
+    let closest = pockets.min(by: { pocket in
+      let distance = point.distance(to: convertToContainerSpace(pocket: pocket))
+      return distance
+    })!
     return closest
   }
 
@@ -354,6 +347,7 @@ extension BoardViewController {
   private func initialize() {
     self.skView.isUserInteractionEnabled = false
     self.skView.scene?.view?.isUserInteractionEnabled = false
+    magicParticles?.position = skView.center
 
     view.backgroundColor = .clear
     view.addSubview(self.skView)
@@ -380,7 +374,7 @@ extension BoardViewController {
 
   private func setupScene() {
     let scene = MagicParticlesScene(size: view.frame.size)
-    scene.scaleMode = .aspectFill
+    scene.scaleMode = .fill
     scene.backgroundColor = .clear
     self.skView.presentScene(scene)
   }
