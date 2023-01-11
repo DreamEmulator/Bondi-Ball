@@ -168,14 +168,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
     view.addSubview(self.containerStack)
 
-    NSLayoutConstraint.activate([
-      self.containerStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      self.containerStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-      self.containerStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      self.containerStack.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-    ])
-
-    let pocketSize = CGFloat(Float(view.frame.width) / Float(self.boardConfig.columns) - 16)
+    let pocketSize = CGFloat(Float(min(view.frame.width, view.frame.height)) / Float(min(boardConfig.columns, boardConfig.rows)) - 16)
     for i in 1 ... config.rows {
       let rowStack = UIStackView()
       rowStack.translatesAutoresizingMaskIntoConstraints = false
