@@ -95,8 +95,6 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     self.setupButton()
     self.setupGrid(config: self.boardConfig)
 
-    orderViews()
-
     self.configureGestureRecognizers()
     DispatchQueue.main.asyncAfter(deadline: .now() + 2) { self.setupParticles() }
     self.view.addSubview(self.paintBall)
@@ -114,6 +112,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     case .initial:
       break
     }
+    orderViews()
   }
 
   // MARK: - Gesture Management
@@ -226,6 +225,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   func orderViews() {
     view.sendSubviewToBack(skView)
     view.sendSubviewToBack(containerStack)
+    view.bringSubviewToFront(paintBall)
   }
 
   // Handlers
