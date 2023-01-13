@@ -24,7 +24,7 @@
 
 import UIKit
 
-internal final class PaintBallView: UIView {
+internal final class BondiBallView: UIView {
   override public init(frame: CGRect) {
     super.init(frame: frame)
     self.isOpaque = false

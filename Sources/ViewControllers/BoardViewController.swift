@@ -40,7 +40,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
   // MARK: - Vars
 
-  private let paintBall: PaintBallView = .init()
+  private let paintBall: BondiBallView = .init()
   private var pockets: [EndpointIndicatorView] = .init()
   private let panGestureRecognizer: UIPanGestureRecognizer = PanGestureRecognizer()
   private var song: AVAudioPlayer?
@@ -48,9 +48,10 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   private let magicParticles = SKEmitterNode(fileNamed: "MagicParticles")
   private var containerStack = UIStackView()
   private let springConfigurationButton: UIButton = .init(style: .alpha)
-  private var viewSize: CGSize? {
+  private var viewSize: CGSize = .init() {
     didSet {
       self.setupGrid(config: self.boardConfig)
+      self.setupParticles(frame: CGRect(x: 0, y: 0, width: self.viewSize.width, height: self.viewSize.height))
     }
   }
 
@@ -103,10 +104,6 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 
 extension BoardViewController {
   private func setupGrid(config: BoardConfig) {
-    guard let viewSize else {
-      print("We need a view size for this game 😃")
-      return
-    }
     // Reset
     pockets = .init()
     self.containerStack.removeFromSuperview()
@@ -122,10 +119,10 @@ extension BoardViewController {
     view.addSubview(self.containerStack)
 
     NSLayoutConstraint.activate([
-      containerStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      containerStack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      containerStack.topAnchor.constraint(equalTo: view.topAnchor),
-      containerStack.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+      containerStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      containerStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      containerStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      containerStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
     ])
 
     // Setup
@@ -154,9 +151,7 @@ extension BoardViewController {
       }
     }
 
-    // Add cool stuff
-    setupParticles()
-    view.addSubview(self.paintBall)
+    view.addSubview(paintBall)
   }
 
   fileprivate func setupButton() {
@@ -199,7 +194,7 @@ extension BoardViewController {
 
     setupButton()
     setupGrid(config: self.boardConfig)
-
+    setupParticles(frame: view.frame)
     configureGestureRecognizers()
   }
 
@@ -219,7 +214,6 @@ extension BoardViewController {
   }
 
   override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-    print("Height: \(size.height), Width: \(size.width)")
     viewSize = size
   }
 }
@@ -360,25 +354,22 @@ extension BoardViewController {
 // MARK: - Particle effects
 
 extension BoardViewController {
-  func setupParticles() {
+  private func setupParticles(frame: CGRect) {
     skView.removeFromSuperview()
-    self.skView.translatesAutoresizingMaskIntoConstraints = false
-    self.initialize()
-  }
-
-  private func initialize() {
-    self.skView.isUserInteractionEnabled = false
-    self.skView.scene?.view?.isUserInteractionEnabled = false
+    skView = SKView(frame: frame)
+    skView.translatesAutoresizingMaskIntoConstraints = false
+    skView.isUserInteractionEnabled = false
+    skView.scene?.view?.isUserInteractionEnabled = false
     magicParticles?.position = skView.center
 
     view.backgroundColor = .clear
     view.addSubview(self.skView)
 
     NSLayoutConstraint.activate([
-      self.skView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      self.skView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      self.skView.topAnchor.constraint(equalTo: view.topAnchor),
-      self.skView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+      skView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      skView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      skView.topAnchor.constraint(equalTo: view.topAnchor),
+      skView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])
 
     self.setupSceneView()
@@ -387,16 +378,16 @@ extension BoardViewController {
   }
 
   private func setupSceneView() {
-    self.skView.translatesAutoresizingMaskIntoConstraints = false
-    self.skView.scene?.backgroundColor = .clear
-    self.skView.scene?.view?.frame = view.frame
-    self.skView.backgroundColor = .clear
-    self.skView.allowsTransparency = true
+    skView.translatesAutoresizingMaskIntoConstraints = false
+    skView.scene?.backgroundColor = .clear
+    skView.scene?.view?.frame = view.frame
+    skView.backgroundColor = .clear
+    skView.allowsTransparency = true
   }
 
   private func setupScene() {
     let scene = MagicParticlesScene(size: view.frame.size)
-    scene.scaleMode = .fill
+    scene.scaleMode = .aspectFill
     scene.backgroundColor = .clear
     self.skView.presentScene(scene)
   }
