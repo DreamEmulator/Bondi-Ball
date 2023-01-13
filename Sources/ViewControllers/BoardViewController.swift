@@ -70,14 +70,14 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   enum State {
     /// Starting scenario
     case initial
-    /// The PIP view is at rest at the specified endpoint.
+    /// The Bondi ball view is at rest at the specified endpoint.
     case idle(at: EndpointIndicatorView)
 
-    /// The user is actively moving the PIP view starting from the specified
+    /// The user is actively moving the Bondi ball view starting from the specified
     /// initial position using the specified gesture recognizer.
     case interaction(with: UIPanGestureRecognizer, from: CGPoint)
 
-    /// The PIP view is being animated towards the specified endpoint with
+    /// The Bondi ball view is being animated towards the specified endpoint with
     /// the specified animator.
     case animating(to: EndpointIndicatorView, using: UIViewPropertyAnimator)
   }
@@ -283,6 +283,8 @@ extension BoardViewController {
     let startPoint = self.paintBall.center
 
     self.state = .interaction(with: gesture, from: startPoint)
+
+    fingerOnBallHaptic()
   }
 
   /// Updates the ongoing interactive transition driven by the specified pan
@@ -307,7 +309,7 @@ extension BoardViewController {
     let velocity = CGVector(to: gesture.velocity(in: self.view))
     let currentCenter = self.paintBall.center
     let endpoint = self.intendedEndpoint(with: velocity, from: currentCenter)
-    let targetCenter = self.convertToContainerSpace(pocket: endpoint) // TODO: Make sure this is in the global space and not in the UIStack...
+    let targetCenter = self.convertToContainerSpace(pocket: endpoint)
     let parameters = self.boardConfig.spring.timingFunction(withInitialVelocity: velocity, from: &self.paintBall.center, to: targetCenter, context: self)
     let animator = UIViewPropertyAnimator(duration: 0, timingParameters: parameters)
 
@@ -316,13 +318,14 @@ extension BoardViewController {
     }
 
     animator.addCompletion { _ in
-      self.simpleSuccess()
+      self.ballInPocketHaptic()
       self.state = .idle(at: endpoint)
     }
 
     self.state = .animating(to: endpoint, using: animator)
 
     animator.startAnimation()
+    releaseBallHaptic(withVelocity: velocity)
   }
 
   /// Calculates the endpoint to which the PIP view should move from the
@@ -399,8 +402,20 @@ extension BoardViewController {
 
 /// - MARK: Haptics
 extension BoardViewController {
-  func simpleSuccess() {
-    let generator = UINotificationFeedbackGenerator()
-    generator.notificationOccurred(.success)
+  func fingerOnBallHaptic() {
+    let generator = UIImpactFeedbackGenerator(style: .light)
+    generator.impactOccurred()
+  }
+
+  func releaseBallHaptic(withVelocity velocity: CGVector) {
+    if velocity.length > 1 {
+      let generator = UIImpactFeedbackGenerator(style: .medium)
+      generator.impactOccurred()
+    }
+  }
+
+  func ballInPocketHaptic() {
+    let generator = UIImpactFeedbackGenerator(style: .heavy)
+    generator.impactOccurred()
   }
 }

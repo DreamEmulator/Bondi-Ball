@@ -3,10 +3,7 @@
 //  Bondi Ball
 //
 //  Created by Sebastiaan Hols on 09/01/2023.
-//  Copyright © 2023 Christian Schnorr. All rights reserved.
 //
-
-import Foundation
 
 struct BoardConfig {
   var rows = 4
