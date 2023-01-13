@@ -150,18 +150,14 @@ extension BoardViewController {
         if i == config.columns { state = .idle(at: pockets.last!) }
       }
     }
-
-    view.addSubview(paintBall)
   }
 
   fileprivate func setupButton() {
     view.addSubview(self.springConfigurationButton)
 
     let button = self.springConfigurationButton
-    let buttonSize = min(view.frame.maxX / 6, 100)
+    let buttonSize = CGFloat(Float(min(viewSize.width, viewSize.height)) / Float(max(boardConfig.columns, boardConfig.rows)) - 42)
     NSLayoutConstraint.activate([
-      button.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-      button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
       button.widthAnchor.constraint(equalToConstant: buttonSize),
       button.heightAnchor.constraint(equalToConstant: buttonSize)
     ])
@@ -210,6 +206,13 @@ extension BoardViewController {
     case .initial:
       break
     }
+
+    let startingPocketIndex = boardConfig.rows * boardConfig.columns - Int(round(Double(boardConfig.columns / 2))) - 1
+    let startingPocket = convertToContainerSpace(pocket: pockets[startingPocketIndex])
+    paintBall.center = convertToContainerSpace(pocket: pockets[startingPocketIndex])
+    springConfigurationButton.center = startingPocket
+
+    view.addSubview(paintBall)
     arrangeViews()
   }
 
@@ -259,7 +262,7 @@ extension BoardViewController {
 // MARK: - Interaction Management
 
 extension BoardViewController {
-  /// Get the position of the pocket in the view coordinatespace
+  /// Get the center position of the pocket in the view coordinatespace
   func convertToContainerSpace(pocket: EndpointIndicatorView) -> CGPoint {
     pocket.convert(pocket.bounds.center, to: view)
   }
