@@ -316,6 +316,7 @@ extension BoardViewController {
     }
 
     animator.addCompletion { _ in
+      self.simpleSuccess()
       self.state = .idle(at: endpoint)
     }
 
@@ -393,5 +394,13 @@ extension BoardViewController {
     scene.scaleMode = .aspectFill
     scene.backgroundColor = .clear
     self.skView.presentScene(scene)
+  }
+}
+
+/// - MARK: Haptics
+extension BoardViewController {
+  func simpleSuccess() {
+    let generator = UINotificationFeedbackGenerator()
+    generator.notificationOccurred(.success)
   }
 }
