@@ -151,6 +151,7 @@
 				AA4CE8D02961A48900AD289F /* DampedHarmonicSpring.swift */,
 				AA4CE8D22961A48900AD289F /* UIGestureRecognizer+Projection.swift */,
 				AA4CE8C72961A41C00AD289F /* PanGestureRecognizer.swift */,
+				AA4CE8C32961A41C00AD289F /* Extensions */,
 				AA00761F2969F93F00380FFF /* Aliases.swift */,
 				AA007637296BECD500380FFF /* BoardConfig.swift */,
 			);
@@ -180,7 +181,6 @@
 				CB0556A520D05B8A00095934 /* AppDelegate.swift */,
 				AA0076212969F9D300380FFF /* Animations */,
 				AA4CE8C62961A41C00AD289F /* Domain */,
-				AA4CE8C32961A41C00AD289F /* Extensions */,
 				AA00761C2969F12500380FFF /* Navigation */,
 				AA4CE8C42961A41C00AD289F /* ViewControllers */,
 				AA4CE8C02961A41C00AD289F /* Views */,

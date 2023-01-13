@@ -9,10 +9,6 @@
 import UIKit
 
 class RootNavigationController: UINavigationController, UINavigationControllerDelegate {
-  // MARK: - Interactions
-
-  private var interactionController: UIPercentDrivenInteractiveTransition?
-  private var edgeSwipeGestureRecognizer: UIScreenEdgePanGestureRecognizer?
 
   // MARK: - Visuals
 
@@ -29,7 +25,7 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
   }
 
   private func hold(_ completion: AnonymousClosure) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
       navigate()
     }
   }
@@ -44,13 +40,5 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
 extension RootNavigationController {
   private func setupUI() {
     navigationBar.tintColor = .systemTeal
-  }
-}
-
-// MARK: - Gestures
-
-extension RootNavigationController {
-  func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-    return interactionController
   }
 }

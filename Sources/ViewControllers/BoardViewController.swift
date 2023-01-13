@@ -106,17 +106,18 @@ extension BoardViewController {
   private func setupGrid(config: BoardConfig) {
     // Reset
     pockets = .init()
-    self.containerStack.removeFromSuperview()
-    self.containerStack = UIStackView()
+    containerStack.removeFromSuperview()
+    containerStack = UIStackView()
+    containerStack.frame.inset(by: UIEdgeInsets(top: 42, left: 42, bottom: 42, right: 42))
 
     // Prepare
-    self.containerStack.translatesAutoresizingMaskIntoConstraints = false
-    self.containerStack.axis = .vertical
-    self.containerStack.spacing = 12
-    self.containerStack.distribution = .equalSpacing
-    self.containerStack.contentMode = .center
+    containerStack.translatesAutoresizingMaskIntoConstraints = false
+    containerStack.axis = .vertical
+    containerStack.spacing = 12
+    containerStack.distribution = .equalSpacing
+    containerStack.contentMode = .center
 
-    view.addSubview(self.containerStack)
+    view.addSubview(containerStack)
 
     NSLayoutConstraint.activate([
       containerStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -132,7 +133,7 @@ extension BoardViewController {
       let rowStack = UIStackView()
       rowStack.translatesAutoresizingMaskIntoConstraints = false
       rowStack.axis = .horizontal
-      rowStack.distribution = .equalSpacing
+      rowStack.distribution = .equalCentering
       rowStack.alignment = .center
       rowStack.spacing = 12
       self.containerStack.addArrangedSubview(rowStack)
@@ -156,7 +157,7 @@ extension BoardViewController {
     view.addSubview(self.springConfigurationButton)
 
     let button = self.springConfigurationButton
-    let buttonSize = CGFloat(Float(min(viewSize.width, viewSize.height)) / Float(max(boardConfig.columns, boardConfig.rows)) - 42)
+    let buttonSize = min(CGFloat(Float(min(viewSize.width, viewSize.height)) / Float(max(boardConfig.columns, boardConfig.rows)) - 42), 100)
     NSLayoutConstraint.activate([
       button.widthAnchor.constraint(equalToConstant: buttonSize),
       button.heightAnchor.constraint(equalToConstant: buttonSize)
@@ -380,7 +381,9 @@ extension BoardViewController {
     ])
 
     self.setupSceneView()
-    self.setupScene()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+      self.setupScene()
+    }
     // playSong()
   }
 

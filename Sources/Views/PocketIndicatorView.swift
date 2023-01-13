@@ -48,7 +48,15 @@ internal final class EndpointIndicatorView: UIView {
     let context = UIGraphicsGetCurrentContext()!
     context.beginPath()
     context.addPath(path.cgPath)
-    context.setStrokeColor(UIColor.white.withAlphaComponent(0.15).cgColor)
+
+    if traitCollection.userInterfaceStyle == .dark {
+      context.setStrokeColor(UIColor.white.withAlphaComponent(0.15).cgColor)
+    }
+
+    if traitCollection.userInterfaceStyle == .light {
+      context.setStrokeColor(UIColor.blue.withAlphaComponent(0.15).cgColor)
+    }
+
     context.setLineDash(phase: 0, lengths: [7])
     context.setLineWidth(thickness)
     context.strokePath()
