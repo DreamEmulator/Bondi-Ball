@@ -24,10 +24,14 @@
 
 import UIKit
 
-internal final class PaintBallView: UIView {
+internal final class BondiBallView: UIView {
   override public init(frame: CGRect) {
     super.init(frame: frame)
-    self.setup()
+    self.isOpaque = false
+    self.layer.shadowColor = UIColor.black.cgColor
+    self.layer.shadowOpacity = 1
+    self.layer.shadowRadius = 5
+    self.layer.shadowOffset = .zero
   }
 
   @available(*, unavailable)
@@ -35,21 +39,9 @@ internal final class PaintBallView: UIView {
     fatalError()
   }
 
-  func setup(){
-    self.isOpaque = false
-    self.layer.shadowColor = UIColor.label.cgColor
-    self.layer.shadowOpacity = 0.25
-    self.layer.shadowRadius = 3
-    self.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
-  }
-
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    setup()
-  }
-
   override public func draw(_ rect: CGRect) {
-    let topColor = UIColor(red: 0.95, green: 0.93, blue: 0.16, alpha: 1.0)
-    let bottomColor = UIColor(red: 0.97, green: 0.67, blue: 0.16, alpha: 1.0)
+    let topColor = UIColor(red: 1, green: 0, blue: 1, alpha: 1.0)
+    let bottomColor = UIColor(red: 1, green: 1, blue: 0, alpha: 1.0)
     let colors = [topColor.cgColor, bottomColor.cgColor] as CFArray
     let gradient = CGGradient(colorsSpace: nil, colors: colors, locations: nil)!
 

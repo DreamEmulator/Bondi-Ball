@@ -9,22 +9,36 @@
 import UIKit
 
 class RootNavigationController: UINavigationController, UINavigationControllerDelegate {
+
+  // MARK: - Visuals
+
   private let splashScreen: SplashViewController = .init()
   private let boardScreen: BoardViewController = .init()
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
     delegate = self
+
+    setupUI()
     hold { navigate() }
   }
 
   private func hold(_ completion: AnonymousClosure) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
       navigate()
     }
   }
 
   private func navigate() {
     pushViewController(boardScreen, animated: true)
+  }
+}
+
+// MARK: - UI
+
+extension RootNavigationController {
+  private func setupUI() {
+    navigationBar.tintColor = .systemTeal
   }
 }

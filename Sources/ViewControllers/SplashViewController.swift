@@ -8,15 +8,18 @@
 
 import UIKit
 
-class SplashViewController: UIViewController {
+class SplashViewController: UIViewController, UINavigationControllerDelegate {
+  private var interactionController: UIPercentDrivenInteractiveTransition?
+  var imageView = UIImageView()
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
   }
 
-  func setupUI() {
+  private func setupUI() {
     // Background
-    view.backgroundColor = .white
+    view.backgroundColor = .systemBackground
 
     // V-Stack
     let vStack = UIStackView()
@@ -24,9 +27,8 @@ class SplashViewController: UIViewController {
     vStack.axis = .vertical
 
     // Image
-    // Install R.swift
+    // TODO: Install R.swift
     let image = UIImage(named: "BondiBallElipse")
-    let imageView = UIImageView()
     imageView.translatesAutoresizingMaskIntoConstraints = false
     imageView.image = image
 
@@ -47,5 +49,15 @@ class SplashViewController: UIViewController {
       imageView.widthAnchor.constraint(equalToConstant: 256),
       imageView.heightAnchor.constraint(equalToConstant: 256),
     ])
+  }
+
+  override var prefersHomeIndicatorAutoHidden: Bool {
+    true
+  }
+}
+
+extension SplashViewController {
+  func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    return interactionController
   }
 }

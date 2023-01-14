@@ -9,7 +9,6 @@
 import UIKit
 
 // MARK: - Animation
-
 /// https://medium.com/@ludvigeriksson/custom-interactive-uinavigationcontroller-transition-animations-in-swift-4-a4b5e0cefb1e
 
 // The object needs to inherit from NSObject since UIViewControllerAnimatedTransitioning inherits from NSObjectProtocol.
