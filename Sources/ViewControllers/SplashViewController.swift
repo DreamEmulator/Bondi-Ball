@@ -27,7 +27,6 @@ class SplashViewController: UIViewController, UINavigationControllerDelegate {
     vStack.axis = .vertical
 
     // Image
-    // TODO: Install R.swift
     let image = UIImage(named: "BondiBallElipse")
     imageView.translatesAutoresizingMaskIntoConstraints = false
     imageView.image = image
