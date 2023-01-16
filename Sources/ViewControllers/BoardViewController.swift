@@ -55,7 +55,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
     }
   }
 
-  var boardConfig = BoardConfig() { didSet {
+  var boardConfig = Board() { didSet {
     self.setupGrid(config: self.boardConfig)
   }}
 
@@ -103,7 +103,7 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
 // MARK: - Setup
 
 extension BoardViewController {
-  private func setupGrid(config: BoardConfig) {
+  private func setupGrid(config: Board) {
     // Reset
     pockets = .init()
     containerStack.removeFromSuperview()

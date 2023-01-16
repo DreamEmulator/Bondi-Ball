@@ -8,11 +8,11 @@
 
 import UIKit
 
-typealias SetConfig = (_ config: BoardConfig) -> Void
+typealias SetConfig = (_ config: Board) -> Void
 
 class SetupController: UIViewController {
   private var setConfig: SetConfig
-  var config: BoardConfig?
+  var config: Board?
 
   @IBOutlet var dampingRatioSlider: UISlider!
   @IBOutlet var frequencyResponseSlider: UISlider!
@@ -46,12 +46,12 @@ class SetupController: UIViewController {
 
   // MARK: - Setup
 
-  func setupSliderValues(config: BoardConfig) {
+  func setupSliderValues(config: Board) {
     dampingRatioSlider.setValue(Float(config.spring.dampingRatio), animated: true)
     frequencyResponseSlider.setValue(Float(config.spring.frequencyResponse), animated: true)
   }
 
-  func setupGridValues(config: BoardConfig) {
+  func setupGridValues(config: Board) {
     rowStepper.value = Double(config.rows)
     rowsLabel.text = String(config.rows)
     columnStepper.value = Double(config.columns)
@@ -61,7 +61,7 @@ class SetupController: UIViewController {
   // MARK: - Handlers
 
   func handleChanges() {
-    let newConfig = BoardConfig(rows: Int(rowStepper.value), columns: Int(columnStepper.value), spring: DampedHarmonicSpring(dampingRatio: CGFloat(dampingRatioSlider.value), frequencyResponse: CGFloat(frequencyResponseSlider.value)))
+    let newConfig = Board(rows: Int(rowStepper.value), columns: Int(columnStepper.value), spring: DampedHarmonicSpring(dampingRatio: CGFloat(dampingRatioSlider.value), frequencyResponse: CGFloat(frequencyResponseSlider.value)))
 
     rowsLabel.text = String(newConfig.rows)
     columnsLabel.text = String(newConfig.columns)

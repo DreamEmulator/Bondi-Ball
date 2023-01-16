@@ -17,7 +17,9 @@
 		AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00762F296AD3D800380FFF /* MagicParticlesScene.swift */; };
 		AA007635296B01EA00380FFF /* MagicParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA007633296B01EA00380FFF /* MagicParticles.sks */; };
 		AA007636296B01EA00380FFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA007634296B01EA00380FFF /* Assets.xcassets */; };
-		AA007638296BECD500380FFF /* BoardConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA007637296BECD500380FFF /* BoardConfig.swift */; };
+		AA007638296BECD500380FFF /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA007637296BECD500380FFF /* Board.swift */; };
+		AA1E7C022975310F0082FB53 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E7C012975310F0082FB53 /* Level.swift */; };
+		AA1E7C05297538F20082FB53 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E7C04297538F20082FB53 /* Protocols.swift */; };
 		AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */; };
 		AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */ = {isa = PBXBuildFile; fileRef = AA43E4142961A0CB001EF225 /* Philoshophy.md */; };
 		AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */; };
@@ -25,11 +27,11 @@
 		AA4CE8CA2961A41C00AD289F /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8C52961A41C00AD289F /* BoardViewController.swift */; };
 		AA4CE8CB2961A41C00AD289F /* PanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8C72961A41C00AD289F /* PanGestureRecognizer.swift */; };
 		AA4CE8CD2961A42A00AD289F /* Original ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = AA4CE8CC2961A42A00AD289F /* Original ReadMe.md */; };
-		AA4CE8D32961A48900AD289F /* CGVector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8CE2961A48900AD289F /* CGVector.swift */; };
-		AA4CE8D42961A48900AD289F /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8CF2961A48900AD289F /* CGRect.swift */; };
+		AA4CE8D32961A48900AD289F /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8CE2961A48900AD289F /* CGVector+Extensions.swift */; };
+		AA4CE8D42961A48900AD289F /* CGRect+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8CF2961A48900AD289F /* CGRect+Extensions.swift */; };
 		AA4CE8D52961A48900AD289F /* DampedHarmonicSpring.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D02961A48900AD289F /* DampedHarmonicSpring.swift */; };
-		AA4CE8D62961A48900AD289F /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D12961A48900AD289F /* CGPoint.swift */; };
-		AA4CE8D72961A48900AD289F /* UIGestureRecognizer+Projection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D22961A48900AD289F /* UIGestureRecognizer+Projection.swift */; };
+		AA4CE8D62961A48900AD289F /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D12961A48900AD289F /* CGPoint+Extensions.swift */; };
+		AA4CE8D72961A48900AD289F /* UIGestureRecognizer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D22961A48900AD289F /* UIGestureRecognizer+Extensions.swift */; };
 		AA4CE8D92961A69A00AD289F /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D82961A69A00AD289F /* Sequence+Extensions.swift */; };
 		AA4CE8E02961C6AB00AD289F /* SetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8DE2961C6AB00AD289F /* SetupController.swift */; };
 		AA4CE8E12961C6AB00AD289F /* SetupController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4CE8DF2961C6AB00AD289F /* SetupController.xib */; };
@@ -49,7 +51,9 @@
 		AA00762F296AD3D800380FFF /* MagicParticlesScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicParticlesScene.swift; sourceTree = "<group>"; };
 		AA007633296B01EA00380FFF /* MagicParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MagicParticles.sks; sourceTree = "<group>"; };
 		AA007634296B01EA00380FFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AA007637296BECD500380FFF /* BoardConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardConfig.swift; sourceTree = "<group>"; };
+		AA007637296BECD500380FFF /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		AA1E7C012975310F0082FB53 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		AA1E7C04297538F20082FB53 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AA43E4142961A0CB001EF225 /* Philoshophy.md */ = {isa = PBXFileReference; explicitFileType = net.daringfireball.markdown; path = Philoshophy.md; sourceTree = "<group>"; };
 		AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PocketIndicatorView.swift; sourceTree = "<group>"; };
@@ -57,11 +61,11 @@
 		AA4CE8C52961A41C00AD289F /* BoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
 		AA4CE8C72961A41C00AD289F /* PanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanGestureRecognizer.swift; sourceTree = "<group>"; };
 		AA4CE8CC2961A42A00AD289F /* Original ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Original ReadMe.md"; sourceTree = "<group>"; };
-		AA4CE8CE2961A48900AD289F /* CGVector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGVector.swift; sourceTree = "<group>"; };
-		AA4CE8CF2961A48900AD289F /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
+		AA4CE8CE2961A48900AD289F /* CGVector+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGVector+Extensions.swift"; sourceTree = "<group>"; };
+		AA4CE8CF2961A48900AD289F /* CGRect+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Extensions.swift"; sourceTree = "<group>"; };
 		AA4CE8D02961A48900AD289F /* DampedHarmonicSpring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DampedHarmonicSpring.swift; sourceTree = "<group>"; };
-		AA4CE8D12961A48900AD289F /* CGPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
-		AA4CE8D22961A48900AD289F /* UIGestureRecognizer+Projection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Projection.swift"; sourceTree = "<group>"; };
+		AA4CE8D12961A48900AD289F /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
+		AA4CE8D22961A48900AD289F /* UIGestureRecognizer+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extensions.swift"; sourceTree = "<group>"; };
 		AA4CE8D82961A69A00AD289F /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
 		AA4CE8DE2961C6AB00AD289F /* SetupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupController.swift; sourceTree = "<group>"; };
 		AA4CE8DF2961C6AB00AD289F /* SetupController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetupController.xib; sourceTree = "<group>"; };
@@ -123,8 +127,12 @@
 		AA4CE8C32961A41C00AD289F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */,
+				AA4CE8D12961A48900AD289F /* CGPoint+Extensions.swift */,
+				AA4CE8CF2961A48900AD289F /* CGRect+Extensions.swift */,
+				AA4CE8CE2961A48900AD289F /* CGVector+Extensions.swift */,
 				AA4CE8D82961A69A00AD289F /* Sequence+Extensions.swift */,
+				AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */,
+				AA4CE8D22961A48900AD289F /* UIGestureRecognizer+Extensions.swift */,
 				AA0076162968C16900380FFF /* UIView+Extensions.swift */,
 				AA0076242969FAE600380FFF /* UINavigationController+Extensions.swift */,
 			);
@@ -145,15 +153,13 @@
 		AA4CE8C62961A41C00AD289F /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				AA4CE8D12961A48900AD289F /* CGPoint.swift */,
-				AA4CE8CF2961A48900AD289F /* CGRect.swift */,
-				AA4CE8CE2961A48900AD289F /* CGVector.swift */,
-				AA4CE8D02961A48900AD289F /* DampedHarmonicSpring.swift */,
-				AA4CE8D22961A48900AD289F /* UIGestureRecognizer+Projection.swift */,
-				AA4CE8C72961A41C00AD289F /* PanGestureRecognizer.swift */,
-				AA4CE8C32961A41C00AD289F /* Extensions */,
 				AA00761F2969F93F00380FFF /* Aliases.swift */,
-				AA007637296BECD500380FFF /* BoardConfig.swift */,
+				AA007637296BECD500380FFF /* Board.swift */,
+				AA4CE8D02961A48900AD289F /* DampedHarmonicSpring.swift */,
+				AA4CE8C32961A41C00AD289F /* Extensions */,
+				AA1E7C012975310F0082FB53 /* Level.swift */,
+				AA4CE8C72961A41C00AD289F /* PanGestureRecognizer.swift */,
+				AA1E7C04297538F20082FB53 /* Protocols.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -228,7 +234,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1140;
-				ORGANIZATIONNAME = "Christian Schnorr";
+				ORGANIZATIONNAME = "Dream Emulator";
 				TargetAttributes = {
 					CB0556A120D05B8A00095934 = {
 						CreatedOnToolsVersion = 10.0;
@@ -278,26 +284,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA0076172968C16900380FFF /* UIView+Extensions.swift in Sources */,
+				AA1E7C05297538F20082FB53 /* Protocols.swift in Sources */,
 				AA4CE8D92961A69A00AD289F /* Sequence+Extensions.swift in Sources */,
 				AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */,
 				AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */,
 				AA0076252969FAE600380FFF /* UINavigationController+Extensions.swift in Sources */,
 				AA4CE8CB2961A41C00AD289F /* PanGestureRecognizer.swift in Sources */,
-				AA4CE8D32961A48900AD289F /* CGVector.swift in Sources */,
-				AA007638296BECD500380FFF /* BoardConfig.swift in Sources */,
+				AA4CE8D32961A48900AD289F /* CGVector+Extensions.swift in Sources */,
+				AA007638296BECD500380FFF /* Board.swift in Sources */,
 				AA4CE8D52961A48900AD289F /* DampedHarmonicSpring.swift in Sources */,
 				CB0556A620D05B8A00095934 /* AppDelegate.swift in Sources */,
 				AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */,
 				AA4CE8C92961A41C00AD289F /* BondiBallView.swift in Sources */,
+				AA1E7C022975310F0082FB53 /* Level.swift in Sources */,
 				AA00761E2969F15F00380FFF /* RootNavigationController.swift in Sources */,
 				AA0076192968C38100380FFF /* SplashViewController.swift in Sources */,
 				AA4CE8CA2961A41C00AD289F /* BoardViewController.swift in Sources */,
-				AA4CE8D72961A48900AD289F /* UIGestureRecognizer+Projection.swift in Sources */,
+				AA4CE8D72961A48900AD289F /* UIGestureRecognizer+Extensions.swift in Sources */,
 				AA0076232969F9E200380FFF /* Animations.swift in Sources */,
 				AA0076202969F93F00380FFF /* Aliases.swift in Sources */,
 				AA4CE8E02961C6AB00AD289F /* SetupController.swift in Sources */,
-				AA4CE8D62961A48900AD289F /* CGPoint.swift in Sources */,
-				AA4CE8D42961A48900AD289F /* CGRect.swift in Sources */,
+				AA4CE8D62961A48900AD289F /* CGPoint+Extensions.swift in Sources */,
+				AA4CE8D42961A48900AD289F /* CGRect+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
