@@ -26,10 +26,16 @@ import AVFAudio
 import SpriteKit
 import UIKit
 
-internal class BoardViewController: UIViewController, UIGestureRecognizerDelegate {
+typealias GameCallback = (_ level: Level) -> Void
+
+class BoardViewController: UIViewController, UIGestureRecognizerDelegate {
   // MARK: - Lifecycle
 
-  public init() {
+  public init(level: Level, updateGame: @escaping GameCallback) {
+    self.level = level
+    self.board = level.board
+    self.updateGame = updateGame
+
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -50,14 +56,20 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   private let springConfigurationButton: UIButton = .init(style: .alpha)
   private var viewSize: CGSize = .init() {
     didSet {
-      self.setupGrid(config: self.boardConfig)
+      self.setupGrid(config: self.board)
       self.setupParticles(frame: CGRect(x: 0, y: 0, width: self.viewSize.width, height: self.viewSize.height))
     }
   }
 
-  var boardConfig = Board() { didSet {
-    self.setupGrid(config: self.boardConfig)
+  var board: Board { didSet {
+    self.setupGrid(config: self.board)
   }}
+
+  var level: Level { didSet {
+    self.board = level.board
+  }}
+
+  var updateGame: GameCallback
 
   // MARK: - Configuration
 
@@ -89,9 +101,9 @@ internal class BoardViewController: UIViewController, UIGestureRecognizerDelegat
   @objc func buttonClicked() {
     let gearController = SetupController {
       config in
-      self.boardConfig = config
+      self.board = config
     }
-    gearController.config = self.boardConfig
+    gearController.config = self.board
     present(gearController, animated: true)
   }
 
@@ -127,9 +139,9 @@ extension BoardViewController {
     ])
 
     // Setup
-    let pocketSize = CGFloat(Float(min(viewSize.width, viewSize.height)) / Float(max(boardConfig.columns, boardConfig.rows)) - 16)
+    let pocketSize = CGFloat(Float(min(viewSize.width, viewSize.height)) / Float(max(board.columns, board.rows)) - 16)
 
-    for i in 1 ... config.rows {
+    for row in 1 ... config.rows {
       let rowStack = UIStackView()
       rowStack.translatesAutoresizingMaskIntoConstraints = false
       rowStack.axis = .horizontal
@@ -138,17 +150,26 @@ extension BoardViewController {
       rowStack.spacing = 12
       self.containerStack.addArrangedSubview(rowStack)
 
-      for j in 1 ... config.columns {
-        let column = EndpointIndicatorView()
-        column.translatesAutoresizingMaskIntoConstraints = false
+      for column in 1 ... config.columns {
+        let pocket = EndpointIndicatorView()
+        pocket.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-          column.widthAnchor.constraint(equalToConstant: pocketSize),
-          column.heightAnchor.constraint(equalToConstant: pocketSize)
+          pocket.widthAnchor.constraint(equalToConstant: pocketSize),
+          pocket.heightAnchor.constraint(equalToConstant: pocketSize)
         ])
-        rowStack.addArrangedSubview(column)
-        pockets.append(column)
-        column.name = i * j // TODO: remove
-        if i == config.columns { state = .idle(at: pockets.last!) }
+        rowStack.addArrangedSubview(pocket)
+        pockets.append(pocket)
+        pocket.name = row * column // TODO: remove
+
+//        Set idle when all pockets are prepared
+        if row == config.columns { state = .idle(at: pockets.last!) }
+
+//        MARK: Highlight the goal pocket
+        print("Row \(row)")
+        print("Column \(column)")
+        if row == level.endPocket.0, column == level.startPocket.1 {
+          pocket.isGoal.toggle()
+        }
       }
     }
   }
@@ -157,7 +178,7 @@ extension BoardViewController {
     view.addSubview(self.springConfigurationButton)
 
     let button = self.springConfigurationButton
-    let buttonSize = min(CGFloat(Float(min(viewSize.width, viewSize.height)) / Float(max(boardConfig.columns, boardConfig.rows)) - 42), 100)
+    let buttonSize = min(CGFloat(Float(min(viewSize.width, viewSize.height)) / Float(max(board.columns, board.rows)) - 42), 100)
     NSLayoutConstraint.activate([
       button.widthAnchor.constraint(equalToConstant: buttonSize),
       button.heightAnchor.constraint(equalToConstant: buttonSize)
@@ -190,7 +211,7 @@ extension BoardViewController {
     viewSize = CGSize(width: view.frame.width, height: view.frame.height)
 
     setupButton()
-    setupGrid(config: self.boardConfig)
+    setupGrid(config: self.board)
     setupParticles(frame: view.frame)
     configureGestureRecognizers()
   }
@@ -208,7 +229,9 @@ extension BoardViewController {
       break
     }
 
-    let startingPocketIndex = boardConfig.rows * boardConfig.columns - Int(round(Double(boardConfig.columns / 2))) - 1
+//    let startingPocketIndex = board.rows * board.columns - Int(round(Double(board.columns / 2))) - 1
+    let startingPocketIndex = level.startPocket.0 * level.startPocket.1 - 1
+
     let startingPocket = convertToContainerSpace(pocket: pockets[startingPocketIndex])
     paintBall.center = convertToContainerSpace(pocket: pockets[startingPocketIndex])
     springConfigurationButton.center = startingPocket
@@ -311,7 +334,7 @@ extension BoardViewController {
     let currentCenter = self.paintBall.center
     let endpoint = self.intendedEndpoint(with: velocity, from: currentCenter)
     let targetCenter = self.convertToContainerSpace(pocket: endpoint)
-    let parameters = self.boardConfig.spring.timingFunction(withInitialVelocity: velocity, from: &self.paintBall.center, to: targetCenter, context: self)
+    let parameters = self.board.spring.timingFunction(withInitialVelocity: velocity, from: &self.paintBall.center, to: targetCenter, context: self)
     let animator = UIViewPropertyAnimator(duration: 0, timingParameters: parameters)
 
     animator.addAnimations {

@@ -8,16 +8,14 @@
 
 import Foundation
 
-struct Level: BoardProtocol, LevelProtocol {
+struct Level: LevelProtocol {
   var id = UUID()
-  var rows: Int
-  var columns: Int
-  var spring: DampedHarmonicSpring
+  var board: Board
   var dragCost: Int
   var wrongPocketCost: Int
   var pocketHistory: [EndpointIndicatorView]
   var startPocket: (Int, Int)
-  var endPocket: (Int,Int)
+  var endPocket: (Int,Int) // TODO: Rename to goal pocket
   var costIncurred: Int
   var points: Int
 
@@ -31,9 +29,7 @@ struct Level: BoardProtocol, LevelProtocol {
        points: Int)
   {
     self.id = UUID()
-    self.rows = board.rows
-    self.columns = board.columns
-    self.spring = board.spring
+    self.board = board
     self.dragCost = dragCost
     self.wrongPocketCost = wrongPocketCost
     self.pocketHistory = pocketHistory

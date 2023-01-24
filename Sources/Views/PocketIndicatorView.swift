@@ -38,6 +38,8 @@ internal final class EndpointIndicatorView: UIView {
 
   var name: Int?
 
+  var isGoal = false
+
   override public func draw(_ rect: CGRect) {
     let radius = 100 as CGFloat
     let thickness = 4 as CGFloat
@@ -55,6 +57,10 @@ internal final class EndpointIndicatorView: UIView {
 
     if traitCollection.userInterfaceStyle == .light {
       context.setStrokeColor(UIColor.blue.withAlphaComponent(0.15).cgColor)
+    }
+
+    if isGoal {
+      context.setStrokeColor(UIColor.green.withAlphaComponent(0.35).cgColor)
     }
 
     context.setLineDash(phase: 0, lengths: [7])
