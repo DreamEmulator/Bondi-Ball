@@ -16,19 +16,19 @@ struct Level: BoardProtocol, LevelProtocol {
   var dragCost: Int
   var wrongPocketCost: Int
   var pocketHistory: [EndpointIndicatorView]
-  var startPocket: EndpointIndicatorView
-  var endPocket: EndpointIndicatorView
+  var startPocket: (Int, Int)
+  var endPocket: (Int,Int)
+  var costIncurred: Int
   var points: Int
-  var maxPoints: Int
 
   init(board: Board,
        dragCost: Int,
        wrongPocketCost: Int,
        pocketHistory: [EndpointIndicatorView],
-       startPocket: EndpointIndicatorView,
-       endPocket: EndpointIndicatorView,
-       points: Int,
-       maxPoints: Int)
+       startPocket: (Int, Int),
+       endPocket: (Int, Int),
+       costIncurred: Int,
+       points: Int)
   {
     self.id = UUID()
     self.rows = board.rows
@@ -39,7 +39,7 @@ struct Level: BoardProtocol, LevelProtocol {
     self.pocketHistory = pocketHistory
     self.startPocket = startPocket
     self.endPocket = endPocket
+    self.costIncurred = costIncurred
     self.points = points
-    self.maxPoints = maxPoints
   }
 }

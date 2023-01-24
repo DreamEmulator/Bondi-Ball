@@ -35,6 +35,9 @@
 		AA4CE8D92961A69A00AD289F /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8D82961A69A00AD289F /* Sequence+Extensions.swift */; };
 		AA4CE8E02961C6AB00AD289F /* SetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8DE2961C6AB00AD289F /* SetupController.swift */; };
 		AA4CE8E12961C6AB00AD289F /* SetupController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4CE8DF2961C6AB00AD289F /* SetupController.xib */; };
+		AAEC69E12980675500DE89E3 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E02980675500DE89E3 /* Game.swift */; };
+		AAEC69E3298067C900DE89E3 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E2298067C900DE89E3 /* Badge.swift */; };
+		AAEC69E52980697400DE89E3 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E42980697400DE89E3 /* App.swift */; };
 		CB0556A620D05B8A00095934 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0556A520D05B8A00095934 /* AppDelegate.swift */; };
 		CB0556AD20D05B8B00095934 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB0556AC20D05B8B00095934 /* Assets.xcassets */; };
 		CB0556B020D05B8B00095934 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB0556AE20D05B8B00095934 /* LaunchScreen.storyboard */; };
@@ -69,6 +72,9 @@
 		AA4CE8D82961A69A00AD289F /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
 		AA4CE8DE2961C6AB00AD289F /* SetupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupController.swift; sourceTree = "<group>"; };
 		AA4CE8DF2961C6AB00AD289F /* SetupController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetupController.xib; sourceTree = "<group>"; };
+		AAEC69E02980675500DE89E3 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		AAEC69E2298067C900DE89E3 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		AAEC69E42980697400DE89E3 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CB0556A220D05B8A00095934 /* Bondi Ball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bondi Ball.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0556A520D05B8A00095934 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB0556AC20D05B8B00095934 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -156,10 +162,11 @@
 				AA00761F2969F93F00380FFF /* Aliases.swift */,
 				AA007637296BECD500380FFF /* Board.swift */,
 				AA4CE8D02961A48900AD289F /* DampedHarmonicSpring.swift */,
-				AA4CE8C32961A41C00AD289F /* Extensions */,
 				AA1E7C012975310F0082FB53 /* Level.swift */,
 				AA4CE8C72961A41C00AD289F /* PanGestureRecognizer.swift */,
 				AA1E7C04297538F20082FB53 /* Protocols.swift */,
+				AAEC69E02980675500DE89E3 /* Game.swift */,
+				AAEC69E2298067C900DE89E3 /* Badge.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -185,8 +192,10 @@
 			isa = PBXGroup;
 			children = (
 				CB0556A520D05B8A00095934 /* AppDelegate.swift */,
+				AAEC69E42980697400DE89E3 /* App.swift */,
 				AA0076212969F9D300380FFF /* Animations */,
 				AA4CE8C62961A41C00AD289F /* Domain */,
+				AA4CE8C32961A41C00AD289F /* Extensions */,
 				AA00761C2969F12500380FFF /* Navigation */,
 				AA4CE8C42961A41C00AD289F /* ViewControllers */,
 				AA4CE8C02961A41C00AD289F /* Views */,
@@ -290,11 +299,13 @@
 				AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */,
 				AA0076252969FAE600380FFF /* UINavigationController+Extensions.swift in Sources */,
 				AA4CE8CB2961A41C00AD289F /* PanGestureRecognizer.swift in Sources */,
+				AAEC69E12980675500DE89E3 /* Game.swift in Sources */,
 				AA4CE8D32961A48900AD289F /* CGVector+Extensions.swift in Sources */,
 				AA007638296BECD500380FFF /* Board.swift in Sources */,
 				AA4CE8D52961A48900AD289F /* DampedHarmonicSpring.swift in Sources */,
 				CB0556A620D05B8A00095934 /* AppDelegate.swift in Sources */,
 				AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */,
+				AAEC69E52980697400DE89E3 /* App.swift in Sources */,
 				AA4CE8C92961A41C00AD289F /* BondiBallView.swift in Sources */,
 				AA1E7C022975310F0082FB53 /* Level.swift in Sources */,
 				AA00761E2969F15F00380FFF /* RootNavigationController.swift in Sources */,
@@ -303,6 +314,7 @@
 				AA4CE8D72961A48900AD289F /* UIGestureRecognizer+Extensions.swift in Sources */,
 				AA0076232969F9E200380FFF /* Animations.swift in Sources */,
 				AA0076202969F93F00380FFF /* Aliases.swift in Sources */,
+				AAEC69E3298067C900DE89E3 /* Badge.swift in Sources */,
 				AA4CE8E02961C6AB00AD289F /* SetupController.swift in Sources */,
 				AA4CE8D62961A48900AD289F /* CGPoint+Extensions.swift in Sources */,
 				AA4CE8D42961A48900AD289F /* CGRect+Extensions.swift in Sources */,
