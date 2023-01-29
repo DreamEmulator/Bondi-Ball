@@ -8,12 +8,7 @@
 
 import UIKit
 
-typealias SetConfig = (_ config: Board) -> Void
-
 class SetupController: UIViewController {
-  private var setConfig: SetConfig
-  var config: Board?
-
   @IBOutlet var dampingRatioSlider: UISlider!
   @IBOutlet var frequencyResponseSlider: UISlider!
 
@@ -22,8 +17,7 @@ class SetupController: UIViewController {
   @IBOutlet var columnStepper: UIStepper!
   @IBOutlet var columnsLabel: UILabel!
 
-  init(setConfig: @escaping SetConfig) {
-    self.setConfig = setConfig
+  init() {
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -36,12 +30,11 @@ class SetupController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    if let config {
-      setupSliderValues(config: config)
-      setupGridValues(config: config)
-      rowStepper.value = Double(config.rows)
-      columnStepper.value = Double(config.columns)
-    }
+    let config = App.shared.gameState.currentLevel.board
+    setupSliderValues(config: config)
+    setupGridValues(config: config)
+    rowStepper.value = Double(config.rows)
+    columnStepper.value = Double(config.columns)
   }
 
   // MARK: - Setup
@@ -61,13 +54,12 @@ class SetupController: UIViewController {
   // MARK: - Handlers
 
   func handleChanges() {
-    let newConfig = Board(rows: Int(rowStepper.value), columns: Int(columnStepper.value), spring: DampedHarmonicSpring(dampingRatio: CGFloat(dampingRatioSlider.value), frequencyResponse: CGFloat(frequencyResponseSlider.value)))
+    let newConfig = Board(id: "generated", rows: Int(rowStepper.value), columns: Int(columnStepper.value), spring: DampedHarmonicSpring(dampingRatio: CGFloat(dampingRatioSlider.value), frequencyResponse: CGFloat(frequencyResponseSlider.value)))
 
     rowsLabel.text = String(newConfig.rows)
     columnsLabel.text = String(newConfig.columns)
 
-    config = newConfig
-    setConfig(newConfig)
+    App.shared.gameState.updateBoard(config: newConfig)
   }
 
   @IBAction func dampingRatioChanged(_ sender: UISlider) {

@@ -13,11 +13,7 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
   // MARK: - Visuals
 
   private let splashScreen: SplashViewController = .init()
-  private let levelScreen: BoardViewController = .init(
-    level: App.levels.first!
-  ) { levelDone in
-    App.shared.game.totalPoints += levelDone.points
-  }
+  private let levelScreen: LevelViewController = .init()
 
   override func viewDidLoad() {
     super.viewDidLoad()
