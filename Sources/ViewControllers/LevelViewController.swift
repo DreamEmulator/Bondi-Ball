@@ -29,7 +29,6 @@ import UIKit
 typealias GameCallback = (_ level: Level) -> Void
 
 class LevelViewController: UIViewController, UIGestureRecognizerDelegate {
-
   // MARK: - Lifecycle
 
   public init() {
@@ -176,19 +175,28 @@ extension LevelViewController {
       let rowStack = UIStackView()
       rowStack.translatesAutoresizingMaskIntoConstraints = false
       rowStack.axis = .horizontal
-      rowStack.distribution = .equalCentering
-      rowStack.alignment = .center
+      rowStack.distribution = .fillEqually
       rowStack.spacing = 12
+      rowStack.contentMode = .center
+
       containerStack.addArrangedSubview(rowStack)
+      NSLayoutConstraint.activate([
+        rowStack.heightAnchor.constraint(equalToConstant: pocketSize),
+        rowStack.widthAnchor.constraint(equalTo: containerStack.widthAnchor)
+      ])
 
       for column in 1 ... level.board.columns {
+        let columnView = UIView()
+        columnView.translatesAutoresizingMaskIntoConstraints = false
         let pocket = EndpointIndicatorView()
         pocket.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
           pocket.widthAnchor.constraint(equalToConstant: pocketSize),
           pocket.heightAnchor.constraint(equalToConstant: pocketSize)
         ])
-        rowStack.addArrangedSubview(pocket)
+        columnView.addSubview(pocket)
+        pocket.centerXAnchor.constraint(equalTo: columnView.centerXAnchor).isActive = true
+        rowStack.addArrangedSubview(columnView)
         pockets.append(pocket)
         pocket.name = row * column // TODO: remove
 
@@ -197,8 +205,6 @@ extension LevelViewController {
 
 //        MARK: Highlight the goal pocket
 
-        print("Row \(row)")
-        print("Column \(column)")
         if row == level.endPocket.0, column == level.endPocket.1 {
           pocket.isGoal.toggle()
         }
