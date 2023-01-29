@@ -9,7 +9,6 @@
 import UIKit
 
 class RootNavigationController: UINavigationController, UINavigationControllerDelegate {
-
   // MARK: - Visuals
 
   private let splashScreen: SplashViewController = .init()

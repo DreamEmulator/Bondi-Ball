@@ -10,8 +10,10 @@ import Foundation
 
 class App {
   static let shared = App()
-  var gameState = GameState()
-  private init() {}
+  var game = GameController()
+  private init() {
+    game.state.start(level: LevelCollection.levels.first!)
+  }
 }
 
 struct Boards {}

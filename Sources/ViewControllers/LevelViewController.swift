@@ -23,14 +23,12 @@
  */
 
 import AVFAudio
-import Combine
 import SpriteKit
 import UIKit
 
 typealias GameCallback = (_ level: Level) -> Void
 
 class LevelViewController: UIViewController, UIGestureRecognizerDelegate {
-  private var cancellable: AnyCancellable?
 
   // MARK: - Lifecycle
 
@@ -45,6 +43,8 @@ class LevelViewController: UIViewController, UIGestureRecognizerDelegate {
 
   // MARK: - Vars
 
+  private var spring: DampedHarmonicSpring?
+  private var level: Level?
   private let paintBall: BondiBallView = .init()
   private var pockets: [EndpointIndicatorView] = .init()
   private let panGestureRecognizer: UIPanGestureRecognizer = PanGestureRecognizer()
@@ -53,44 +53,12 @@ class LevelViewController: UIViewController, UIGestureRecognizerDelegate {
   private let magicParticles = SKEmitterNode(fileNamed: "MagicParticles")
   private var containerStack = UIStackView()
   private let springConfigurationButton: UIButton = .init(style: .alpha)
-  private var viewSize: CGSize = .init() {
-    didSet {
-      setupBoard(config: board)
-      setupParticles(frame: CGRect(x: 0, y: 0, width: viewSize.width, height: viewSize.height))
-    }
-  }
+  private var viewSize: CGSize = .init()
 
-  // MARK: - Configuration
-
-  var game = App.shared.gameState
-
-  var level: Level { App.shared.gameState.currentLevel }
-
-  var board: Board { App.shared.gameState.currentLevel.board }
-
-  /// The spring driving animations of the PIP view.
-  private var spring: DampedHarmonicSpring { App.shared.gameState.currentLevel.board.spring }
-
-  // MARK: - State
-
-  /// The different states the PIP view can be in.
-  enum BondiBallState {
-    /// Starting scenario
-    case initial
-    /// The Bondi ball view is at rest at the specified endpoint.
-    case idle(at: EndpointIndicatorView)
-
-    /// The user is actively moving the Bondi ball view starting from the specified
-    /// initial position using the specified gesture recognizer.
-    case interaction(with: UIPanGestureRecognizer, from: CGPoint)
-
-    /// The Bondi ball view is being animated towards the specified endpoint with
-    /// the specified animator.
-    case animating(to: EndpointIndicatorView, using: UIViewPropertyAnimator)
-  }
+  // MARK: - Ball state
 
   /// The current state of the Bondi Ball
-  var state: BondiBallState = .initial
+  private var state: BondiBallState = .initial
 
   // Handlers
   @objc func buttonClicked() {
@@ -111,11 +79,8 @@ extension LevelViewController {
     navigationItem.setHidesBackButton(true, animated: true)
     view.backgroundColor = .systemBackground
     viewSize = CGSize(width: view.frame.width, height: view.frame.height)
-
-    cancellable = game.objectWillChange.sink { [weak self] in
-      self?.setup()
-    }
-    setup()
+    setup(level: App.shared.game.level)
+    subscribe()
   }
 
   override public func viewDidLayoutSubviews() {
@@ -130,16 +95,7 @@ extension LevelViewController {
     case .initial:
       break
     }
-
-    let startingPocketIndex = level.startPocket.0 * level.startPocket.1 - 1
-    print(startingPocketIndex)
-    print(pockets.count)
-    let startingPocket = convertToContainerSpace(pocket: pockets[startingPocketIndex])
-    paintBall.center = convertToContainerSpace(pocket: pockets[startingPocketIndex])
-    springConfigurationButton.center = startingPocket
-
-    view.addSubview(paintBall)
-    arrangeViews()
+    setupBall(level: App.shared.game.level)
   }
 
   override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -150,14 +106,47 @@ extension LevelViewController {
 // MARK: - Setup
 
 extension LevelViewController {
-  private func setup() {
-    setupButton()
-    setupBoard(config: App.shared.gameState.currentLevel.board)
-    setupParticles(frame: view.frame)
-    configureGestureRecognizers()
+//  MARK: - Respond to changes in the game
+
+  private func subscribe() {
+    App.shared.game.state.subscribe { [weak self] state in
+      switch state {
+      case .startPlaying(level: let level):
+        self?.setup(level: level)
+      case .LevelingUp:
+        break
+      case .RetryingLevel:
+        break
+      case .Scored:
+        break
+      case .Missed:
+        break
+      case .Dragging:
+        break
+      }
+    }
   }
 
-  private func setupBoard(config: Board) {
+  private func setup(level: Level) {
+    setupButton(level: level)
+    setupLevel(level: level)
+    setupParticles(frame: view.frame)
+
+    configureGestureRecognizers()
+    arrangeViews()
+  }
+
+  private func setupBall(level: Level) {
+    let startingPocketIndex = level.startPocket.0 * level.startPocket.1 - 1
+    let startingPocket = convertToContainerSpace(pocket: pockets[startingPocketIndex])
+    paintBall.center = convertToContainerSpace(pocket: pockets[startingPocketIndex])
+    springConfigurationButton.center = startingPocket
+
+    view.addSubview(paintBall)
+  }
+
+  private func setupLevel(level: Level) {
+    spring = level.board.spring
     // Reset
     pockets = .init()
     containerStack.removeFromSuperview()
@@ -181,9 +170,9 @@ extension LevelViewController {
     ])
 
     // Setup
-    let pocketSize = CGFloat(Float(min(viewSize.width, viewSize.height)) / Float(max(board.columns, board.rows)) - 16)
+    let pocketSize = CGFloat(Float(min(viewSize.width, viewSize.height)) / Float(max(level.board.columns, level.board.rows)) - 16)
 
-    for row in 1 ... config.rows {
+    for row in 1 ... level.board.rows {
       let rowStack = UIStackView()
       rowStack.translatesAutoresizingMaskIntoConstraints = false
       rowStack.axis = .horizontal
@@ -192,7 +181,7 @@ extension LevelViewController {
       rowStack.spacing = 12
       containerStack.addArrangedSubview(rowStack)
 
-      for column in 1 ... config.columns {
+      for column in 1 ... level.board.columns {
         let pocket = EndpointIndicatorView()
         pocket.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -204,7 +193,7 @@ extension LevelViewController {
         pocket.name = row * column // TODO: remove
 
 //        Set idle when all pockets are prepared
-        if row == config.columns { state = .idle(at: pockets.last!) }
+        if row == level.board.columns { state = .idle(at: pockets.last!) }
 
 //        MARK: Highlight the goal pocket
 
@@ -217,11 +206,11 @@ extension LevelViewController {
     }
   }
 
-  fileprivate func setupButton() {
+  fileprivate func setupButton(level: Level) {
     view.addSubview(springConfigurationButton)
 
     let button = springConfigurationButton
-    let buttonSize = min(CGFloat(Float(min(viewSize.width, viewSize.height)) / Float(max(board.columns, board.rows)) - 42), 100)
+    let buttonSize = min(CGFloat(Float(min(viewSize.width, viewSize.height)) / Float(max(level.board.columns, level.board.rows)) - 42), 100)
     NSLayoutConstraint.activate([
       button.widthAnchor.constraint(equalToConstant: buttonSize),
       button.heightAnchor.constraint(equalToConstant: buttonSize)
@@ -327,12 +316,14 @@ extension LevelViewController {
   /// gesture recognizer.
   func endInteractiveTransition(with gesture: UIPanGestureRecognizer) {
     guard case .interaction(with: gesture, from: _) = state else { return }
-
+    guard let spring else {
+      return
+    }
     let velocity = CGVector(to: gesture.velocity(in: view))
     let currentCenter = paintBall.center
     let endpoint = intendedEndpoint(with: velocity, from: currentCenter)
     let targetCenter = convertToContainerSpace(pocket: endpoint)
-    let parameters = board.spring.timingFunction(withInitialVelocity: velocity, from: &paintBall.center, to: targetCenter, context: self)
+    let parameters = spring.timingFunction(withInitialVelocity: velocity, from: &paintBall.center, to: targetCenter, context: self)
     let animator = UIViewPropertyAnimator(duration: 0, timingParameters: parameters)
 
     animator.addAnimations {
@@ -442,4 +433,20 @@ extension LevelViewController {
     let generator = UIImpactFeedbackGenerator(style: .heavy)
     generator.impactOccurred()
   }
+}
+
+/// The different states the PIP view can be in.
+private enum BondiBallState {
+  /// Starting scenario
+  case initial
+  /// The Bondi ball view is at rest at the specified endpoint.
+  case idle(at: EndpointIndicatorView)
+
+  /// The user is actively moving the Bondi ball view starting from the specified
+  /// initial position using the specified gesture recognizer.
+  case interaction(with: UIPanGestureRecognizer, from: CGPoint)
+
+  /// The Bondi ball view is being animated towards the specified endpoint with
+  /// the specified animator.
+  case animating(to: EndpointIndicatorView, using: UIViewPropertyAnimator)
 }

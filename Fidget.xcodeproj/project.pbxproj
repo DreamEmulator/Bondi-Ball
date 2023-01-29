@@ -20,7 +20,8 @@
 		AA007638296BECD500380FFF /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA007637296BECD500380FFF /* Board.swift */; };
 		AA1E7C022975310F0082FB53 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E7C012975310F0082FB53 /* Level.swift */; };
 		AA1E7C05297538F20082FB53 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E7C04297538F20082FB53 /* Protocols.swift */; };
-		AA35E02C2986670300275C93 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E02B2986670300275C93 /* GameState.swift */; };
+		AA35E02C2986670300275C93 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E02B2986670300275C93 /* GameController.swift */; };
+		AA35E0312986A4F700275C93 /* LevelCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E0302986A4F700275C93 /* LevelCollection.swift */; };
 		AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */; };
 		AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */ = {isa = PBXBuildFile; fileRef = AA43E4142961A0CB001EF225 /* Philoshophy.md */; };
 		AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */; };
@@ -58,7 +59,8 @@
 		AA007637296BECD500380FFF /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		AA1E7C012975310F0082FB53 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		AA1E7C04297538F20082FB53 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
-		AA35E02B2986670300275C93 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		AA35E02B2986670300275C93 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
+		AA35E0302986A4F700275C93 /* LevelCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelCollection.swift; sourceTree = "<group>"; };
 		AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AA43E4142961A0CB001EF225 /* Philoshophy.md */ = {isa = PBXFileReference; explicitFileType = net.daringfireball.markdown; path = Philoshophy.md; sourceTree = "<group>"; };
 		AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PocketIndicatorView.swift; sourceTree = "<group>"; };
@@ -121,6 +123,15 @@
 				AA007634296B01EA00380FFF /* Assets.xcassets */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		AA35E02F2986A4E400275C93 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				AA35E02B2986670300275C93 /* GameController.swift */,
+				AA35E0302986A4F700275C93 /* LevelCollection.swift */,
+			);
+			path = Game;
 			sourceTree = "<group>";
 		};
 		AA4CE8C02961A41C00AD289F /* Views */ = {
@@ -193,13 +204,13 @@
 		CB0556A420D05B8A00095934 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				AA00761C2969F12500380FFF /* Navigation */,
+				AA35E02F2986A4E400275C93 /* Game */,
 				CB0556A520D05B8A00095934 /* AppDelegate.swift */,
 				AAEC69E42980697400DE89E3 /* App.swift */,
-				AA35E02B2986670300275C93 /* GameState.swift */,
 				AA0076212969F9D300380FFF /* Animations */,
 				AA4CE8C62961A41C00AD289F /* Domain */,
 				AA4CE8C32961A41C00AD289F /* Extensions */,
-				AA00761C2969F12500380FFF /* Navigation */,
 				AA4CE8C42961A41C00AD289F /* ViewControllers */,
 				AA4CE8C02961A41C00AD289F /* Views */,
 			);
@@ -299,13 +310,14 @@
 				AA1E7C05297538F20082FB53 /* Protocols.swift in Sources */,
 				AA4CE8D92961A69A00AD289F /* Sequence+Extensions.swift in Sources */,
 				AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */,
+				AA35E0312986A4F700275C93 /* LevelCollection.swift in Sources */,
 				AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */,
 				AA0076252969FAE600380FFF /* UINavigationController+Extensions.swift in Sources */,
 				AA4CE8CB2961A41C00AD289F /* PanGestureRecognizer.swift in Sources */,
 				AAEC69E12980675500DE89E3 /* Game.swift in Sources */,
 				AA4CE8D32961A48900AD289F /* CGVector+Extensions.swift in Sources */,
 				AA007638296BECD500380FFF /* Board.swift in Sources */,
-				AA35E02C2986670300275C93 /* GameState.swift in Sources */,
+				AA35E02C2986670300275C93 /* GameController.swift in Sources */,
 				AA4CE8D52961A48900AD289F /* DampedHarmonicSpring.swift in Sources */,
 				CB0556A620D05B8A00095934 /* AppDelegate.swift in Sources */,
 				AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */,

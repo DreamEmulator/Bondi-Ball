@@ -30,14 +30,15 @@ class SetupController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    let config = App.shared.gameState.currentLevel.board
-    setupSliderValues(config: config)
-    setupGridValues(config: config)
-    rowStepper.value = Double(config.rows)
-    columnStepper.value = Double(config.columns)
+    setup(config: App.shared.game.level.board)
   }
 
   // MARK: - Setup
+
+  func setup(config: Board) {
+    setupGridValues(config: config)
+    setupSliderValues(config: config)
+  }
 
   func setupSliderValues(config: Board) {
     dampingRatioSlider.setValue(Float(config.spring.dampingRatio), animated: true)
@@ -59,7 +60,7 @@ class SetupController: UIViewController {
     rowsLabel.text = String(newConfig.rows)
     columnsLabel.text = String(newConfig.columns)
 
-    App.shared.gameState.updateBoard(config: newConfig)
+    App.shared.game.updateBoardConfig(config: newConfig)
   }
 
   @IBAction func dampingRatioChanged(_ sender: UISlider) {
