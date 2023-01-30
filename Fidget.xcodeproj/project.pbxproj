@@ -22,6 +22,8 @@
 		AA1E7C05297538F20082FB53 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E7C04297538F20082FB53 /* Protocols.swift */; };
 		AA35E02C2986670300275C93 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E02B2986670300275C93 /* GameController.swift */; };
 		AA35E0312986A4F700275C93 /* LevelCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E0302986A4F700275C93 /* LevelCollection.swift */; };
+		AA35E0362987A31100275C93 /* LevellingUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E0342987A31100275C93 /* LevellingUpController.swift */; };
+		AA35E0372987A31100275C93 /* LevellingUpController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA35E0352987A31100275C93 /* LevellingUpController.xib */; };
 		AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */; };
 		AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */ = {isa = PBXBuildFile; fileRef = AA43E4142961A0CB001EF225 /* Philoshophy.md */; };
 		AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */; };
@@ -61,6 +63,8 @@
 		AA1E7C04297538F20082FB53 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		AA35E02B2986670300275C93 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		AA35E0302986A4F700275C93 /* LevelCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelCollection.swift; sourceTree = "<group>"; };
+		AA35E0342987A31100275C93 /* LevellingUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevellingUpController.swift; sourceTree = "<group>"; };
+		AA35E0352987A31100275C93 /* LevellingUpController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LevellingUpController.xib; sourceTree = "<group>"; };
 		AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AA43E4142961A0CB001EF225 /* Philoshophy.md */ = {isa = PBXFileReference; explicitFileType = net.daringfireball.markdown; path = Philoshophy.md; sourceTree = "<group>"; };
 		AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PocketIndicatorView.swift; sourceTree = "<group>"; };
@@ -134,6 +138,24 @@
 			path = Game;
 			sourceTree = "<group>";
 		};
+		AA35E0322987A2BC00275C93 /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				AA4CE8DE2961C6AB00AD289F /* SetupController.swift */,
+				AA4CE8DF2961C6AB00AD289F /* SetupController.xib */,
+			);
+			path = Setup;
+			sourceTree = "<group>";
+		};
+		AA35E0332987A2C900275C93 /* LevellingUp */ = {
+			isa = PBXGroup;
+			children = (
+				AA35E0342987A31100275C93 /* LevellingUpController.swift */,
+				AA35E0352987A31100275C93 /* LevellingUpController.xib */,
+			);
+			path = LevellingUp;
+			sourceTree = "<group>";
+		};
 		AA4CE8C02961A41C00AD289F /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,9 +183,9 @@
 		AA4CE8C42961A41C00AD289F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				AA35E0332987A2C900275C93 /* LevellingUp */,
+				AA35E0322987A2BC00275C93 /* Setup */,
 				AA4CE8C52961A41C00AD289F /* LevelViewController.swift */,
-				AA4CE8DE2961C6AB00AD289F /* SetupController.swift */,
-				AA4CE8DF2961C6AB00AD289F /* SetupController.xib */,
 				AA0076182968C38100380FFF /* SplashViewController.swift */,
 			);
 			path = ViewControllers;
@@ -288,6 +310,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA35E0372987A31100275C93 /* LevellingUpController.xib in Resources */,
 				AA4CE8CD2961A42A00AD289F /* Original ReadMe.md in Resources */,
 				AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */,
 				CB0556AD20D05B8B00095934 /* Assets.xcassets in Resources */,
@@ -331,6 +354,7 @@
 				AA0076232969F9E200380FFF /* Animations.swift in Sources */,
 				AA0076202969F93F00380FFF /* Aliases.swift in Sources */,
 				AAEC69E3298067C900DE89E3 /* Badge.swift in Sources */,
+				AA35E0362987A31100275C93 /* LevellingUpController.swift in Sources */,
 				AA4CE8E02961C6AB00AD289F /* SetupController.swift in Sources */,
 				AA4CE8D62961A48900AD289F /* CGPoint+Extensions.swift in Sources */,
 				AA4CE8D42961A48900AD289F /* CGRect+Extensions.swift in Sources */,

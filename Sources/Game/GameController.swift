@@ -7,7 +7,7 @@
 //
 
 enum GameState {
-  case LevelingUp, RetryingLevel, startPlaying(level: Level), Scored, Missed, Dragging
+  case LevelingUp, RetryingLevel, Playing(level: Level), Scored, Missed, Dragging
 }
 
 class GameController {
@@ -26,6 +26,18 @@ class GameController {
     level.board = config
     state.start(level: level)
   }
+
+  func setLevel(_ level: Level) {
+    self.level = level
+  }
+}
+
+// MARK: - Manage points
+
+extension GameController {
+  func tallyPoints() {
+    totalPoints += level.points - level.costIncurred
+  }
 }
 
 // MARK: - The statemachine setup
@@ -41,7 +53,37 @@ extension GameStateMachine {
     case .LevelingUp, .RetryingLevel, .Dragging:
       break
     default:
-      stateDidChange(.startPlaying(level: level))
+      state = .Playing(level: level)
+    }
+  }
+
+  func score() {
+    switch state {
+    case .Playing:
+      App.shared.game.tallyPoints()
+      state = .Scored
+    // Calculate new total points
+    // Switch to Leveling up
+    default: break
+    }
+  }
+
+  func levelUp() {
+    switch state {
+    case .Scored:
+      state = .LevelingUp
+      guard let currentLevelIndex = LevelCollection.levels.firstIndex(where: { level in
+        level.id == App.shared.game.level.id
+      }) else { fatalError("Can't find current level") }
+      if currentLevelIndex + 1 < LevelCollection.levels.count {
+        let nextLevel = LevelCollection.levels[currentLevelIndex + 1]
+        App.shared.game.setLevel(nextLevel)
+        state = .Playing(level: nextLevel)
+      } else {
+        print("😃 We need more levels!")
+      }
+
+    default: break
     }
   }
 }

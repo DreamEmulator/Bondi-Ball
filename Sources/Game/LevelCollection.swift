@@ -9,7 +9,8 @@
 enum LevelCollection {
   static var levels: [Level] {
     [Level(
-      board: boards.first!,
+      id: "level_01",
+      board: boards[0],
       dragCost: 1,
       wrongPocketCost: 1,
       pocketHistory: [],
@@ -17,6 +18,17 @@ enum LevelCollection {
       endPocket: (1, 1),
       costIncurred: 0,
       points: 1
+    ),
+    Level(
+      id: "level_02",
+      board: boards[1],
+      dragCost: 1,
+      wrongPocketCost: 1,
+      pocketHistory: [],
+      startPocket: (2, 1),
+      endPocket: (1, 1),
+      costIncurred: 0,
+      points: 2
     )]
   }
 
@@ -24,6 +36,10 @@ enum LevelCollection {
     Board(id: "board_01",
           rows: 2,
           columns: 1,
-          spring: DampedHarmonicSpring(dampingRatio: 0.35, frequencyResponse: 0.8))
+          spring: DampedHarmonicSpring(dampingRatio: 0.35, frequencyResponse: 0.8)),
+    Board(id: "board_02",
+          rows: 3,
+          columns: 1,
+          spring: DampedHarmonicSpring(dampingRatio: 0.65, frequencyResponse: 0.2))
   ]
 }

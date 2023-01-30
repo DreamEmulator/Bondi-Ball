@@ -16,7 +16,7 @@ protocol BoardProtocol {
 }
 
 protocol LevelProtocol {
-  var id: UUID { get }
+  var id: String { get }
   /// Pocket from which the first shot is swiped
   var startPocket: (Int, Int) { get } // Row, Column
   /// Goal pocket to put the ball in

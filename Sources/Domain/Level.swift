@@ -9,17 +9,18 @@
 import Foundation
 
 struct Level: LevelProtocol {
-  var id = UUID()
+  var id: String
   var board: Board
   var dragCost: Int
   var wrongPocketCost: Int
   var pocketHistory: [EndpointIndicatorView]
   var startPocket: (Int, Int)
-  var endPocket: (Int,Int) // TODO: Rename to goal pocket
+  var endPocket: (Int, Int) // TODO: Rename to goal pocket
   var costIncurred: Int
   var points: Int
 
-  init(board: Board,
+  init(id: String,
+       board: Board,
        dragCost: Int,
        wrongPocketCost: Int,
        pocketHistory: [EndpointIndicatorView],
@@ -28,7 +29,7 @@ struct Level: LevelProtocol {
        costIncurred: Int,
        points: Int)
   {
-    self.id = UUID()
+    self.id = id
     self.board = board
     self.dragCost = dragCost
     self.wrongPocketCost = wrongPocketCost
