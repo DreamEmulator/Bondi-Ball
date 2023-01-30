@@ -423,9 +423,8 @@ extension LevelViewController {
     ])
 
     setupSceneView()
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-      self.setupScene()
-    }
+    setupScene()
+
     // playSong()
   }
 

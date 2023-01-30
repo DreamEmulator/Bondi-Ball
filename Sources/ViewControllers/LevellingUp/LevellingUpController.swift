@@ -14,7 +14,7 @@ class LevellingUpController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     modalPresentationStyle = .overFullScreen
-    // Do any additional setup after loading the view.
+    navigationItem.setHidesBackButton(true, animated: true)
     presentAnimation()
     setupGestures()
   }

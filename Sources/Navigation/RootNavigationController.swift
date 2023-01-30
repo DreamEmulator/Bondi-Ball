@@ -21,7 +21,7 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
     delegate = self
 
     setupUI()
-    hold { navigate() }
+    hold { self.pushViewController(self.levelScreen, animated: true) }
     subscribe()
   }
 
@@ -32,9 +32,9 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
       if let self {
         switch state {
         case .Scored:
-          self.present(self.levelingUpController, animated: true)
+          self.pushViewController(self.levelingUpController, animated: true)
         case .LevelingUp:
-          self.levelingUpController.dismiss(animated: true)
+          self.popViewController(animated: true)
         default:
           break
         }
@@ -48,20 +48,15 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
 extension RootNavigationController {
   private func setupUI() {
     navigationBar.tintColor = .systemTeal
-    levelingUpController.modalPresentationStyle = .overFullScreen
   }
 }
 
 // MARK: - Navigation
 
 extension RootNavigationController {
-  private func hold(_ completion: AnonymousClosure) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-      navigate()
+  private func hold(_ completion: @escaping AnonymousClosure) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+      completion()
     }
-  }
-
-  private func navigate() {
-    pushViewController(levelScreen, animated: true)
   }
 }

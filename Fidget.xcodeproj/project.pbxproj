@@ -12,7 +12,6 @@
 		AA00761E2969F15F00380FFF /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00761D2969F15F00380FFF /* RootNavigationController.swift */; };
 		AA0076202969F93F00380FFF /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00761F2969F93F00380FFF /* Aliases.swift */; };
 		AA0076232969F9E200380FFF /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0076222969F9E200380FFF /* Animations.swift */; };
-		AA0076252969FAE600380FFF /* UINavigationController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0076242969FAE600380FFF /* UINavigationController+Extensions.swift */; };
 		AA007629296A15CB00380FFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA007627296A15CB00380FFF /* Assets.xcassets */; };
 		AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00762F296AD3D800380FFF /* MagicParticlesScene.swift */; };
 		AA007635296B01EA00380FFF /* MagicParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA007633296B01EA00380FFF /* MagicParticles.sks */; };
@@ -24,6 +23,7 @@
 		AA35E0312986A4F700275C93 /* LevelCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E0302986A4F700275C93 /* LevelCollection.swift */; };
 		AA35E0362987A31100275C93 /* LevellingUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E0342987A31100275C93 /* LevellingUpController.swift */; };
 		AA35E0372987A31100275C93 /* LevellingUpController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA35E0352987A31100275C93 /* LevellingUpController.xib */; };
+		AA35E039298807FA00275C93 /* UINavigationController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E038298807FA00275C93 /* UINavigationController+Extensions.swift */; };
 		AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */; };
 		AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */ = {isa = PBXBuildFile; fileRef = AA43E4142961A0CB001EF225 /* Philoshophy.md */; };
 		AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */; };
@@ -53,7 +53,6 @@
 		AA00761D2969F15F00380FFF /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		AA00761F2969F93F00380FFF /* Aliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
 		AA0076222969F9E200380FFF /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
-		AA0076242969FAE600380FFF /* UINavigationController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extensions.swift"; sourceTree = "<group>"; };
 		AA007627296A15CB00380FFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA00762F296AD3D800380FFF /* MagicParticlesScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicParticlesScene.swift; sourceTree = "<group>"; };
 		AA007633296B01EA00380FFF /* MagicParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MagicParticles.sks; sourceTree = "<group>"; };
@@ -65,6 +64,7 @@
 		AA35E0302986A4F700275C93 /* LevelCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelCollection.swift; sourceTree = "<group>"; };
 		AA35E0342987A31100275C93 /* LevellingUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevellingUpController.swift; sourceTree = "<group>"; };
 		AA35E0352987A31100275C93 /* LevellingUpController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LevellingUpController.xib; sourceTree = "<group>"; };
+		AA35E038298807FA00275C93 /* UINavigationController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extensions.swift"; sourceTree = "<group>"; };
 		AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AA43E4142961A0CB001EF225 /* Philoshophy.md */ = {isa = PBXFileReference; explicitFileType = net.daringfireball.markdown; path = Philoshophy.md; sourceTree = "<group>"; };
 		AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PocketIndicatorView.swift; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 				AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */,
 				AA4CE8D22961A48900AD289F /* UIGestureRecognizer+Extensions.swift */,
 				AA0076162968C16900380FFF /* UIView+Extensions.swift */,
-				AA0076242969FAE600380FFF /* UINavigationController+Extensions.swift */,
+				AA35E038298807FA00275C93 /* UINavigationController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -335,10 +335,10 @@
 				AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */,
 				AA35E0312986A4F700275C93 /* LevelCollection.swift in Sources */,
 				AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */,
-				AA0076252969FAE600380FFF /* UINavigationController+Extensions.swift in Sources */,
 				AA4CE8CB2961A41C00AD289F /* PanGestureRecognizer.swift in Sources */,
 				AAEC69E12980675500DE89E3 /* Game.swift in Sources */,
 				AA4CE8D32961A48900AD289F /* CGVector+Extensions.swift in Sources */,
+				AA35E039298807FA00275C93 /* UINavigationController+Extensions.swift in Sources */,
 				AA007638296BECD500380FFF /* Board.swift in Sources */,
 				AA35E02C2986670300275C93 /* GameController.swift in Sources */,
 				AA4CE8D52961A48900AD289F /* DampedHarmonicSpring.swift in Sources */,
