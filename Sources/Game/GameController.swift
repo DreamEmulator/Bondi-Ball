@@ -24,6 +24,7 @@ class GameController {
 
   func updateBoardConfig(config: Board) {
     level.board = config
+    print(config.columns)
     state.start(level: level)
   }
 
@@ -72,6 +73,7 @@ extension GameStateMachine {
     switch state {
     case .Scored:
       state = .LevelingUp
+      // TODO: https://github.com/DreamEmulator/Fidget/issues/14
       guard let currentLevelIndex = LevelCollection.levels.firstIndex(where: { level in
         level.id == App.shared.game.level.id
       }) else { fatalError("Can't find current level") }
@@ -81,6 +83,8 @@ extension GameStateMachine {
         state = .Playing(level: nextLevel)
       } else {
         print("😃 We need more levels!")
+        App.shared.game.setLevel(LevelCollection.levels.first!)
+        state = .Playing(level: LevelCollection.levels.first!)
       }
 
     default: break

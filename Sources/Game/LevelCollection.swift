@@ -10,7 +10,11 @@ enum LevelCollection {
   static var levels: [Level] {
     [Level(
       id: "level_01",
-      board: boards[0],
+      board: Board(
+        rows: 2,
+        columns: 1,
+        spring: DampedHarmonicSpring(dampingRatio: 0.35, frequencyResponse: 0.8)
+      ),
       dragCost: 1,
       wrongPocketCost: 1,
       pocketHistory: [],
@@ -21,25 +25,33 @@ enum LevelCollection {
     ),
     Level(
       id: "level_02",
-      board: boards[1],
+      board: Board(
+        rows: 3,
+        columns: 1,
+        spring: DampedHarmonicSpring(dampingRatio: 0.45, frequencyResponse: 0.85)
+      ),
       dragCost: 1,
       wrongPocketCost: 1,
       pocketHistory: [],
-      startPocket: (2, 1),
+      startPocket: (3, 1),
+      endPocket: (1, 1),
+      costIncurred: 0,
+      points: 2
+    ),
+    Level(
+      id: "level_03",
+      board: Board(
+        rows: 2,
+        columns: 2,
+        spring: DampedHarmonicSpring(dampingRatio: 0.55, frequencyResponse: 0.9)
+      ),
+      dragCost: 1,
+      wrongPocketCost: 1,
+      pocketHistory: [],
+      startPocket: (2, 2),
       endPocket: (1, 1),
       costIncurred: 0,
       points: 2
     )]
   }
-
-  static let boards: [Board] = [
-    Board(id: "board_01",
-          rows: 2,
-          columns: 1,
-          spring: DampedHarmonicSpring(dampingRatio: 0.35, frequencyResponse: 0.8)),
-    Board(id: "board_02",
-          rows: 3,
-          columns: 1,
-          spring: DampedHarmonicSpring(dampingRatio: 0.65, frequencyResponse: 0.2))
-  ]
 }

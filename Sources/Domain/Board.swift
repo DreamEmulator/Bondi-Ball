@@ -8,7 +8,6 @@
 import Foundation
 
 struct Board: BoardProtocol {
-  var id: String
   var rows: Int
   var columns: Int
   var spring: DampedHarmonicSpring

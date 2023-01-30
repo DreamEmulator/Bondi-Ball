@@ -9,7 +9,6 @@
 import Foundation
 
 protocol BoardProtocol {
-  var id: String { get }
   var rows: Int { get set } // TODO: Just get in production mode
   var columns: Int { get set }
   var spring: DampedHarmonicSpring { get set }

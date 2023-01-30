@@ -55,7 +55,7 @@ class SetupController: UIViewController {
   // MARK: - Handlers
 
   func handleChanges() {
-    let newConfig = Board(id: "generated", rows: Int(rowStepper.value), columns: Int(columnStepper.value), spring: DampedHarmonicSpring(dampingRatio: CGFloat(dampingRatioSlider.value), frequencyResponse: CGFloat(frequencyResponseSlider.value)))
+    let newConfig = Board(rows: Int(rowStepper.value), columns: Int(columnStepper.value), spring: DampedHarmonicSpring(dampingRatio: CGFloat(dampingRatioSlider.value), frequencyResponse: CGFloat(frequencyResponseSlider.value)))
 
     rowsLabel.text = String(newConfig.rows)
     columnsLabel.text = String(newConfig.columns)
