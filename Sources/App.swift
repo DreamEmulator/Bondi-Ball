@@ -15,5 +15,3 @@ class App {
     game.state.start(level: LevelCollection.levels.first!)
   }
 }
-
-struct Boards {}
