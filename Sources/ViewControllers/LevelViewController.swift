@@ -161,7 +161,9 @@ extension LevelViewController {
     ])
 
     // Setup
-    let pocketSize = CGFloat(Float(min(viewSize.width, viewSize.height)) / Float(max(level.board.columns, level.board.rows)) - 16)
+    let smallestScreenSide = CGFloat(min(viewSize.width, viewSize.height))
+    let largestGameSide = CGFloat(max(level.board.columns, level.board.rows))
+    let pocketSize = smallestScreenSide / largestGameSide
 
     for row in 1 ... level.board.rows {
       let rowStack = UIStackView()

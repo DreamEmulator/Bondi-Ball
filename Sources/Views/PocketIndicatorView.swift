@@ -41,7 +41,7 @@ internal final class EndpointIndicatorView: UIView {
   var isGoal = false
 
   override public func draw(_ rect: CGRect) {
-    let radius = 100 as CGFloat
+    let radius = frame.width as CGFloat
     let thickness = 4 as CGFloat
 
     let bounds = CGRect(origin: .zero, size: self.bounds.size).insetBy(dx: thickness / 2, dy: thickness / 2)
