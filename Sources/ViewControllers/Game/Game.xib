@@ -12,8 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameVC" customModule="Bondi_Ball" customModuleProvider="target">
             <connections>
                 <outlet property="gridCollectionView" destination="l4R-Ia-4pN" id="mPg-x6-cJW"/>
-                <outlet property="level" destination="LrK-S1-56M" id="I6S-5r-wbO"/>
-                <outlet property="points" destination="RBP-Sr-vcO" id="jV2-0h-DKD"/>
+                <outlet property="levelView" destination="LrK-S1-56M" id="tmy-p9-cmY"/>
+                <outlet property="pointsView" destination="RBP-Sr-vcO" id="4Uw-5q-11e"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

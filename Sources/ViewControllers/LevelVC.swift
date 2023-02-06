@@ -26,7 +26,7 @@ import AVFAudio
 import SpriteKit
 import UIKit
 
-typealias GameCallback = (_ level: Level) -> Void
+// typealias GameCallback = (_ level: Level) -> Void
 
 class LevelViewController: UIViewController, UIGestureRecognizerDelegate {
   // MARK: - Lifecycle
@@ -197,8 +197,7 @@ extension LevelViewController {
 //        Set idle when all pockets are prepared
         if row == level.board.columns { state = .idle(at: pockets.last!) }
 
-//        MARK: Highlight the goal pocket
-
+//        Highlight the goal pocket
         if row == level.endPocket.0, column == level.endPocket.1 {
           pocket.isGoal.toggle()
         }
@@ -232,9 +231,10 @@ extension LevelViewController {
   }
 }
 
+
 // MARK: - Game management
 
-extension LevelViewController {
+ extension LevelViewController {
   func updateGame(_ endpoint: EndpointIndicatorView) {
     if endpoint.isGoal {
       App.shared.game.state.score()
@@ -243,11 +243,11 @@ extension LevelViewController {
     // If missed
     // If dragging
   }
-}
+ }
 
 // MARK: - Gesture Management
 
-extension LevelViewController {
+ extension LevelViewController {
   func configureGestureRecognizers() {
     panGestureRecognizer.addTarget(self, action: #selector(panGestureDidChange))
     panGestureRecognizer.delegate = self
@@ -281,11 +281,11 @@ extension LevelViewController {
 
     return true
   }
-}
+ }
 
 // MARK: - Interaction Management
 
-extension LevelViewController {
+ extension LevelViewController {
   /// Get the center position of the pocket in the view coordinatespace
   func convertToContainerSpace(pocket: EndpointIndicatorView) -> CGPoint {
     pocket.convert(pocket.bounds.center, to: view)
@@ -386,26 +386,26 @@ extension LevelViewController {
     return closest
   }
 
-  /// The different states the PIP view can be in.
-  private enum BondiBallState {
-    /// Starting scenario
-    case initial
-    /// The Bondi ball view is at rest at the specified endpoint.
-    case idle(at: EndpointIndicatorView)
-
-    /// The user is actively moving the Bondi ball view starting from the specified
-    /// initial position using the specified gesture recognizer.
-    case interaction(with: UIPanGestureRecognizer, from: CGPoint)
-
-    /// The Bondi ball view is being animated towards the specified endpoint with
-    /// the specified animator.
-    case animating(to: EndpointIndicatorView, using: UIViewPropertyAnimator)
-  }
-}
+//  /// The different states the PIP view can be in.
+//  private enum BondiBallState {
+//    /// Starting scenario
+//    case initial
+//    /// The Bondi ball view is at rest at the specified endpoint.
+//    case idle(at: EndpointIndicatorView)
+//
+//    /// The user is actively moving the Bondi ball view starting from the specified
+//    /// initial position using the specified gesture recognizer.
+//    case interaction(with: UIPanGestureRecognizer, from: CGPoint)
+//
+//    /// The Bondi ball view is being animated towards the specified endpoint with
+//    /// the specified animator.
+//    case animating(to: EndpointIndicatorView, using: UIViewPropertyAnimator)
+//  }
+ }
 
 // MARK: - Particle effects
 
-extension LevelViewController {
+ extension LevelViewController {
   private func setupParticles(frame: CGRect) {
     skView.removeFromSuperview()
     skView = SKView(frame: frame)
@@ -444,10 +444,10 @@ extension LevelViewController {
     scene.backgroundColor = .clear
     skView.presentScene(scene)
   }
-}
+ }
 
 // - MARK: Haptics
-extension LevelViewController {
+ extension LevelViewController {
   func fingerOnBallHaptic() {
     let generator = UIImpactFeedbackGenerator(style: .light)
     generator.impactOccurred()
@@ -464,4 +464,4 @@ extension LevelViewController {
     let generator = UIImpactFeedbackGenerator(style: .heavy)
     generator.impactOccurred()
   }
-}
+ }
