@@ -13,6 +13,7 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
 
   private let splashScreen: SplashViewController = .init()
   private let levelScreen: LevelViewController = .init()
+  private let gameVC: GameVC = .init()
   private let levelingUpController: LevellingUpController = .init()
 
   override func viewDidLoad() {
@@ -21,7 +22,7 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
     delegate = self
 
     setupUI()
-    hold { self.pushViewController(self.levelScreen, animated: true) }
+    hold { self.pushViewController(self.gameVC, animated: true) }
     subscribe()
   }
 

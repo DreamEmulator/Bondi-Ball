@@ -22,10 +22,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="center" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="2XQ-XP-hGR">
-                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                    <rect key="frame" x="20" y="59" width="353" height="759"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ig9-8T-K70">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="253"/>
+                            <rect key="frame" x="0.0" y="0.0" width="353" height="253"/>
                             <attributedString key="attributedText">
                                 <fragment content="Scored!">
                                     <attributes>
@@ -37,7 +37,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WT7-TY-Sdh">
-                            <rect key="frame" x="0.0" y="253" width="393" height="253"/>
+                            <rect key="frame" x="0.0" y="253" width="353" height="253"/>
                             <attributedString key="attributedText">
                                 <fragment content="Points">
                                     <attributes>
@@ -49,10 +49,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B4T-gJ-yBI">
-                            <rect key="frame" x="0.0" y="506" width="393" height="253"/>
+                            <rect key="frame" x="0.0" y="506" width="353" height="253"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIe-2N-kTk">
-                                    <rect key="frame" x="127.00000000000001" y="106" width="139.33333333333337" height="41.333333333333343"/>
+                                    <rect key="frame" x="107.00000000000001" y="106" width="139.33333333333337" height="41.333333333333343"/>
                                     <buttonConfiguration key="configuration" style="filled">
                                         <attributedString key="attributedTitle">
                                             <fragment content="Continue">
@@ -77,9 +77,9 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="2XQ-XP-hGR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Pkq-ly-YBD"/>
+                <constraint firstItem="2XQ-XP-hGR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Pkq-ly-YBD"/>
                 <constraint firstItem="2XQ-XP-hGR" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="QdP-jY-yNT"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2XQ-XP-hGR" secondAttribute="trailing" id="Xnd-XL-5dl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2XQ-XP-hGR" secondAttribute="trailing" constant="20" id="Xnd-XL-5dl"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="2XQ-XP-hGR" secondAttribute="bottom" id="y3U-nL-Cgs"/>
             </constraints>
             <point key="canvasLocation" x="57" y="-1"/>
