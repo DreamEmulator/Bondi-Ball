@@ -13,7 +13,7 @@ enum BondiBallState {
   /// Starting scenario
   case initial
   /// The Bondi ball view is at rest at the specified endpoint.
-  case idle(at: EndpointIndicatorView)
+  case idle(at: PocketView)
 
   /// The user is actively moving the Bondi ball view starting from the specified
   /// initial position using the specified gesture recognizer.
@@ -21,5 +21,5 @@ enum BondiBallState {
 
   /// The Bondi ball view is being animated towards the specified endpoint with
   /// the specified animator.
-  case animating(to: EndpointIndicatorView, using: UIViewPropertyAnimator)
+  case animating(to: PocketView, using: UIViewPropertyAnimator)
 }

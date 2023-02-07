@@ -23,10 +23,10 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate {
   private var level: Level { App.shared.game.level }
   private var spring: DampedHarmonicSpring { App.shared.game.level.board.spring }
   private let paintBall: BondiBallView = .init()
-  private var pockets: [EndpointIndicatorView] {
-    var levelPockets: [EndpointIndicatorView] = .init()
+  private var pockets: [PocketView] {
+    var levelPockets: [PocketView] = .init()
     for _ in 0 ... (App.shared.game.level.board.columns * App.shared.game.level.board.rows) {
-      levelPockets.append(EndpointIndicatorView())
+      levelPockets.append(PocketView())
     }
     return levelPockets
   }
@@ -51,7 +51,7 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate {
   }
 
   override func viewDidLayoutSubviews() {
-    setupBall(level: level)
+    setUpCollectionView()
   }
 
   override var prefersHomeIndicatorAutoHidden: Bool {
@@ -71,8 +71,6 @@ extension GameVC {
 
       pointsView.text = String(App.shared.game.totalPoints)
       levelView.text = String(App.shared.game.level.id)
-
-      setUpCollectionView()
     }
   }
 
@@ -90,19 +88,20 @@ extension GameVC {
     layout.minimumInteritemSpacing = 4
 
     gridCollectionView
-      .setCollectionViewLayout(layout, animated: true)
+      .setCollectionViewLayout(layout, animated: false)
 
     setupBall(level: level)
   }
 
   private func setupBall(level: Level) {
     let startingPocketIndex = level.startPocket.0 * level.startPocket.1 - 1
-    let startingPocket = convertToContainerSpace(pocket: pockets[startingPocketIndex])
-    let ballSize = pocktetSize * 0.8
+    let startingPocketCenter = convertToContainerSpace(pocketIndex: startingPocketIndex)
 
+    let ballSize = pocktetSize * 0.8
     paintBall.frame = CGRect(x: 0, y: 0, width: ballSize, height: ballSize)
-    paintBall.center = convertToContainerSpace(pocket: pockets[startingPocketIndex])
-    springConfigurationButton.center = startingPocket
+
+    paintBall.center = startingPocketCenter
+    springConfigurationButton.center = startingPocketCenter
 
     view.addSubview(paintBall)
 
@@ -119,21 +118,23 @@ extension GameVC: UICollectionViewDataSource {
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-    if let pocket = pockets[safe: indexPath.row] {
-      pocket.translatesAutoresizingMaskIntoConstraints = false
+    let pocket = pockets[indexPath.row]
 
-      let containerView = UIView()
-      containerView.addSubview(pocket)
+    pocket.translatesAutoresizingMaskIntoConstraints = false
+    pocket.globalCenter = gridCollectionView.convert(cell.center, to: gridCollectionView.superview)
 
-      NSLayoutConstraint.activate([
-        pocket.heightAnchor.constraint(equalToConstant: pocktetSize),
-        pocket.widthAnchor.constraint(equalToConstant: pocktetSize),
-        pocket.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-        pocket.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-      ])
+    let containerView = UIView()
+    containerView.addSubview(pocket)
 
-      cell.addSubview(containerView, pinTo: .viewEdges)
-    }
+    NSLayoutConstraint.activate([
+      pocket.heightAnchor.constraint(equalToConstant: pocktetSize),
+      pocket.widthAnchor.constraint(equalToConstant: pocktetSize),
+      pocket.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+      pocket.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+    ])
+
+    cell.addSubview(containerView, pinTo: .viewEdges)
+    print("Pocket Global Center: \(pocket.globalCenter)")
     return cell
   }
 }
@@ -170,7 +171,7 @@ extension GameVC {
 // MARK: - Game management
 
 extension GameVC {
-  func updateGame(_ endpoint: EndpointIndicatorView) {
+  func updateGame(_ endpoint: PocketView) {
     if endpoint.isGoal {
       App.shared.game.state.score()
     }
@@ -222,8 +223,8 @@ extension GameVC {
 
 extension GameVC {
   /// Get the center position of the pocket in the view coordinatespace
-  func convertToContainerSpace(pocket: EndpointIndicatorView) -> CGPoint {
-    pocket.convert(pocket.bounds.center, to: view)
+  func convertToContainerSpace(pocketIndex: Int) -> CGPoint {
+    gridCollectionView.convert(gridCollectionView.layoutAttributesForItem(at: IndexPath(row: pocketIndex, section: 0))!.center, to: view)
   }
 
   /// Initiates a new interactive transition that will be driven by the
@@ -268,7 +269,7 @@ extension GameVC {
     let velocity = CGVector(to: gesture.velocity(in: view))
     let currentCenter = paintBall.center
     let endpoint = intendedEndpoint(with: velocity, from: currentCenter)
-    let targetCenter = convertToContainerSpace(pocket: endpoint)
+    let targetCenter = endpoint.center
     let parameters = spring.timingFunction(withInitialVelocity: velocity, from: &paintBall.center, to: targetCenter, context: self)
     let animator = UIViewPropertyAnimator(duration: 0, timingParameters: parameters)
 
@@ -292,7 +293,7 @@ extension GameVC {
 
   /// Calculates the endpoint to which the PIP view should move from the
   /// specified current position with the specified velocity.
-  private func intendedEndpoint(with velocity: CGVector, from currentPosition: CGPoint) -> EndpointIndicatorView {
+  private func intendedEndpoint(with velocity: CGVector, from currentPosition: CGPoint) -> PocketView {
     var velocity = velocity
 
     // Reduce movement along the secondary axis of the gesture.
@@ -311,9 +312,10 @@ extension GameVC {
   }
 
   /// Returns the endpoint closest to the specified point.
-  private func endpoint(closestTo point: CGPoint) -> EndpointIndicatorView {
+  private func endpoint(closestTo point: CGPoint) -> PocketView {
     let closest = pockets.min(by: { pocket in
-      let distance = point.distance(to: convertToContainerSpace(pocket: pocket))
+      let distance = point.distance(to: pocket.globalCenter)
+      print(pocket.globalCenter)
       return distance
     })!
     return closest

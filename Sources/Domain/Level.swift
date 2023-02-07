@@ -13,7 +13,7 @@ struct Level: LevelProtocol {
   var board: Board
   var dragCost: Int
   var wrongPocketCost: Int
-  var pocketHistory: [EndpointIndicatorView]
+  var pocketHistory: [PocketView]
   var startPocket: (Int, Int)
   var endPocket: (Int, Int) // TODO: Rename to goal pocket
   var costIncurred: Int
@@ -23,7 +23,7 @@ struct Level: LevelProtocol {
        board: Board,
        dragCost: Int,
        wrongPocketCost: Int,
-       pocketHistory: [EndpointIndicatorView],
+       pocketHistory: [PocketView],
        startPocket: (Int, Int),
        endPocket: (Int, Int),
        costIncurred: Int,

@@ -45,7 +45,7 @@ class LevelViewController: UIViewController, UIGestureRecognizerDelegate {
   private var spring: DampedHarmonicSpring?
   private var level: Level?
   private let paintBall: BondiBallView = .init()
-  private var pockets: [EndpointIndicatorView] = .init()
+  private var pockets: [PocketView] = .init()
   private let panGestureRecognizer: UIPanGestureRecognizer = PanGestureRecognizer()
   private var song: AVAudioPlayer?
   private var skView = SKView()
@@ -182,7 +182,7 @@ extension LevelViewController {
       for column in 1 ... level.board.columns {
         let columnView = UIView()
         columnView.translatesAutoresizingMaskIntoConstraints = false
-        let pocket = EndpointIndicatorView()
+        let pocket = PocketView()
         pocket.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
           pocket.widthAnchor.constraint(equalToConstant: pocketSize),
@@ -235,7 +235,7 @@ extension LevelViewController {
 // MARK: - Game management
 
  extension LevelViewController {
-  func updateGame(_ endpoint: EndpointIndicatorView) {
+  func updateGame(_ endpoint: PocketView) {
     if endpoint.isGoal {
       App.shared.game.state.score()
     }
@@ -287,7 +287,7 @@ extension LevelViewController {
 
  extension LevelViewController {
   /// Get the center position of the pocket in the view coordinatespace
-  func convertToContainerSpace(pocket: EndpointIndicatorView) -> CGPoint {
+  func convertToContainerSpace(pocket: PocketView) -> CGPoint {
     pocket.convert(pocket.bounds.center, to: view)
   }
 
@@ -359,7 +359,7 @@ extension LevelViewController {
 
   /// Calculates the endpoint to which the PIP view should move from the
   /// specified current position with the specified velocity.
-  private func intendedEndpoint(with velocity: CGVector, from currentPosition: CGPoint) -> EndpointIndicatorView {
+  private func intendedEndpoint(with velocity: CGVector, from currentPosition: CGPoint) -> PocketView {
     var velocity = velocity
 
     // Reduce movement along the secondary axis of the gesture.
@@ -378,7 +378,7 @@ extension LevelViewController {
   }
 
   /// Returns the endpoint closest to the specified point.
-  private func endpoint(closestTo point: CGPoint) -> EndpointIndicatorView {
+  private func endpoint(closestTo point: CGPoint) -> PocketView {
     let closest = pockets.min(by: { pocket in
       let distance = point.distance(to: convertToContainerSpace(pocket: pocket))
       return distance

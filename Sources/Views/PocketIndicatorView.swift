@@ -24,7 +24,7 @@
 
 import UIKit
 
-internal final class EndpointIndicatorView: UIView {
+internal final class PocketView: UIView {
   override public init(frame: CGRect) {
     super.init(frame: frame)
 
@@ -37,8 +37,8 @@ internal final class EndpointIndicatorView: UIView {
   }
 
   var name: Int?
-
   var isGoal = false
+  var globalCenter: CGPoint = .init()
 
   override public func draw(_ rect: CGRect) {
     let radius = frame.width as CGFloat

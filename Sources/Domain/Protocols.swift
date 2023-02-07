@@ -29,7 +29,7 @@ protocol LevelProtocol {
   /// The starting amount and max of points the level, user should see this decrease as point are incurred
   var points: Int { get }
   /// History of the pockets the ball landed in
-  var pocketHistory: [EndpointIndicatorView] { get set }
+  var pocketHistory: [PocketView] { get set }
 }
 
 protocol GameProtocol {
