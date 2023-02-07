@@ -95,7 +95,7 @@ extension GameVC {
 
   private func setupBall(level: Level) {
     let startingPocketIndex = level.startPocket.0 * level.startPocket.1 - 1
-    let startingPocketCenter = convertToContainerSpace(pocketIndex: startingPocketIndex)
+    let startingPocketCenter = centerPoint(pocketIndex: startingPocketIndex)
 
     let ballSize = pocktetSize * 0.8
     paintBall.frame = CGRect(x: 0, y: 0, width: ballSize, height: ballSize)
@@ -223,7 +223,7 @@ extension GameVC {
 
 extension GameVC {
   /// Get the center position of the pocket in the view coordinatespace
-  func convertToContainerSpace(pocketIndex: Int) -> CGPoint {
+  func centerPoint(pocketIndex: Int) -> CGPoint {
     gridCollectionView.convert(gridCollectionView.layoutAttributesForItem(at: IndexPath(row: pocketIndex, section: 0))!.center, to: view)
   }
 
@@ -268,8 +268,7 @@ extension GameVC {
 
     let velocity = CGVector(to: gesture.velocity(in: view))
     let currentCenter = paintBall.center
-    let endpoint = intendedEndpoint(with: velocity, from: currentCenter)
-    let targetCenter = endpoint.center
+    let targetCenter = intendedEndpoint(with: velocity, from: currentCenter)
     let parameters = spring.timingFunction(withInitialVelocity: velocity, from: &paintBall.center, to: targetCenter, context: self)
     let animator = UIViewPropertyAnimator(duration: 0, timingParameters: parameters)
 
@@ -281,11 +280,11 @@ extension GameVC {
 
     animator.addCompletion { _ in
       self.ballInPocketHaptic()
-      self.updateGame(endpoint)
-      self.state = .idle(at: endpoint)
+//      self.updateGame(endpoint)
+//      self.state = .idle(at: endpoint)
     }
 
-    state = .animating(to: endpoint, using: animator)
+//    state = .animating(to: endpoint, using: animator)
 
     animator.startAnimation()
     releaseBallHaptic(withVelocity: velocity)
@@ -293,7 +292,7 @@ extension GameVC {
 
   /// Calculates the endpoint to which the PIP view should move from the
   /// specified current position with the specified velocity.
-  private func intendedEndpoint(with velocity: CGVector, from currentPosition: CGPoint) -> PocketView {
+  private func intendedEndpoint(with velocity: CGVector, from currentPosition: CGPoint) -> CGPoint {
     var velocity = velocity
 
     // Reduce movement along the secondary axis of the gesture.
@@ -312,13 +311,12 @@ extension GameVC {
   }
 
   /// Returns the endpoint closest to the specified point.
-  private func endpoint(closestTo point: CGPoint) -> PocketView {
-    let closest = pockets.min(by: { pocket in
-      let distance = point.distance(to: pocket.globalCenter)
-      print(pocket.globalCenter)
-      return distance
-    })!
-    return closest
+  private func endpoint(closestTo point: CGPoint) -> CGPoint {
+    var closestPoint: CGPoint = .init()
+    for i in 0 ... pockets.count {
+      closestPoint =  point.distance(to: centerPoint(pocketIndex: i)) < point.distance(to: closestPoint) ? centerPoint(pocketIndex: i) : closestPoint
+    }
+    return closestPoint
   }
 }
 

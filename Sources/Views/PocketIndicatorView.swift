@@ -36,7 +36,7 @@ internal final class PocketView: UIView {
     fatalError()
   }
 
-  var name: Int?
+  var index: Int?
   var isGoal = false
   var globalCenter: CGPoint = .init()
 
