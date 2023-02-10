@@ -6,12 +6,12 @@
 //  Copyright © 2023 Dream Emulator. All rights reserved.
 //
 
-struct Game {
-  var levels: [Level]
-  var currentLevel: Level
-  var totalPoints: Int
-  var badges: [Badge]
-}
+//struct Game {
+//  var levels: [Level]
+//  var currentLevel: Level
+//  var totalPoints: Int
+//  var badges: [Badge]
+//}
 
 // MARK: - The statemachine setup
 
@@ -54,10 +54,7 @@ extension GameStateMachine {
   func score() {
     switch state {
     case .Playing:
-      App.shared.game.tallyPoints()
       state = .Scored
-    // Calculate new total points
-    // Switch to Leveling up
     default: break
     }
   }
@@ -66,20 +63,6 @@ extension GameStateMachine {
     switch state {
     case .Scored:
       state = .LevelingUp
-      // TODO: https://github.com/DreamEmulator/Fidget/issues/14
-      guard let currentLevelIndex = LevelCollection.levels.firstIndex(where: { level in
-        level.id == App.shared.game.level.id
-      }) else { fatalError("Can't find current level") }
-      if currentLevelIndex + 1 < LevelCollection.levels.count {
-        let nextLevel = LevelCollection.levels[currentLevelIndex + 1]
-        App.shared.game.setLevel(nextLevel)
-        state = .Playing(level: nextLevel)
-      } else {
-        print("😃 We need more levels!")
-        App.shared.game.setLevel(LevelCollection.levels.first!)
-        state = .Playing(level: LevelCollection.levels.first!)
-      }
-
     default: break
     }
   }

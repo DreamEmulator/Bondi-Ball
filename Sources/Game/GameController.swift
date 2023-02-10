@@ -20,15 +20,36 @@ class GameController {
 
   var state = GameStateMachine()
 
-  // MARK: - Transitions
-
-  func updateBoardConfig(config: Board) {
-    level.board = config
-    state.start(level: level)
+  init() {
+    subscribe()
   }
+}
 
-  func setLevel(_ level: Level) {
-    self.level = level
+// MARK: Subscriptions
+
+extension GameController {
+  func subscribe() {
+    state.subscribe { state in
+      switch state {
+      case .Scored:
+        self.totalPoints += App.shared.game.level.points - App.shared.game.level.costIncurred
+        break
+      case .LevelingUp:
+
+        let currentLevelIndex = LevelCollection.levels.firstIndex(where: { level in
+          level.id == App.shared.game.level.id
+        })!
+
+        guard currentLevelIndex + 1 < LevelCollection.levels.count else {
+          print("😃 We need more levels!")
+          break
+        }
+
+        self.level = LevelCollection.levels[currentLevelIndex + 1]
+      default:
+        break
+      }
+    }
   }
 }
 

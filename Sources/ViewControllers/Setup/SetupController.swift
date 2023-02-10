@@ -60,7 +60,7 @@ class SetupController: UIViewController {
     rowsLabel.text = String(newConfig.rows)
     columnsLabel.text = String(newConfig.columns)
 
-    App.shared.game.updateBoardConfig(config: newConfig)
+    // TODO: make new level and update properly
   }
 
   @IBAction func dampingRatioChanged(_ sender: UISlider) {

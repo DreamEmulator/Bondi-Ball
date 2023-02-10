@@ -18,6 +18,7 @@ struct Level: LevelProtocol {
   var endPocket: (Int, Int) // TODO: Rename to goal pocket
   var costIncurred: Int
   var points: Int
+  var pocketCount: Int { board.rows * board.columns }
 
   init(id: String,
        board: Board,

@@ -46,7 +46,6 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate {
   }
 
   override func viewDidLayoutSubviews() {
-
     setupBall(level: level)
   }
 
@@ -68,7 +67,11 @@ extension GameVC {
       pointsView.text = String(App.shared.game.totalPoints)
       levelView.text = String(App.shared.game.level.id)
     }
+    createListOfPockets()
+  }
 
+  private func createListOfPockets() {
+    pockets = .init()
     for _ in 0 ... (App.shared.game.level.board.columns * App.shared.game.level.board.rows - 1) {
       pockets.append(PocketView())
     }
@@ -93,6 +96,7 @@ extension GameVC {
 
   private func setupBall(level: Level) {
     let startingPocketIndex = level.startPocket.0 * level.startPocket.1 - 1
+    print("startingPocketIndex, \(startingPocketIndex)")
     let startingPocketCenter = centerPoint(pocketIndex: startingPocketIndex)
 
     let ballSize = pocktetSize * 0.8
@@ -116,6 +120,7 @@ extension GameVC: UICollectionViewDataSource {
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+
     let pocket = pockets.remove(at: indexPath.row)
 
     pocket.translatesAutoresizingMaskIntoConstraints = false
@@ -132,7 +137,9 @@ extension GameVC: UICollectionViewDataSource {
       pocket.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
     ])
 
-    cell.addSubview(containerView, pinTo: .viewEdges)
+    cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+    cell.contentView.addSubview(containerView, pinTo: .viewEdges)
+
     pockets.insert(pocket, at: indexPath.row)
     return cell
   }
@@ -160,7 +167,11 @@ extension GameVC {
         self?.pointsView.text = String(App.shared.game.totalPoints)
       case .LevelingUp:
         self?.levelView.text = String(App.shared.game.level.id)
-      case .Playing, .RetryingLevel, .Missed, .Dragging:
+        self?.createListOfPockets()
+        self?.gridCollectionView.reloadData()
+      case .Playing:
+        self?.setupUI()
+      case .RetryingLevel, .Missed, .Dragging:
         break
       }
     }
@@ -224,7 +235,8 @@ extension GameVC {
 extension GameVC {
   /// Get the center position of the pocket in the view coordinatespace
   func centerPoint(pocketIndex: Int) -> CGPoint {
-    pockets[pocketIndex].globalCenter
+    print(pockets)
+    return pockets[pocketIndex].globalCenter
   }
 
   /// Initiates a new interactive transition that will be driven by the
@@ -317,8 +329,7 @@ extension GameVC {
   /// Returns the endpoint closest to the specified point.
   private func endpoint(closestTo point: CGPoint) -> PocketView? {
     pockets.min { pocket in
-      print(pocket)
-      return pocket.globalCenter.distance(to: point)
+      pocket.globalCenter.distance(to: point)
     }
   }
 }
