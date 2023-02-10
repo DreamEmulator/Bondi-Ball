@@ -12,7 +12,6 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
   // MARK: - Visuals
 
   private let splashScreen: SplashViewController = .init()
-//  private let levelScreen: LevelViewController = .init()
   private let gameVC: GameVC = .init()
   private let scoreVC: ScoreVC = .init()
 

@@ -32,8 +32,6 @@ class GameStateMachine {
   }
 }
 
-// MARK: - Allow others to subscribe to state updates
-
 extension GameStateMachine {
   func start() {
     state = .Playing

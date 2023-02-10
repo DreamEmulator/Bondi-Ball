@@ -40,6 +40,7 @@ extension GameController {
         })!
 
         guard currentLevelIndex + 1 < LevelCollection.levels.count else {
+          self.level = LevelCollection.levels[currentLevelIndex]
           print("😃 We need more levels!")
           break
         }

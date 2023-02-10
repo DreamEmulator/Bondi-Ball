@@ -28,7 +28,6 @@
 		AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */ = {isa = PBXBuildFile; fileRef = AA43E4142961A0CB001EF225 /* Philoshophy.md */; };
 		AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */; };
 		AA4CE8C92961A41C00AD289F /* BondiBallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8C22961A41C00AD289F /* BondiBallView.swift */; };
-		AA4CE8CA2961A41C00AD289F /* LevelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8C52961A41C00AD289F /* LevelVC.swift */; };
 		AA4CE8CB2961A41C00AD289F /* PanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8C72961A41C00AD289F /* PanGestureRecognizer.swift */; };
 		AA4CE8CD2961A42A00AD289F /* Original ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = AA4CE8CC2961A42A00AD289F /* Original ReadMe.md */; };
 		AA4CE8D32961A48900AD289F /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8CE2961A48900AD289F /* CGVector+Extensions.swift */; };
@@ -75,7 +74,6 @@
 		AA43E4142961A0CB001EF225 /* Philoshophy.md */ = {isa = PBXFileReference; explicitFileType = net.daringfireball.markdown; path = Philoshophy.md; sourceTree = "<group>"; };
 		AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PocketIndicatorView.swift; sourceTree = "<group>"; };
 		AA4CE8C22961A41C00AD289F /* BondiBallView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BondiBallView.swift; sourceTree = "<group>"; };
-		AA4CE8C52961A41C00AD289F /* LevelVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelVC.swift; sourceTree = "<group>"; };
 		AA4CE8C72961A41C00AD289F /* PanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanGestureRecognizer.swift; sourceTree = "<group>"; };
 		AA4CE8CC2961A42A00AD289F /* Original ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Original ReadMe.md"; sourceTree = "<group>"; };
 		AA4CE8CE2961A48900AD289F /* CGVector+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGVector+Extensions.swift"; sourceTree = "<group>"; };
@@ -201,7 +199,6 @@
 				AA73B08B2991304E00AAE41E /* Game */,
 				AA35E0332987A2C900275C93 /* Score */,
 				AA35E0322987A2BC00275C93 /* Setup */,
-				AA4CE8C52961A41C00AD289F /* LevelVC.swift */,
 				AA0076182968C38100380FFF /* SplashVC.swift */,
 			);
 			path = ViewControllers;
@@ -378,7 +375,6 @@
 				AA1E7C022975310F0082FB53 /* Level.swift in Sources */,
 				AA00761E2969F15F00380FFF /* RootNavigationController.swift in Sources */,
 				AA0076192968C38100380FFF /* SplashVC.swift in Sources */,
-				AA4CE8CA2961A41C00AD289F /* LevelVC.swift in Sources */,
 				AA4CE8D72961A48900AD289F /* UIGestureRecognizer+Extensions.swift in Sources */,
 				AA0076232969F9E200380FFF /* Animations.swift in Sources */,
 				AA0076202969F93F00380FFF /* Aliases.swift in Sources */,

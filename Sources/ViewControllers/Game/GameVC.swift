@@ -30,7 +30,7 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate {
 
   var cellWidth: CGFloat { gridCollectionView.frame.width / CGFloat(App.shared.game.level.board.columns) }
   var cellHeight: CGFloat { gridCollectionView.frame.height / CGFloat(App.shared.game.level.board.rows) }
-  var pocktetSize: CGFloat { min(cellHeight, cellWidth) * 0.8 }
+  var pocktetSize: CGFloat { min(cellHeight, cellWidth) * 0.9 }
 
   // MARK: - Ball state
 
@@ -114,7 +114,7 @@ extension GameVC {
 
 extension GameVC: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return App.shared.game.level.board.rows
+    return App.shared.game.level.board.rows * App.shared.game.level.board.columns
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -160,7 +160,6 @@ extension GameVC: UICollectionViewDelegateFlowLayout {
 
 extension GameVC {
   func subscribe() {
-    print(App.shared.game.level)
     App.shared.game.state.subscribe { [weak self] state in
       print(state)
       switch state {
