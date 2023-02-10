@@ -23,13 +23,7 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate {
   private var level: Level { App.shared.game.level }
   private var spring: DampedHarmonicSpring { App.shared.game.level.board.spring }
   private let paintBall: BondiBallView = .init()
-  private var pockets: [PocketView] {
-    var levelPockets: [PocketView] = .init()
-    for _ in 0 ... (App.shared.game.level.board.columns * App.shared.game.level.board.rows) {
-      levelPockets.append(PocketView())
-    }
-    return levelPockets
-  }
+  private var pockets: [PocketView] = .init()
 
   private let panGestureRecognizer: UIPanGestureRecognizer = PanGestureRecognizer()
   private let springConfigurationButton: UIButton = .init(style: .alpha)
@@ -63,7 +57,7 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate {
 
 extension GameVC {
   private func setupUI() {
-    navigationItem.setHidesBackButton(true, animated: true)
+    navigationController?.setNavigationBarHidden(true, animated: false)
 
     if let game = UINib.game.firstView(owner: self) {
       view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
@@ -71,6 +65,10 @@ extension GameVC {
 
       pointsView.text = String(App.shared.game.totalPoints)
       levelView.text = String(App.shared.game.level.id)
+    }
+
+    for _ in 0 ... (App.shared.game.level.board.columns * App.shared.game.level.board.rows) {
+      pockets.append(PocketView())
     }
   }
 
@@ -118,10 +116,10 @@ extension GameVC: UICollectionViewDataSource {
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-    let pocket = pockets[indexPath.row]
+    let pocket = PocketView()
 
     pocket.translatesAutoresizingMaskIntoConstraints = false
-    pocket.globalCenter = gridCollectionView.convert(cell.center, to: gridCollectionView.superview)
+    pocket.globalCenter = gridCollectionView.convert(cell.center, to: view)
 
     let containerView = UIView()
     containerView.addSubview(pocket)
@@ -134,7 +132,8 @@ extension GameVC: UICollectionViewDataSource {
     ])
 
     cell.addSubview(containerView, pinTo: .viewEdges)
-    print("Pocket Global Center: \(pocket.globalCenter)")
+    pockets[indexPath.row] = pocket
+    print("Pocket Global Center: \(pocket.globalCenter) \(pockets[indexPath.row].globalCenter)")
     return cell
   }
 }
@@ -171,7 +170,8 @@ extension GameVC {
 // MARK: - Game management
 
 extension GameVC {
-  func updateGame(_ endpoint: PocketView) {
+  func updateGame(_ endpoint: PocketView?) {
+    guard let endpoint else { return }
     if endpoint.isGoal {
       App.shared.game.state.score()
     }
@@ -224,7 +224,7 @@ extension GameVC {
 extension GameVC {
   /// Get the center position of the pocket in the view coordinatespace
   func centerPoint(pocketIndex: Int) -> CGPoint {
-    gridCollectionView.convert(gridCollectionView.layoutAttributesForItem(at: IndexPath(row: pocketIndex, section: 0))!.center, to: view)
+    pockets[pocketIndex].globalCenter
   }
 
   /// Initiates a new interactive transition that will be driven by the
@@ -269,6 +269,10 @@ extension GameVC {
     let velocity = CGVector(to: gesture.velocity(in: view))
     let currentCenter = paintBall.center
     let targetCenter = intendedEndpoint(with: velocity, from: currentCenter)
+
+    guard let targetCenter else { return }
+
+    let targetPocket = self.endpoint(closestTo: targetCenter)
     let parameters = spring.timingFunction(withInitialVelocity: velocity, from: &paintBall.center, to: targetCenter, context: self)
     let animator = UIViewPropertyAnimator(duration: 0, timingParameters: parameters)
 
@@ -280,11 +284,11 @@ extension GameVC {
 
     animator.addCompletion { _ in
       self.ballInPocketHaptic()
-//      self.updateGame(endpoint)
-//      self.state = .idle(at: endpoint)
+      self.updateGame(targetPocket)
+      self.state = .idle(at: targetCenter)
     }
 
-//    state = .animating(to: endpoint, using: animator)
+    state = .animating(to: targetCenter, using: animator)
 
     animator.startAnimation()
     releaseBallHaptic(withVelocity: velocity)
@@ -292,7 +296,7 @@ extension GameVC {
 
   /// Calculates the endpoint to which the PIP view should move from the
   /// specified current position with the specified velocity.
-  private func intendedEndpoint(with velocity: CGVector, from currentPosition: CGPoint) -> CGPoint {
+  private func intendedEndpoint(with velocity: CGVector, from currentPosition: CGPoint) -> CGPoint? {
     var velocity = velocity
 
     // Reduce movement along the secondary axis of the gesture.
@@ -307,16 +311,14 @@ extension GameVC {
 
     let endpoint = self.endpoint(closestTo: projectedPosition)
 
-    return endpoint
+    return endpoint?.globalCenter
   }
 
   /// Returns the endpoint closest to the specified point.
-  private func endpoint(closestTo point: CGPoint) -> CGPoint {
-    var closestPoint: CGPoint = .init()
-    for i in 0 ... pockets.count {
-      closestPoint =  point.distance(to: centerPoint(pocketIndex: i)) < point.distance(to: closestPoint) ? centerPoint(pocketIndex: i) : closestPoint
+  private func endpoint(closestTo point: CGPoint) -> PocketView? {
+    pockets.min { pocket in
+      pocket.globalCenter.distance(to: point)
     }
-    return closestPoint
   }
 }
 
