@@ -42,7 +42,6 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate {
 
     setupUI()
     subscribe()
-    setUpCollectionView()
   }
 
   override func viewDidLayoutSubviews() {
@@ -59,7 +58,7 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate {
 extension GameVC {
   private func setupUI() {
     navigationController?.setNavigationBarHidden(true, animated: false)
-
+    view.subviews.forEach { $0.removeFromSuperview() }
     if let game = UINib.game.firstView(owner: self) {
       view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
       view.addSubview(game, pinTo: .layoutMargins)
@@ -75,6 +74,7 @@ extension GameVC {
     for _ in 0 ... (App.shared.game.level.board.columns * App.shared.game.level.board.rows - 1) {
       pockets.append(PocketView())
     }
+    setUpCollectionView()
   }
 
   private func setUpCollectionView() {
@@ -96,7 +96,6 @@ extension GameVC {
 
   private func setupBall(level: Level) {
     let startingPocketIndex = level.startPocket.0 * level.startPocket.1 - 1
-    print("startingPocketIndex, \(startingPocketIndex)")
     let startingPocketCenter = centerPoint(pocketIndex: startingPocketIndex)
 
     let ballSize = pocktetSize * 0.8
@@ -161,16 +160,18 @@ extension GameVC: UICollectionViewDelegateFlowLayout {
 
 extension GameVC {
   func subscribe() {
+    print(App.shared.game.level)
     App.shared.game.state.subscribe { [weak self] state in
+      print(state)
       switch state {
       case .Scored:
         self?.pointsView.text = String(App.shared.game.totalPoints)
       case .LevelingUp:
         self?.levelView.text = String(App.shared.game.level.id)
         self?.createListOfPockets()
-        self?.gridCollectionView.reloadData()
       case .Playing:
         self?.setupUI()
+        self?.gridCollectionView.reloadData()
       case .RetryingLevel, .Missed, .Dragging:
         break
       }
@@ -235,8 +236,7 @@ extension GameVC {
 extension GameVC {
   /// Get the center position of the pocket in the view coordinatespace
   func centerPoint(pocketIndex: Int) -> CGPoint {
-    print(pockets)
-    return pockets[pocketIndex].globalCenter
+    pockets[pocketIndex].globalCenter
   }
 
   /// Initiates a new interactive transition that will be driven by the

@@ -34,7 +34,7 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
         switch state {
         case .Scored:
           self.pushViewController(self.scoreVC, animated: true)
-        case .LevelingUp:
+        case .Playing:
           self.popViewController(animated: true)
         default:
           break

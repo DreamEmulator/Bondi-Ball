@@ -6,13 +6,6 @@
 //  Copyright © 2023 Dream Emulator. All rights reserved.
 //
 
-//struct Game {
-//  var levels: [Level]
-//  var currentLevel: Level
-//  var totalPoints: Int
-//  var badges: [Badge]
-//}
-
 // MARK: - The statemachine setup
 
 typealias StateSubscription = (_ state: GameState) -> Void
@@ -42,28 +35,15 @@ class GameStateMachine {
 // MARK: - Allow others to subscribe to state updates
 
 extension GameStateMachine {
-  func start(level: Level) {
-    switch state {
-    case .LevelingUp, .RetryingLevel, .Dragging:
-      break
-    default:
-      state = .Playing(level: level)
-    }
+  func start() {
+    state = .Playing
   }
 
   func score() {
-    switch state {
-    case .Playing:
-      state = .Scored
-    default: break
-    }
+    state = .Scored
   }
 
   func levelUp() {
-    switch state {
-    case .Scored:
-      state = .LevelingUp
-    default: break
-    }
+    state = .LevelingUp
   }
 }

@@ -12,6 +12,6 @@ class App {
   static let shared = App()
   var game = GameController()
   private init() {
-    game.state.start(level: LevelCollection.levels.first!)
+    game.state.start()
   }
 }

@@ -7,7 +7,7 @@
 //
 
 enum GameState {
-  case LevelingUp, RetryingLevel, Playing(level: Level), Scored, Missed, Dragging
+  case LevelingUp, RetryingLevel, Playing, Scored, Missed, Dragging
 }
 
 class GameController {
@@ -33,7 +33,6 @@ extension GameController {
       switch state {
       case .Scored:
         self.totalPoints += App.shared.game.level.points - App.shared.game.level.costIncurred
-        break
       case .LevelingUp:
 
         let currentLevelIndex = LevelCollection.levels.firstIndex(where: { level in
