@@ -16,12 +16,12 @@ enum LevelCollection {
         spring: DampedHarmonicSpring(dampingRatio: 0.35, frequencyResponse: 0.8)
       ),
       dragCost: 1,
-      wrongPocketCost: 1,
+      wrongPocketCost: 10,
       pocketHistory: [],
       startPocket: (2, 1),
       endPocket: (1, 1),
       costIncurred: 0,
-      points: 1
+      points: 100
     ),
     Level(
       id: "level_02",
@@ -30,13 +30,13 @@ enum LevelCollection {
         columns: 1,
         spring: DampedHarmonicSpring(dampingRatio: 0.45, frequencyResponse: 0.85)
       ),
-      dragCost: 1,
-      wrongPocketCost: 1,
+      dragCost: 2,
+      wrongPocketCost: 20,
       pocketHistory: [],
       startPocket: (3, 1),
       endPocket: (1, 1),
       costIncurred: 0,
-      points: 2
+      points: 200
     ),
     Level(
       id: "level_03",
@@ -45,13 +45,28 @@ enum LevelCollection {
         columns: 2,
         spring: DampedHarmonicSpring(dampingRatio: 0.55, frequencyResponse: 0.9)
       ),
-      dragCost: 1,
-      wrongPocketCost: 1,
+      dragCost: 3,
+      wrongPocketCost: 30,
       pocketHistory: [],
       startPocket: (2, 2),
       endPocket: (1, 1),
       costIncurred: 0,
-      points: 2
-    )]
+      points: 300
+    ),
+     Level(
+       id: "level_04",
+       board: Board(
+         rows: 3,
+         columns: 3,
+         spring: DampedHarmonicSpring(dampingRatio: 0.65, frequencyResponse: 0.925)
+       ),
+       dragCost: 4,
+       wrongPocketCost: 40,
+       pocketHistory: [],
+       startPocket: (3, 3),
+       endPocket: (2, 2),
+       costIncurred: 0,
+       points: 300
+     )]
   }
 }

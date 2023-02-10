@@ -6,10 +6,6 @@
 //  Copyright © 2023 Dream Emulator. All rights reserved.
 //
 
-enum GameState {
-  case LevelingUp, RetryingLevel, Playing, Scored, Missed, Dragging
-}
-
 class GameController {
   // MARK: - Properties
 
@@ -31,6 +27,12 @@ extension GameController {
   func subscribe() {
     state.subscribe { state in
       switch state {
+      case .Missed:
+        App.shared.game.level.costIncurred += App.shared.game.level.wrongPocketCost
+        break
+      case .Dragging:
+        App.shared.game.level.costIncurred += App.shared.game.level.dragCost
+        break
       case .Scored:
         self.totalPoints += App.shared.game.level.points - App.shared.game.level.costIncurred
       case .LevelingUp:
@@ -40,7 +42,7 @@ extension GameController {
         })!
 
         guard currentLevelIndex + 1 < LevelCollection.levels.count else {
-          self.level = LevelCollection.levels[currentLevelIndex]
+          self.level = LevelCollection.levels.first!
           print("😃 We need more levels!")
           break
         }

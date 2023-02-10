@@ -8,6 +8,10 @@
 
 // MARK: - The statemachine setup
 
+enum GameState {
+  case LevelingUp, RetryingLevel, Playing, Scored, Missed, Dragging
+}
+
 typealias StateSubscription = (_ state: GameState) -> Void
 typealias StateSubscriptions = [StateSubscription]
 
@@ -43,5 +47,13 @@ extension GameStateMachine {
 
   func levelUp() {
     state = .LevelingUp
+  }
+
+  func dragging() {
+    state = .Dragging
+  }
+
+  func missed() {
+    state = .Missed
   }
 }

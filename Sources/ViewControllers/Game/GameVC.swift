@@ -14,9 +14,8 @@ typealias GameCallback = (_ level: Level) -> Void
 class GameVC: UIViewController, UIGestureRecognizerDelegate {
   // MARK: - Outlets
 
+  @IBOutlet var costMeter: UIProgressView!
   @IBOutlet var gridCollectionView: UICollectionView!
-  @IBOutlet var levelView: UILabel!
-  @IBOutlet var pointsView: UILabel!
 
   // MARK: - Vars
 
@@ -62,9 +61,6 @@ extension GameVC {
     if let game = UINib.game.firstView(owner: self) {
       view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
       view.addSubview(game, pinTo: .layoutMargins)
-
-      pointsView.text = String(App.shared.game.totalPoints)
-      levelView.text = String(App.shared.game.level.id)
     }
     createListOfPockets()
   }
@@ -163,15 +159,14 @@ extension GameVC {
     App.shared.game.state.subscribe { [weak self] state in
       print(state)
       switch state {
-      case .Scored:
-        self?.pointsView.text = String(App.shared.game.totalPoints)
       case .LevelingUp:
-        self?.levelView.text = String(App.shared.game.level.id)
         self?.createListOfPockets()
       case .Playing:
         self?.setupUI()
         self?.gridCollectionView.reloadData()
-      case .RetryingLevel, .Missed, .Dragging:
+      case .Dragging, .Missed:
+        self?.costMeter.progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
+      default:
         break
       }
     }
@@ -185,10 +180,9 @@ extension GameVC {
     guard let endpoint else { return }
     if endpoint.isGoal {
       App.shared.game.state.score()
+    } else {
+      App.shared.game.state.missed()
     }
-    // If scored
-    // If missed
-    // If dragging
   }
 }
 
@@ -269,6 +263,7 @@ extension GameVC {
     var center = startPoint + CGVector(to: translation)
     center.x = round(center.x * scale) / scale
     center.y = round(center.y * scale) / scale
+    App.shared.game.state.dragging()
     paintBall.center = center
   }
 
