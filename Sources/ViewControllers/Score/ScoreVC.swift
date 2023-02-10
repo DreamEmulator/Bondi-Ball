@@ -8,13 +8,12 @@
 
 import UIKit
 
-class LevellingUpController: UIViewController {
+class ScoreVC: UIViewController {
   @IBOutlet var continueButton: UIButton!
   @IBOutlet var pointsLabel: UILabel!
   override func viewDidLoad() {
     super.viewDidLoad()
-    navigationItem.setHidesBackButton(true, animated: true)
-    setupUI(totalPoints: App.shared.game.totalPoints)
+    setupUI()
     setupGestures()
     subscribe()
   }
@@ -22,12 +21,12 @@ class LevellingUpController: UIViewController {
 
 // MARK: - Game data
 
-extension LevellingUpController {
+extension ScoreVC {
   func subscribe() {
     App.shared.game.state.subscribe { [weak self] state in
       switch state {
       case .Scored:
-        self?.setupUI(totalPoints: App.shared.game.totalPoints)
+        self?.setupUI()
       default:
         break
       }
@@ -37,7 +36,7 @@ extension LevellingUpController {
 
 // MARK: - Gestures
 
-extension LevellingUpController {
+extension ScoreVC {
   private func setupGestures() {
     continueButton.addTarget(self, action: #selector(continueGame), for: .touchUpInside)
   }
@@ -49,8 +48,15 @@ extension LevellingUpController {
 
 // MARK: - Animations
 
-extension LevellingUpController {
-  func setupUI(totalPoints: Int) {
-    pointsLabel.text = "Total Points: \(totalPoints)"
+extension ScoreVC {
+  func setupUI() {
+    navigationController?.setNavigationBarHidden(true, animated: false)
+
+    if let score = UINib.score.firstView(owner: self) {
+      view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+      view.addSubview(score, pinTo: .safeArea)
+
+      pointsLabel.text = "Total Points: \(App.shared.game.totalPoints)"
+    }
   }
 }

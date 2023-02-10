@@ -18,6 +18,7 @@ extension UINib {
   }
 
   @Named("Game") static var game
+  @Named("Score") static var score
 
   func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey: Any]? = nil) -> UIView? {
     instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIView

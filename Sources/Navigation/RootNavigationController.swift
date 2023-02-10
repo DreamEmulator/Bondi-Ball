@@ -14,7 +14,7 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
   private let splashScreen: SplashViewController = .init()
 //  private let levelScreen: LevelViewController = .init()
   private let gameVC: GameVC = .init()
-  private let levelingUpController: LevellingUpController = .init()
+  private let scoreVC: ScoreVC = .init()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,7 +33,7 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
       if let self {
         switch state {
         case .Scored:
-          self.pushViewController(self.levelingUpController, animated: true)
+          self.pushViewController(self.scoreVC, animated: true)
         case .LevelingUp:
           self.popViewController(animated: true)
         default:

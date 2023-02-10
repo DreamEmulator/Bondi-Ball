@@ -22,7 +22,7 @@
 		AA35E02C2986670300275C93 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E02B2986670300275C93 /* GameController.swift */; };
 		AA35E0312986A4F700275C93 /* LevelCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E0302986A4F700275C93 /* LevelCollection.swift */; };
 		AA35E0362987A31100275C93 /* ScoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E0342987A31100275C93 /* ScoreVC.swift */; };
-		AA35E0372987A31100275C93 /* ScoreVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA35E0352987A31100275C93 /* ScoreVC.xib */; };
+		AA35E0372987A31100275C93 /* Score.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA35E0352987A31100275C93 /* Score.xib */; };
 		AA35E039298807FA00275C93 /* UINavigationController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E038298807FA00275C93 /* UINavigationController+Extensions.swift */; };
 		AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */; };
 		AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */ = {isa = PBXBuildFile; fileRef = AA43E4142961A0CB001EF225 /* Philoshophy.md */; };
@@ -69,7 +69,7 @@
 		AA35E02B2986670300275C93 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		AA35E0302986A4F700275C93 /* LevelCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelCollection.swift; sourceTree = "<group>"; };
 		AA35E0342987A31100275C93 /* ScoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreVC.swift; sourceTree = "<group>"; };
-		AA35E0352987A31100275C93 /* ScoreVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreVC.xib; sourceTree = "<group>"; };
+		AA35E0352987A31100275C93 /* Score.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Score.xib; sourceTree = "<group>"; };
 		AA35E038298807FA00275C93 /* UINavigationController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extensions.swift"; sourceTree = "<group>"; };
 		AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AA43E4142961A0CB001EF225 /* Philoshophy.md */ = {isa = PBXFileReference; explicitFileType = net.daringfireball.markdown; path = Philoshophy.md; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				AA35E0342987A31100275C93 /* ScoreVC.swift */,
-				AA35E0352987A31100275C93 /* ScoreVC.xib */,
+				AA35E0352987A31100275C93 /* Score.xib */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -336,7 +336,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA35E0372987A31100275C93 /* ScoreVC.xib in Resources */,
+				AA35E0372987A31100275C93 /* Score.xib in Resources */,
 				AA73B08D299130C800AAE41E /* Game.xib in Resources */,
 				AA4CE8CD2961A42A00AD289F /* Original ReadMe.md in Resources */,
 				AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */,

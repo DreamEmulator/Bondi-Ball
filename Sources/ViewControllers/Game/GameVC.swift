@@ -42,10 +42,12 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate {
 
     setupUI()
     subscribe()
+    setUpCollectionView()
   }
 
   override func viewDidLayoutSubviews() {
-    setUpCollectionView()
+
+    setupBall(level: level)
   }
 
   override var prefersHomeIndicatorAutoHidden: Bool {
@@ -67,7 +69,7 @@ extension GameVC {
       levelView.text = String(App.shared.game.level.id)
     }
 
-    for _ in 0 ... (App.shared.game.level.board.columns * App.shared.game.level.board.rows) {
+    for _ in 0 ... (App.shared.game.level.board.columns * App.shared.game.level.board.rows - 1) {
       pockets.append(PocketView())
     }
   }
@@ -87,8 +89,6 @@ extension GameVC {
 
     gridCollectionView
       .setCollectionViewLayout(layout, animated: false)
-
-    setupBall(level: level)
   }
 
   private func setupBall(level: Level) {
@@ -116,10 +116,11 @@ extension GameVC: UICollectionViewDataSource {
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-    let pocket = PocketView()
+    let pocket = pockets.remove(at: indexPath.row)
 
     pocket.translatesAutoresizingMaskIntoConstraints = false
     pocket.globalCenter = gridCollectionView.convert(cell.center, to: view)
+    pocket.index = indexPath.row
 
     let containerView = UIView()
     containerView.addSubview(pocket)
@@ -132,8 +133,7 @@ extension GameVC: UICollectionViewDataSource {
     ])
 
     cell.addSubview(containerView, pinTo: .viewEdges)
-    pockets[indexPath.row] = pocket
-    print("Pocket Global Center: \(pocket.globalCenter) \(pockets[indexPath.row].globalCenter)")
+    pockets.insert(pocket, at: indexPath.row)
     return cell
   }
 }
@@ -272,7 +272,7 @@ extension GameVC {
 
     guard let targetCenter else { return }
 
-    let targetPocket = self.endpoint(closestTo: targetCenter)
+    let targetPocket = endpoint(closestTo: targetCenter)
     let parameters = spring.timingFunction(withInitialVelocity: velocity, from: &paintBall.center, to: targetCenter, context: self)
     let animator = UIViewPropertyAnimator(duration: 0, timingParameters: parameters)
 
@@ -317,7 +317,8 @@ extension GameVC {
   /// Returns the endpoint closest to the specified point.
   private func endpoint(closestTo point: CGPoint) -> PocketView? {
     pockets.min { pocket in
-      pocket.globalCenter.distance(to: point)
+      print(pocket)
+      return pocket.globalCenter.distance(to: point)
     }
   }
 }
