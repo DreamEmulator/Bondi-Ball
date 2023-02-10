@@ -38,8 +38,9 @@ internal final class PocketView: UIView {
 
   var index: Int?
   var isGoal: Bool {
-    App.shared.game.level.endPocket.0 * App.shared.game.level.endPocket.1 - 1 == index
+    (App.shared.game.level.endPocket.0 - 1) * App.shared.game.level.board.columns + App.shared.game.level.endPocket.0 - 1 == index
   }
+
   var globalCenter: CGPoint = .init()
 
   override public func draw(_ rect: CGRect) {
