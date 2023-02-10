@@ -24,6 +24,9 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate {
   private let paintBall: BondiBallView = .init()
   private var pockets: [PocketView] = .init()
 
+  private var skView = SKView()
+  private let magicParticles = SKEmitterNode(fileNamed: "MagicParticles")
+
   private let panGestureRecognizer: UIPanGestureRecognizer = PanGestureRecognizer()
   private let springConfigurationButton: UIButton = .init(style: .alpha)
 
@@ -88,6 +91,8 @@ extension GameVC {
 
     gridCollectionView
       .setCollectionViewLayout(layout, animated: false)
+
+    setupParticles()
   }
 
   private func setupBall(level: Level) {
@@ -345,5 +350,46 @@ extension GameVC {
   func ballInPocketHaptic() {
     let generator = UIImpactFeedbackGenerator(style: .heavy)
     generator.impactOccurred()
+  }
+}
+
+// MARK: - Particle effects
+
+extension GameVC {
+  private func setupParticles() {
+    skView.removeFromSuperview()
+    skView = SKView(frame: view.frame)
+    skView.translatesAutoresizingMaskIntoConstraints = false
+    skView.isUserInteractionEnabled = false
+    skView.scene?.view?.isUserInteractionEnabled = false
+    magicParticles?.position = skView.center
+
+    view.backgroundColor = .clear
+    view.addSubview(skView)
+
+    NSLayoutConstraint.activate([
+      skView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      skView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      skView.topAnchor.constraint(equalTo: view.topAnchor),
+      skView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+    ])
+
+    setupSceneView()
+    setupScene()
+  }
+
+  private func setupSceneView() {
+    skView.translatesAutoresizingMaskIntoConstraints = false
+    skView.scene?.backgroundColor = .clear
+    skView.scene?.view?.frame = view.frame
+    skView.backgroundColor = .clear
+    skView.allowsTransparency = true
+  }
+
+  private func setupScene() {
+    let scene = MagicParticlesScene(size: view.frame.size)
+    scene.scaleMode = .aspectFill
+    scene.backgroundColor = .clear
+    skView.presentScene(scene)
   }
 }
