@@ -32,7 +32,9 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
       if let self {
         switch state {
         case .Scored:
-          self.pushViewController(self.scoreVC, animated: true)
+          self.hold(for: 1.75) {
+            self.pushViewController(self.scoreVC, animated: true)
+          }
         case .Playing:
           self.popViewController(animated: true)
         default:
@@ -54,8 +56,8 @@ extension RootNavigationController {
 // MARK: - Navigation
 
 extension RootNavigationController {
-  private func hold(_ completion: @escaping AnonymousClosure) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+  private func hold(for time: TimeInterval = 1.0, _ completion: @escaping AnonymousClosure) {
+    Timer.scheduledTimer(withTimeInterval: time, repeats: false) { _ in
       completion()
     }
   }

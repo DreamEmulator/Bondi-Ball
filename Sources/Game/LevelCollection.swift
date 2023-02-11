@@ -67,6 +67,21 @@ enum LevelCollection {
        endPocket: (2, 2),
        costIncurred: 0,
        points: 300
+     ),
+     Level(
+       id: "level_05",
+       board: Board(
+         rows: 4,
+         columns: 3,
+         spring: DampedHarmonicSpring(dampingRatio: 0.75, frequencyResponse: 0.95)
+       ),
+       dragCost: 5,
+       wrongPocketCost: 50,
+       pocketHistory: [],
+       startPocket: (4, 3),
+       endPocket: (2, 3),
+       costIncurred: 0,
+       points: 400
      )]
   }
 }

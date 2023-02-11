@@ -170,7 +170,8 @@ extension GameVC {
         self?.setupUI()
         self?.gridCollectionView.reloadData()
       case .Dragging, .Missed:
-        self?.costMeter.progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
+        let progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
+        self?.costMeter.setProgress(progress, animated: true)
       default:
         break
       }

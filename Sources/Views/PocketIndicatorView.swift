@@ -25,10 +25,13 @@
 import UIKit
 
 internal final class PocketView: UIView {
+
+  private var userScored = false
+
   override public init(frame: CGRect) {
     super.init(frame: frame)
-
     self.isOpaque = false
+    subscribe()
   }
 
   @available(*, unavailable)
@@ -55,7 +58,7 @@ internal final class PocketView: UIView {
     context.addPath(path.cgPath)
 
     if traitCollection.userInterfaceStyle == .dark {
-      context.setStrokeColor(UIColor.white.withAlphaComponent(0.15).cgColor)
+      context.setStrokeColor(UIColor.purple.withAlphaComponent(0.5).cgColor)
     }
 
     if traitCollection.userInterfaceStyle == .light {
@@ -63,11 +66,34 @@ internal final class PocketView: UIView {
     }
 
     if isGoal {
-      context.setStrokeColor(UIColor.green.withAlphaComponent(0.35).cgColor)
+      context.setStrokeColor(UIColor.magenta.withAlphaComponent(0.5).cgColor)
+      rotate(duration: 100)
+    }
+
+    if isGoal && userScored {
+      context.setStrokeColor(UIColor.green.withAlphaComponent(0.5).cgColor)
+      stopRotating()
+      rotate(duration: 20)
     }
 
     context.setLineDash(phase: 0, lengths: [7])
     context.setLineWidth(thickness)
     context.strokePath()
+  }
+}
+
+// MARK: - Subscriptions
+private extension PocketView {
+  func subscribe(){
+    App.shared.game.state.subscribe{ [weak self] state in
+      switch state {
+      case .Scored:
+        self?.userScored = true
+        self?.setNeedsDisplay()
+        break
+      default:
+        self?.userScored = false
+      }
+    }
   }
 }

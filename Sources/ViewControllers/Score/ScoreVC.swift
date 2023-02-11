@@ -16,7 +16,6 @@ class ScoreVC: UIViewController {
     setupUI()
     subscribe()
     setupGestures()
-    App.shared.game.state.levelUp()
   }
 }
 
@@ -28,7 +27,6 @@ extension ScoreVC {
       switch state {
       case .Scored:
         self?.updateUI()
-        App.shared.game.state.levelUp()
       default:
         break
       }
@@ -44,6 +42,7 @@ extension ScoreVC {
   }
 
   @objc private func continueGame() {
+    App.shared.game.state.levelUp()
     App.shared.game.state.start()
   }
 }
