@@ -22,3 +22,7 @@ State machines are cool, but you have to be discplined.
 - Make sure not to put the side effects in the state machine
 - Handle side-effects in the subscribe functions of your classes
 - Hide the state so you encourage yourself not to use it in comparison
+
+It's a cool way to think though...
+Each class that subscribes has a responsibility (showing something, updating UI, playing a sound), you go to the class 
+and think "what should it do in this state?" and add the side effects in the subscribtion.

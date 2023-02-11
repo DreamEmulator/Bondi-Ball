@@ -32,27 +32,20 @@ class GameController: StateSubscriber {
 
 extension GameController {
   func subscribe() {
-    unsubscribe = state.subscribe { state in
+    unsubscribe = state.subscribe { [weak self] state in
       switch state {
       case .Missed:
-        App.shared.game.level.costIncurred += App.shared.game.level.wrongPocketCost
+        self?.deductPointsForMissing()
+        self?.checkIfFailed()
       case .Dragging:
-        App.shared.game.level.costIncurred += App.shared.game.level.dragCost
+        self?.deductPointsForDragging()
+        self?.checkIfFailed()
       case .Scored:
-        self.totalPoints += App.shared.game.level.points - App.shared.game.level.costIncurred
+        self?.addPointsForScoring()
       case .LevelingUp:
-
-        let currentLevelIndex = LevelCollection.levels.firstIndex(where: { level in
-          level.id == App.shared.game.level.id
-        })!
-
-        guard currentLevelIndex + 1 < LevelCollection.levels.count else {
-          self.level = LevelCollection.levels.first!
-          print("😃 We need more levels!")
-          break
-        }
-
-        self.level = LevelCollection.levels[currentLevelIndex + 1]
+        self?.goToNextLevel()
+      case .Failed:
+        self?.retryLevel()
       default:
         break
       }
@@ -65,5 +58,47 @@ extension GameController {
 extension GameController {
   func tallyPoints() {
     totalPoints += level.points - level.costIncurred
+  }
+
+  func checkIfFailed() {
+    if App.shared.game.level.points - App.shared.game.level.costIncurred < 0 {
+      App.shared.game.state.failed()
+    }
+  }
+
+  func deductPointsForMissing() {
+    App.shared.game.level.costIncurred += App.shared.game.level.wrongPocketCost
+  }
+
+  func deductPointsForDragging() {
+    App.shared.game.level.costIncurred += App.shared.game.level.dragCost
+  }
+
+  func addPointsForScoring() {
+    totalPoints += App.shared.game.level.points - App.shared.game.level.costIncurred
+  }
+}
+
+// MARK: - Manage level progress
+
+extension GameController {
+  func goToNextLevel() {
+    let currentLevelIndex = LevelCollection.levels.firstIndex(where: { level in
+      level.id == App.shared.game.level.id
+    })!
+
+    guard currentLevelIndex + 1 < LevelCollection.levels.count else {
+      self.level = LevelCollection.levels.first!
+      print("😃 We need more levels!")
+      return
+    }
+
+    self.level = LevelCollection.levels[currentLevelIndex + 1]
+  }
+
+  func retryLevel(){
+    self.totalPoints += self.level.costIncurred
+    self.level.costIncurred = 0
+    App.shared.game.state.start()
   }
 }

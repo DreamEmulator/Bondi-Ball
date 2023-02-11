@@ -9,4 +9,5 @@
 enum Sounds: String {
   case scoredSound = "scored"
   case missedSound = "missed"
+  case failedSound = "failed"
 }

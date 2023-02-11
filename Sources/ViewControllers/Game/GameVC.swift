@@ -64,6 +64,37 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate, StateSubscriber {
   }
 }
 
+// MARK: - Subscribe
+
+extension GameVC {
+  func subscribe() {
+    unsubscribe = App.shared.game.state.subscribe { [weak self] state in
+      print(state)
+      let progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
+
+      switch state {
+      case .LevelingUp:
+        self?.createListOfPockets()
+      case .Playing:
+        self?.setupUI()
+        self?.gridCollectionView.reloadData()
+      case .Dragging:
+        self?.costMeter.setProgress(progress, animated: true)
+      case .Missed:
+        self?.costMeter.setProgress(progress, animated: true)
+        self?.play(sound: .missedSound)
+      case .Scored:
+        self?.play(sound: .scoredSound)
+      case .Failed:
+        print("WHY THO?")
+        self?.play(sound: .failedSound)
+      default:
+        break
+      }
+    }
+  }
+}
+
 // MARK: - Setup UI
 
 extension GameVC {
@@ -164,34 +195,6 @@ extension GameVC: UICollectionViewDelegateFlowLayout {
     let widthPerItem = collectionView.frame.width / CGFloat(App.shared.game.level.board.columns) - lay.minimumInteritemSpacing
     let heightPerItem = collectionView.frame.height / CGFloat(App.shared.game.level.board.rows) - lay.minimumInteritemSpacing
     return CGSize(width: widthPerItem, height: heightPerItem)
-  }
-}
-
-// MARK: - Subscribe
-
-extension GameVC {
-  func subscribe() {
-    unsubscribe = App.shared.game.state.subscribe { [weak self] state in
-      print(state)
-      let progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
-
-      switch state {
-      case .LevelingUp:
-        self?.createListOfPockets()
-      case .Playing:
-        self?.setupUI()
-        self?.gridCollectionView.reloadData()
-      case .Dragging:
-        self?.costMeter.setProgress(progress, animated: true)
-      case .Missed:
-        self?.costMeter.setProgress(progress, animated: true)
-        self?.play(sound: .missedSound)
-      case .Scored:
-        self?.play(sound: .scoredSound)
-      default:
-        break
-      }
-    }
   }
 }
 

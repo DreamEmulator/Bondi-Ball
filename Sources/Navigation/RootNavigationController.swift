@@ -46,6 +46,8 @@ extension RootNavigationController {
             self.pushViewController(self.scoreVC, animated: true)
           }
         case .Playing:
+          self.pushViewController(GameVC(), animated: true)
+        case .Failed:
           self.popViewController(animated: true)
         default:
           break

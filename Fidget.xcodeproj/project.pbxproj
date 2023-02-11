@@ -24,6 +24,7 @@
 		AA35E0362987A31100275C93 /* ScoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E0342987A31100275C93 /* ScoreVC.swift */; };
 		AA35E0372987A31100275C93 /* Score.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA35E0352987A31100275C93 /* Score.xib */; };
 		AA35E039298807FA00275C93 /* UINavigationController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E038298807FA00275C93 /* UINavigationController+Extensions.swift */; };
+		AA4246A02997975B007DAE70 /* failed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AA42469F29978FAA007DAE70 /* failed.m4a */; };
 		AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */; };
 		AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */ = {isa = PBXBuildFile; fileRef = AA43E4142961A0CB001EF225 /* Philoshophy.md */; };
 		AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */; };
@@ -73,6 +74,7 @@
 		AA35E0342987A31100275C93 /* ScoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreVC.swift; sourceTree = "<group>"; };
 		AA35E0352987A31100275C93 /* Score.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Score.xib; sourceTree = "<group>"; };
 		AA35E038298807FA00275C93 /* UINavigationController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extensions.swift"; sourceTree = "<group>"; };
+		AA42469F29978FAA007DAE70 /* failed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = failed.m4a; sourceTree = "<group>"; };
 		AA43E4122961A0B6001EF225 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		AA43E4142961A0CB001EF225 /* Philoshophy.md */ = {isa = PBXFileReference; explicitFileType = net.daringfireball.markdown; path = Philoshophy.md; sourceTree = "<group>"; };
 		AA4CE8C12961A41C00AD289F /* PocketIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PocketIndicatorView.swift; sourceTree = "<group>"; };
@@ -239,8 +241,9 @@
 		AA86120529977B9100E9BEA7 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				AA86120629977B9100E9BEA7 /* missed.m4a */,
 				AA86120729977B9100E9BEA7 /* scored.m4a */,
+				AA86120629977B9100E9BEA7 /* missed.m4a */,
+				AA42469F29978FAA007DAE70 /* failed.m4a */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				AA007636296B01EA00380FFF /* Assets.xcassets in Resources */,
 				AA86120929977B9100E9BEA7 /* scored.m4a in Resources */,
 				AA4CE8E12961C6AB00AD289F /* SetupController.xib in Resources */,
+				AA4246A02997975B007DAE70 /* failed.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

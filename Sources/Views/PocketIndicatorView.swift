@@ -48,22 +48,22 @@ internal final class PocketView: UIView, StateSubscriber {
   var globalCenter: CGPoint = .init()
 
   deinit {
-    unsubscribe?()
+    // unsubscribe?() TODO: Learn why this deinit is called unexpectedly
   }
 }
 
 // MARK: - Subscriptions
 
 extension PocketView {
-  internal func subscribe() {
+  func subscribe() {
     unsubscribe = App.shared.game.state.subscribe { [weak self] state in
       switch state {
       case .Scored:
         self?.userScored = true
-        self?.setNeedsDisplay()
       default:
         self?.userScored = false
       }
+      self?.setNeedsDisplay()
     }
   }
 }

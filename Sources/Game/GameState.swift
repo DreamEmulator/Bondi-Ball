@@ -9,7 +9,7 @@
 // MARK: - The statemachine setup
 
 enum GameState {
-  case LevelingUp, RetryingLevel, Playing, Scored, Missed, Dragging, RanOutOfPoints
+  case LevelingUp, RetryingLevel, Playing, Scored, Missed, Dragging, Failed
 }
 
 typealias StateSubscription = (_ state: GameState) -> Void
@@ -45,26 +45,54 @@ class GameStateMachine {
 
 extension GameStateMachine {
   func start() {
-    state = .Playing
+    switch state {
+    default:
+      state = .Playing
+    }
   }
 
   func score() {
-    state = .Scored
+    switch state {
+    case .Dragging:
+      state = .Scored
+    default:
+      break
+    }
   }
 
   func levelUp() {
-    state = .LevelingUp
+    switch state {
+    case .Scored:
+      state = .LevelingUp
+    default:
+      break
+    }
   }
 
   func dragging() {
-    state = .Dragging
+    switch state {
+    case .Playing, .Missed, .Dragging:
+      state = .Dragging
+    default:
+      break
+    }
   }
 
   func missed() {
-    state = .Missed
+    switch state {
+    case .Dragging:
+      state = .Missed
+    default:
+      break
+    }
   }
 
-  func ranOutOfPoints() {
-    state = .Missed
+  func failed() {
+    switch state {
+    case .Dragging:
+      state = .Failed
+    default:
+      break
+    }
   }
 }
