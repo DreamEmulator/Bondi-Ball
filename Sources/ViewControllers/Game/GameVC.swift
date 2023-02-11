@@ -6,6 +6,7 @@
 //  Copyright © 2023 Dream Emulator. All rights reserved.
 //
 
+import AVFoundation
 import SpriteKit
 import UIKit
 
@@ -26,6 +27,8 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate {
 
   private var skView = SKView()
   private let magicParticles = SKEmitterNode(fileNamed: "MagicParticles")
+
+  var player: AVAudioPlayer?
 
   private let panGestureRecognizer: UIPanGestureRecognizer = PanGestureRecognizer()
   private let springConfigurationButton: UIButton = .init(style: .alpha)
@@ -163,15 +166,23 @@ extension GameVC {
   func subscribe() {
     App.shared.game.state.subscribe { [weak self] state in
       print(state)
+      let progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
+
       switch state {
       case .LevelingUp:
         self?.createListOfPockets()
       case .Playing:
         self?.setupUI()
         self?.gridCollectionView.reloadData()
-      case .Dragging, .Missed:
-        let progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
+      case .Dragging:
         self?.costMeter.setProgress(progress, animated: true)
+      case .Missed:
+        self?.costMeter.setProgress(progress, animated: true)
+        self?.play(sound: .missedSound)
+        break
+      case .Scored:
+        self?.play(sound: .scoredSound)
+        break
       default:
         break
       }
@@ -392,5 +403,31 @@ extension GameVC {
     scene.scaleMode = .aspectFill
     scene.backgroundColor = .clear
     skView.presentScene(scene)
+  }
+}
+
+// MARK: - Sound effects
+
+extension GameVC {
+  func play(sound file: Sounds) {
+    guard let url = Bundle.main.url(forResource: file.rawValue, withExtension: "m4a") else { return }
+
+    do {
+      try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+      try AVAudioSession.sharedInstance().setActive(true)
+
+      /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
+      player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+
+      /* iOS 10 and earlier require the following line:
+       player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
+
+      guard let player = player else { return }
+
+      player.play()
+
+    } catch {
+      print(error.localizedDescription)
+    }
   }
 }

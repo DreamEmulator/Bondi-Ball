@@ -43,6 +43,9 @@
 		AA73B0912991340F00AAE41E /* UINib+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73B0902991340F00AAE41E /* UINib+Extensions.swift */; };
 		AA73B09329918B3E00AAE41E /* BondiBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73B09229918B3E00AAE41E /* BondiBall.swift */; };
 		AA73B0952991914900AAE41E /* Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73B0942991914900AAE41E /* Collection+Extensions.swift */; };
+		AA86120829977B9100E9BEA7 /* missed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AA86120629977B9100E9BEA7 /* missed.m4a */; };
+		AA86120929977B9100E9BEA7 /* scored.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AA86120729977B9100E9BEA7 /* scored.m4a */; };
+		AA86120B29977C2700E9BEA7 /* Sounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86120A29977C2700E9BEA7 /* Sounds.swift */; };
 		AAEB9E9F298F9458000F44C2 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEB9E9E298F9458000F44C2 /* UIColor+Extensions.swift */; };
 		AAEC69E12980675500DE89E3 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E02980675500DE89E3 /* Game.swift */; };
 		AAEC69E3298067C900DE89E3 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E2298067C900DE89E3 /* Badge.swift */; };
@@ -89,6 +92,9 @@
 		AA73B0902991340F00AAE41E /* UINib+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINib+Extensions.swift"; sourceTree = "<group>"; };
 		AA73B09229918B3E00AAE41E /* BondiBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BondiBall.swift; sourceTree = "<group>"; };
 		AA73B0942991914900AAE41E /* Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extensions.swift"; sourceTree = "<group>"; };
+		AA86120629977B9100E9BEA7 /* missed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = missed.m4a; sourceTree = "<group>"; };
+		AA86120729977B9100E9BEA7 /* scored.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = scored.m4a; sourceTree = "<group>"; };
+		AA86120A29977C2700E9BEA7 /* Sounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sounds.swift; sourceTree = "<group>"; };
 		AAEB9E9E298F9458000F44C2 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		AAEC69E02980675500DE89E3 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		AAEC69E2298067C900DE89E3 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
@@ -216,6 +222,7 @@
 				AAEC69E02980675500DE89E3 /* Game.swift */,
 				AAEC69E2298067C900DE89E3 /* Badge.swift */,
 				AA73B09229918B3E00AAE41E /* BondiBall.swift */,
+				AA86120A29977C2700E9BEA7 /* Sounds.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -227,6 +234,15 @@
 				AA73B08E299132F000AAE41E /* GameVC.swift */,
 			);
 			path = Game;
+			sourceTree = "<group>";
+		};
+		AA86120529977B9100E9BEA7 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				AA86120629977B9100E9BEA7 /* missed.m4a */,
+				AA86120729977B9100E9BEA7 /* scored.m4a */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		CB05569920D05B8A00095934 = {
@@ -265,6 +281,7 @@
 		CBB6FE3620DA892B0099567C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AA86120529977B9100E9BEA7 /* Sounds */,
 				CB0556B120D05B8B00095934 /* Info.plist */,
 				CB0556AE20D05B8B00095934 /* LaunchScreen.storyboard */,
 				CB0556AC20D05B8B00095934 /* Assets.xcassets */,
@@ -333,6 +350,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA86120829977B9100E9BEA7 /* missed.m4a in Resources */,
 				AA35E0372987A31100275C93 /* Score.xib in Resources */,
 				AA73B08D299130C800AAE41E /* Game.xib in Resources */,
 				AA4CE8CD2961A42A00AD289F /* Original ReadMe.md in Resources */,
@@ -342,6 +360,7 @@
 				AA007635296B01EA00380FFF /* MagicParticles.sks in Resources */,
 				CB0556B020D05B8B00095934 /* LaunchScreen.storyboard in Resources */,
 				AA007636296B01EA00380FFF /* Assets.xcassets in Resources */,
+				AA86120929977B9100E9BEA7 /* scored.m4a in Resources */,
 				AA4CE8E12961C6AB00AD289F /* SetupController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,6 +383,7 @@
 				AAEC69E12980675500DE89E3 /* Game.swift in Sources */,
 				AA4CE8D32961A48900AD289F /* CGVector+Extensions.swift in Sources */,
 				AA35E039298807FA00275C93 /* UINavigationController+Extensions.swift in Sources */,
+				AA86120B29977C2700E9BEA7 /* Sounds.swift in Sources */,
 				AAEB9E9F298F9458000F44C2 /* UIColor+Extensions.swift in Sources */,
 				AA007638296BECD500380FFF /* Board.swift in Sources */,
 				AA35E02C2986670300275C93 /* GameController.swift in Sources */,
