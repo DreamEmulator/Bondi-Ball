@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ScoreVC: UIViewController {
+class ScoreVC: UIViewController, StateSubscriber {
+  internal var unsubscribe: AnonymousClosure?
+
   @IBOutlet var continueButton: UIButton!
   @IBOutlet var pointsLabel: UILabel!
   override func viewDidLoad() {
@@ -17,13 +19,17 @@ class ScoreVC: UIViewController {
     subscribe()
     setupGestures()
   }
+
+  deinit {
+    unsubscribe?()
+  }
 }
 
 // MARK: - Game data
 
 extension ScoreVC {
   func subscribe() {
-    App.shared.game.state.subscribe { [weak self] state in
+    unsubscribe =  App.shared.game.state.subscribe { [weak self] state in
       switch state {
       case .Scored:
         self?.updateUI()

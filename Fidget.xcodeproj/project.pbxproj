@@ -47,7 +47,7 @@
 		AA86120929977B9100E9BEA7 /* scored.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AA86120729977B9100E9BEA7 /* scored.m4a */; };
 		AA86120B29977C2700E9BEA7 /* Sounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86120A29977C2700E9BEA7 /* Sounds.swift */; };
 		AAEB9E9F298F9458000F44C2 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEB9E9E298F9458000F44C2 /* UIColor+Extensions.swift */; };
-		AAEC69E12980675500DE89E3 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E02980675500DE89E3 /* Game.swift */; };
+		AAEC69E12980675500DE89E3 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E02980675500DE89E3 /* GameState.swift */; };
 		AAEC69E3298067C900DE89E3 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E2298067C900DE89E3 /* Badge.swift */; };
 		AAEC69E52980697400DE89E3 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E42980697400DE89E3 /* App.swift */; };
 		CB0556A620D05B8A00095934 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0556A520D05B8A00095934 /* AppDelegate.swift */; };
@@ -96,7 +96,7 @@
 		AA86120729977B9100E9BEA7 /* scored.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = scored.m4a; sourceTree = "<group>"; };
 		AA86120A29977C2700E9BEA7 /* Sounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sounds.swift; sourceTree = "<group>"; };
 		AAEB9E9E298F9458000F44C2 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
-		AAEC69E02980675500DE89E3 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		AAEC69E02980675500DE89E3 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		AAEC69E2298067C900DE89E3 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		AAEC69E42980697400DE89E3 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CB0556A220D05B8A00095934 /* Bondi Ball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bondi Ball.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +148,7 @@
 		AA35E02F2986A4E400275C93 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				AAEC69E02980675500DE89E3 /* GameState.swift */,
 				AA35E02B2986670300275C93 /* GameController.swift */,
 				AA35E0302986A4F700275C93 /* LevelCollection.swift */,
 			);
@@ -219,7 +220,6 @@
 				AA1E7C012975310F0082FB53 /* Level.swift */,
 				AA4CE8C72961A41C00AD289F /* PanGestureRecognizer.swift */,
 				AA1E7C04297538F20082FB53 /* Protocols.swift */,
-				AAEC69E02980675500DE89E3 /* Game.swift */,
 				AAEC69E2298067C900DE89E3 /* Badge.swift */,
 				AA73B09229918B3E00AAE41E /* BondiBall.swift */,
 				AA86120A29977C2700E9BEA7 /* Sounds.swift */,
@@ -380,7 +380,7 @@
 				AA35E0312986A4F700275C93 /* LevelCollection.swift in Sources */,
 				AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */,
 				AA4CE8CB2961A41C00AD289F /* PanGestureRecognizer.swift in Sources */,
-				AAEC69E12980675500DE89E3 /* Game.swift in Sources */,
+				AAEC69E12980675500DE89E3 /* GameState.swift in Sources */,
 				AA4CE8D32961A48900AD289F /* CGVector+Extensions.swift in Sources */,
 				AA35E039298807FA00275C93 /* UINavigationController+Extensions.swift in Sources */,
 				AA86120B29977C2700E9BEA7 /* Sounds.swift in Sources */,

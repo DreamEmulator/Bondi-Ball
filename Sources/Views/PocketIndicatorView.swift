@@ -24,7 +24,8 @@
 
 import UIKit
 
-internal final class PocketView: UIView {
+internal final class PocketView: UIView, StateSubscriber {
+  internal var unsubscribe: AnonymousClosure?
 
   private var userScored = false
 
@@ -46,6 +47,30 @@ internal final class PocketView: UIView {
 
   var globalCenter: CGPoint = .init()
 
+  deinit {
+    unsubscribe?()
+  }
+}
+
+// MARK: - Subscriptions
+
+extension PocketView {
+  internal func subscribe() {
+    unsubscribe = App.shared.game.state.subscribe { [weak self] state in
+      switch state {
+      case .Scored:
+        self?.userScored = true
+        self?.setNeedsDisplay()
+      default:
+        self?.userScored = false
+      }
+    }
+  }
+}
+
+// MARK: - SetupUI
+
+extension PocketView {
   override public func draw(_ rect: CGRect) {
     let radius = frame.width as CGFloat
     let thickness = 4 as CGFloat
@@ -70,7 +95,7 @@ internal final class PocketView: UIView {
       rotate(duration: 100)
     }
 
-    if isGoal && userScored {
+    if isGoal, userScored {
       context.setStrokeColor(UIColor.green.withAlphaComponent(0.5).cgColor)
       stopRotating()
       rotate(duration: 20)
@@ -79,21 +104,5 @@ internal final class PocketView: UIView {
     context.setLineDash(phase: 0, lengths: [7])
     context.setLineWidth(thickness)
     context.strokePath()
-  }
-}
-
-// MARK: - Subscriptions
-private extension PocketView {
-  func subscribe(){
-    App.shared.game.state.subscribe{ [weak self] state in
-      switch state {
-      case .Scored:
-        self?.userScored = true
-        self?.setNeedsDisplay()
-        break
-      default:
-        self?.userScored = false
-      }
-    }
   }
 }

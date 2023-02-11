@@ -16,3 +16,9 @@ A great way to learn.
 ## The Well 
 The basis for this project is this [**phenomenal** post](https://medium.com/@nathangitter/building-fluid-interfaces-ios-swift-9732bb934bf5)
 [Apple Haptics](https://developer.apple.com/documentation/corehaptics/delivering_rich_app_experiences_with_haptics)
+
+## Learnings
+State machines are cool, but you have to be discplined. 
+- Make sure not to put the side effects in the state machine
+- Handle side-effects in the subscribe functions of your classes
+- Hide the state so you encourage yourself not to use it in comparison

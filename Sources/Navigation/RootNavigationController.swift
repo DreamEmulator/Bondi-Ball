@@ -8,7 +8,9 @@
 
 import UIKit
 
-class RootNavigationController: UINavigationController, UINavigationControllerDelegate {
+class RootNavigationController: UINavigationController, UINavigationControllerDelegate, StateSubscriber {
+  var unsubscribe: AnonymousClosure?
+
   // MARK: - Visuals
 
   private let splashScreen: SplashViewController = .init()
@@ -25,10 +27,18 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
     subscribe()
   }
 
-  private func subscribe() {
+  deinit {
+    unsubscribe?()
+  }
+}
+
+// MARK: - Subscription
+
+extension RootNavigationController {
+  func subscribe() {
     // MARK: - Navigation is managed here and not in the viewcontrollers themselves
 
-    App.shared.game.state.subscribe { [weak self] state in
+    unsubscribe = App.shared.game.state.subscribe { [weak self] state in
       if let self {
         switch state {
         case .Scored:

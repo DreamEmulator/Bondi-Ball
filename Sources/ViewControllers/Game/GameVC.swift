@@ -12,7 +12,9 @@ import UIKit
 
 typealias GameCallback = (_ level: Level) -> Void
 
-class GameVC: UIViewController, UIGestureRecognizerDelegate {
+class GameVC: UIViewController, UIGestureRecognizerDelegate, StateSubscriber {
+  internal var unsubscribe: AnonymousClosure?
+
   // MARK: - Outlets
 
   @IBOutlet var costMeter: UIProgressView!
@@ -56,6 +58,10 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate {
   override var prefersHomeIndicatorAutoHidden: Bool {
     true
   }
+
+  deinit {
+    unsubscribe?()
+  }
 }
 
 // MARK: - Setup UI
@@ -80,6 +86,7 @@ extension GameVC {
   }
 
   private func setUpCollectionView() {
+    gridCollectionView.isScrollEnabled = false
     gridCollectionView
       .register(UICollectionViewCell.self,
                 forCellWithReuseIdentifier: "cell")
@@ -164,7 +171,7 @@ extension GameVC: UICollectionViewDelegateFlowLayout {
 
 extension GameVC {
   func subscribe() {
-    App.shared.game.state.subscribe { [weak self] state in
+    unsubscribe = App.shared.game.state.subscribe { [weak self] state in
       print(state)
       let progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
 
@@ -179,10 +186,8 @@ extension GameVC {
       case .Missed:
         self?.costMeter.setProgress(progress, animated: true)
         self?.play(sound: .missedSound)
-        break
       case .Scored:
         self?.play(sound: .scoredSound)
-        break
       default:
         break
       }

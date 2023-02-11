@@ -6,11 +6,12 @@
 //  Copyright © 2023 Dream Emulator. All rights reserved.
 //
 
-class GameController {
+class GameController: StateSubscriber {
   // MARK: - Properties
 
   private(set) var totalPoints = 0
   private(set) var level: Level = LevelCollection.levels.first!
+  internal var unsubscribe: AnonymousClosure?
 
   // MARK: - Game state
 
@@ -19,20 +20,24 @@ class GameController {
   init() {
     subscribe()
   }
+
+  deinit {
+    if let unsubscribe {
+      unsubscribe()
+    }
+  }
 }
 
 // MARK: Subscriptions
 
 extension GameController {
   func subscribe() {
-    state.subscribe { state in
+    unsubscribe = state.subscribe { state in
       switch state {
       case .Missed:
         App.shared.game.level.costIncurred += App.shared.game.level.wrongPocketCost
-        break
       case .Dragging:
         App.shared.game.level.costIncurred += App.shared.game.level.dragCost
-        break
       case .Scored:
         self.totalPoints += App.shared.game.level.points - App.shared.game.level.costIncurred
       case .LevelingUp:

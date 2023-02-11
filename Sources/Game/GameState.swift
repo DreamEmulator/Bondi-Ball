@@ -9,11 +9,16 @@
 // MARK: - The statemachine setup
 
 enum GameState {
-  case LevelingUp, RetryingLevel, Playing, Scored, Missed, Dragging
+  case LevelingUp, RetryingLevel, Playing, Scored, Missed, Dragging, RanOutOfPoints
 }
 
 typealias StateSubscription = (_ state: GameState) -> Void
 typealias StateSubscriptions = [StateSubscription]
+
+protocol StateSubscriber {
+  var unsubscribe: AnonymousClosure? { get set }
+  func subscribe() -> Void
+}
 
 class GameStateMachine {
   private var state: GameState? { didSet {
@@ -31,8 +36,10 @@ class GameStateMachine {
 
   private var stateSubscriptions: StateSubscriptions = .init()
 
-  func subscribe(_ sub: @escaping StateSubscription) {
+  func subscribe(_ sub: @escaping StateSubscription) -> AnonymousClosure {
     stateSubscriptions.append(sub)
+    return { self.stateSubscriptions.remove(at: self.stateSubscriptions.count - 1) }
+    // TODO: Return a remove so subscribers can invoke an unsubscribe
   }
 }
 
@@ -54,6 +61,10 @@ extension GameStateMachine {
   }
 
   func missed() {
+    state = .Missed
+  }
+
+  func ranOutOfPoints() {
     state = .Missed
   }
 }
