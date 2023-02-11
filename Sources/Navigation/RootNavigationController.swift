@@ -14,7 +14,7 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
   // MARK: - Visuals
 
   private let splashScreen: SplashViewController = .init()
-  private let gameVC: GameVC = .init()
+  private var gameVC: GameVC = .init()
   private let scoreVC: ScoreVC = .init()
 
   override func viewDidLoad() {
@@ -46,6 +46,7 @@ extension RootNavigationController {
             self.pushViewController(self.scoreVC, animated: true)
           }
         case .Playing:
+          self.popViewController(animated: true)
           self.pushViewController(GameVC(), animated: true)
         case .Failed:
           self.popViewController(animated: true)
