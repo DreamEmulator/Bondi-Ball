@@ -27,6 +27,10 @@ import UIKit
 internal final class PocketView: UIView, StateSubscriber {
   internal var unsubscribe: AnonymousClosure?
 
+  // TODO: Stop abusing the UIView and wrap it with something that contains the properties
+  var row = 0
+  var column = 0
+
   private var userScored = false
 
   override public init(frame: CGRect) {
@@ -42,7 +46,13 @@ internal final class PocketView: UIView, StateSubscriber {
 
   var index: Int?
   var isGoal: Bool {
-    (App.shared.game.level.endPocket.0 - 1) * App.shared.game.level.board.columns + App.shared.game.level.endPocket.0 - 1 == index
+    let (row, column) = App.shared.game.level.endPocket
+    return row == self.row && column == self.column
+  }
+
+  var isStartPocket: Bool {
+    let (row, column) = App.shared.game.level.startPocket
+    return row == self.row && column == self.column
   }
 
   var globalCenter: CGPoint = .init()
@@ -88,6 +98,10 @@ extension PocketView {
 
     if traitCollection.userInterfaceStyle == .light {
       context.setStrokeColor(UIColor.blue.withAlphaComponent(0.15).cgColor)
+    }
+
+    if isStartPocket {
+      rotate(duration: 500)
     }
 
     if isGoal {

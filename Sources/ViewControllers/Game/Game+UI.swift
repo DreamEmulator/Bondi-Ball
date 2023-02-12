@@ -23,8 +23,13 @@ extension GameVC {
 
   internal func createListOfPockets() {
     pockets = .init()
-    for _ in 0 ... (App.shared.game.level.board.columns * App.shared.game.level.board.rows - 1) {
-      pockets.append(PocketView())
+    for row in 1 ... App.shared.game.level.board.rows {
+      for column in 1 ... App.shared.game.level.board.columns {
+        let pocket = PocketView()
+        pocket.row = row
+        pocket.column = column
+        pockets.append(pocket)
+      }
     }
     setUpCollectionView()
   }

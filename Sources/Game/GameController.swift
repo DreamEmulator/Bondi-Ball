@@ -37,7 +37,7 @@ extension GameController {
       case .Missed:
         self?.deductPointsForMissing()
         self?.checkIfFailed()
-      case .Dragging:
+      case .DraggingBall:
         self?.deductPointsForDragging()
         self?.checkIfFailed()
       case .Scored:
