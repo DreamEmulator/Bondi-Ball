@@ -94,9 +94,11 @@ extension GameVC {
   func endInteractiveTransition(with gesture: UIPanGestureRecognizer) {
     guard case .interaction(with: gesture, from: _) = state else { return }
 
-    App.shared.game.state.releasedBall()
-
     let velocity = CGVector(to: gesture.velocity(in: view))
+    if abs(velocity.dx) + abs(velocity.dy) > 1500 {
+      App.shared.game.state.flickedBall()
+    }
+
     let currentCenter = paintBall.center
     let targetCenter = intendedEndpoint(with: velocity, from: currentCenter)
 

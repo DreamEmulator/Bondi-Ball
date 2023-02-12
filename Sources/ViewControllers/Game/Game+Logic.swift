@@ -33,8 +33,8 @@ extension GameVC {
           self.play(sound: .failedSound)
         case .TouchBall:
           self.play(sound: .touchedSound)
-        case .ReleaseBall:
-          self.play(sound: .releasedSound)
+        case .FlickedBall:
+          self.play(sound: .flickedSound)
         default:
           break
         }

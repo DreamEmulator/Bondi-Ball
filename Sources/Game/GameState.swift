@@ -9,7 +9,7 @@
 // MARK: - The statemachine setup
 
 enum GameState {
-  case LevelingUp, RetryingLevel, Playing, Scored, Missed, TouchBall, DraggingBall, ReleaseBall, Failed
+  case LevelingUp, RetryingLevel, Playing, Scored, Missed, TouchBall, DraggingBall, FlickedBall, Failed
 }
 
 typealias StateSubscription = (_ state: GameState) -> Void
@@ -62,7 +62,7 @@ extension GameStateMachine {
 
   func touchingBall() {
     switch state {
-    case .Playing, .Missed, .ReleaseBall:
+    case .Playing, .Missed, .DraggingBall, .FlickedBall, .TouchBall:
       state = .TouchBall
     default:
       break
@@ -78,10 +78,10 @@ extension GameStateMachine {
     }
   }
 
-  func releasedBall() {
+  func flickedBall() {
     switch state {
     case .DraggingBall, .TouchBall:
-      state = .ReleaseBall
+      state = .FlickedBall
     default:
       break
     }
@@ -89,7 +89,7 @@ extension GameStateMachine {
 
   func score() {
     switch state {
-    case .ReleaseBall:
+    case .FlickedBall, .DraggingBall:
       state = .Scored
     default:
       break
@@ -98,7 +98,7 @@ extension GameStateMachine {
 
   func missed() {
     switch state {
-    case .ReleaseBall:
+    case .FlickedBall:
       state = .Missed
     default:
       break
@@ -107,7 +107,7 @@ extension GameStateMachine {
 
   func failed() {
     switch state {
-    case .ReleaseBall:
+    case .FlickedBall, .DraggingBall:
       state = .Failed
     default:
       break

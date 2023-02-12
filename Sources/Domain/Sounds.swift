@@ -11,5 +11,5 @@ enum Sounds: String {
   case missedSound = "missed"
   case failedSound = "failed"
   case touchedSound = "touched"
-  case releasedSound = "released"
+  case flickedSound = "flicked"
 }
