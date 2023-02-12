@@ -19,6 +19,12 @@
 		AA007638296BECD500380FFF /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA007637296BECD500380FFF /* Board.swift */; };
 		AA1E7C022975310F0082FB53 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E7C012975310F0082FB53 /* Level.swift */; };
 		AA1E7C05297538F20082FB53 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E7C04297538F20082FB53 /* Protocols.swift */; };
+		AA3092B02999061E00EABFF6 /* Game+Gestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3092AF2999061E00EABFF6 /* Game+Gestures.swift */; };
+		AA3092B22999069000EABFF6 /* Game+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3092B12999069000EABFF6 /* Game+UI.swift */; };
+		AA3092B42999072300EABFF6 /* Game+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3092B32999072300EABFF6 /* Game+Logic.swift */; };
+		AA3092B62999076500EABFF6 /* Game+Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3092B52999076500EABFF6 /* Game+Haptics.swift */; };
+		AA3092B82999078C00EABFF6 /* Game+Sounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3092B72999078C00EABFF6 /* Game+Sounds.swift */; };
+		AA3092BA299907B500EABFF6 /* Game+SFX.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3092B9299907B500EABFF6 /* Game+SFX.swift */; };
 		AA35E02C2986670300275C93 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E02B2986670300275C93 /* GameController.swift */; };
 		AA35E0312986A4F700275C93 /* LevelCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E0302986A4F700275C93 /* LevelCollection.swift */; };
 		AA35E0362987A31100275C93 /* ScoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E0342987A31100275C93 /* ScoreVC.swift */; };
@@ -69,6 +75,12 @@
 		AA007637296BECD500380FFF /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		AA1E7C012975310F0082FB53 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		AA1E7C04297538F20082FB53 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		AA3092AF2999061E00EABFF6 /* Game+Gestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+Gestures.swift"; sourceTree = "<group>"; };
+		AA3092B12999069000EABFF6 /* Game+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+UI.swift"; sourceTree = "<group>"; };
+		AA3092B32999072300EABFF6 /* Game+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+Logic.swift"; sourceTree = "<group>"; };
+		AA3092B52999076500EABFF6 /* Game+Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+Haptics.swift"; sourceTree = "<group>"; };
+		AA3092B72999078C00EABFF6 /* Game+Sounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+Sounds.swift"; sourceTree = "<group>"; };
+		AA3092B9299907B500EABFF6 /* Game+SFX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+SFX.swift"; sourceTree = "<group>"; };
 		AA35E02B2986670300275C93 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		AA35E0302986A4F700275C93 /* LevelCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelCollection.swift; sourceTree = "<group>"; };
 		AA35E0342987A31100275C93 /* ScoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreVC.swift; sourceTree = "<group>"; };
@@ -234,6 +246,12 @@
 			children = (
 				AA73B08C299130C800AAE41E /* Game.xib */,
 				AA73B08E299132F000AAE41E /* GameVC.swift */,
+				AA3092AF2999061E00EABFF6 /* Game+Gestures.swift */,
+				AA3092B32999072300EABFF6 /* Game+Logic.swift */,
+				AA3092B12999069000EABFF6 /* Game+UI.swift */,
+				AA3092B52999076500EABFF6 /* Game+Haptics.swift */,
+				AA3092B72999078C00EABFF6 /* Game+Sounds.swift */,
+				AA3092B9299907B500EABFF6 /* Game+SFX.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -378,9 +396,12 @@
 			files = (
 				AA0076172968C16900380FFF /* UIView+Extensions.swift in Sources */,
 				AA1E7C05297538F20082FB53 /* Protocols.swift in Sources */,
+				AA3092B62999076500EABFF6 /* Game+Haptics.swift in Sources */,
 				AA4CE8D92961A69A00AD289F /* Sequence+Extensions.swift in Sources */,
 				AA73B0912991340F00AAE41E /* UINib+Extensions.swift in Sources */,
 				AA4CE8C82961A41C00AD289F /* PocketIndicatorView.swift in Sources */,
+				AA3092B02999061E00EABFF6 /* Game+Gestures.swift in Sources */,
+				AA3092BA299907B500EABFF6 /* Game+SFX.swift in Sources */,
 				AA35E0312986A4F700275C93 /* LevelCollection.swift in Sources */,
 				AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */,
 				AA4CE8CB2961A41C00AD289F /* PanGestureRecognizer.swift in Sources */,
@@ -388,6 +409,7 @@
 				AA4CE8D32961A48900AD289F /* CGVector+Extensions.swift in Sources */,
 				AA35E039298807FA00275C93 /* UINavigationController+Extensions.swift in Sources */,
 				AA86120B29977C2700E9BEA7 /* Sounds.swift in Sources */,
+				AA3092B82999078C00EABFF6 /* Game+Sounds.swift in Sources */,
 				AAEB9E9F298F9458000F44C2 /* UIColor+Extensions.swift in Sources */,
 				AA007638296BECD500380FFF /* Board.swift in Sources */,
 				AA35E02C2986670300275C93 /* GameController.swift in Sources */,
@@ -398,6 +420,7 @@
 				AA4CE8C92961A41C00AD289F /* BondiBallView.swift in Sources */,
 				AA1E7C022975310F0082FB53 /* Level.swift in Sources */,
 				AA00761E2969F15F00380FFF /* RootNavigationController.swift in Sources */,
+				AA3092B22999069000EABFF6 /* Game+UI.swift in Sources */,
 				AA0076192968C38100380FFF /* SplashVC.swift in Sources */,
 				AA4CE8D72961A48900AD289F /* UIGestureRecognizer+Extensions.swift in Sources */,
 				AA0076232969F9E200380FFF /* Animations.swift in Sources */,
@@ -408,6 +431,7 @@
 				AA35E0362987A31100275C93 /* ScoreVC.swift in Sources */,
 				AA4CE8E02961C6AB00AD289F /* SetupController.swift in Sources */,
 				AA4CE8D62961A48900AD289F /* CGPoint+Extensions.swift in Sources */,
+				AA3092B42999072300EABFF6 /* Game+Logic.swift in Sources */,
 				AA73B08F299132F000AAE41E /* GameVC.swift in Sources */,
 				AA4CE8D42961A48900AD289F /* CGRect+Extensions.swift in Sources */,
 			);
