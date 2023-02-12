@@ -46,12 +46,20 @@ internal final class BondiBallView: UIView {
     let gradient = CGGradient(colorsSpace: nil, colors: colors, locations: nil)!
 
     let bounds = CGRect(origin: .zero, size: self.bounds.size)
-    let path = UIBezierPath(roundedRect: bounds, cornerRadius: 100)
+    let path = UIBezierPath(roundedRect: bounds, cornerRadius: frame.width)
 
     let context = UIGraphicsGetCurrentContext()!
     context.beginPath()
     context.addPath(path.cgPath)
     context.clip()
     context.drawLinearGradient(gradient, start: CGPoint(x: bounds.midX, y: bounds.minY), end: CGPoint(x: bounds.midX, y: bounds.maxY), options: [])
+  }
+}
+
+// MARK: - Interactions
+
+extension BondiBallView {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    App.shared.game.state.touchingBall()
   }
 }

@@ -8,12 +8,14 @@
 
 import UIKit
 
-class RootNavigationController: UINavigationController, UINavigationControllerDelegate {
+class RootNavigationController: UINavigationController, UINavigationControllerDelegate, StateSubscriber {
+  var unsubscribe: AnonymousClosure?
 
   // MARK: - Visuals
 
   private let splashScreen: SplashViewController = .init()
-  private let boardScreen: BoardViewController = .init()
+  private var gameVC: GameVC = .init()
+  private var scoreVC: ScoreVC = .init()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -21,17 +23,37 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
     delegate = self
 
     setupUI()
-    hold { navigate() }
+    hold { self.pushViewController(self.gameVC, animated: true) }
+    subscribe()
   }
 
-  private func hold(_ completion: AnonymousClosure) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-      navigate()
+  deinit {
+    unsubscribe?()
+  }
+}
+
+// MARK: - Subscription
+
+extension RootNavigationController {
+  func subscribe() {
+    // MARK: - Navigation is managed here and not in the viewcontrollers themselves
+
+    self.unsubscribe = App.shared.game.state.subscribe { [weak self] state in
+      if let self {
+        switch state {
+        case .Scored:
+          self.hold(for: 1.75) {
+            self.presentScoreVC()
+          }
+        case .Playing:
+          self.presentGameVC()
+        case .Failed:
+          self.presentGameVC()
+        default:
+          break
+        }
+      }
     }
-  }
-
-  private func navigate() {
-    pushViewController(boardScreen, animated: true)
   }
 }
 
@@ -40,5 +62,27 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
 extension RootNavigationController {
   private func setupUI() {
     navigationBar.tintColor = .systemTeal
+  }
+}
+
+// MARK: - Navigation
+
+extension RootNavigationController {
+  private func hold(for time: TimeInterval = 1.0, _ completion: @escaping AnonymousClosure) {
+    Timer.scheduledTimer(withTimeInterval: time, repeats: false) { _ in
+      completion()
+    }
+  }
+
+  private func presentGameVC() {
+    self.gameVC.unsubscribe?()
+    self.gameVC = GameVC()
+    self.pushViewController(self.gameVC, animated: true)
+  }
+
+  private func presentScoreVC() {
+    self.scoreVC.unsubscribe?()
+    self.scoreVC = ScoreVC()
+    self.pushViewController(self.scoreVC, animated: true)
   }
 }

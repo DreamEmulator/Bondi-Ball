@@ -8,8 +8,7 @@
 import Foundation
 
 struct Board: BoardProtocol {
-  var id = UUID()
-  var rows = 4
-  var columns = 3
-  var spring: DampedHarmonicSpring = .init(dampingRatio: 0.35, frequencyResponse: 0.95)
+  var rows: Int
+  var columns: Int
+  var spring: DampedHarmonicSpring
 }

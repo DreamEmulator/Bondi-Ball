@@ -9,28 +9,27 @@
 import Foundation
 
 protocol BoardProtocol {
-  var id: UUID { get }
   var rows: Int { get set } // TODO: Just get in production mode
   var columns: Int { get set }
   var spring: DampedHarmonicSpring { get set }
 }
 
 protocol LevelProtocol {
-  var id: UUID { get }
+  var id: String { get }
   /// Pocket from which the first shot is swiped
-  var startPocket: EndpointIndicatorView { get } // TODO: Extract model and reference here
+  var startPocket: (Int, Int) { get } // Row, Column
   /// Goal pocket to put the ball in
-  var endPocket: EndpointIndicatorView { get } // TODO: Extract model and reference here
+  var endPocket: (Int, Int) { get } // Row, Column
   /// Price for dragging
   var dragCost: Int { get }
   /// Cost for putting the ball in a wrong pocket
   var wrongPocketCost: Int { get }
-  /// Tally of points: max points - costs
-  var points: Int { get set }
+  /// Costs are talley'ed and deducted from the points
+  var costIncurred: Int { get set }
   /// The starting amount and max of points the level, user should see this decrease as point are incurred
-  var maxPoints: Int { get }
+  var points: Int { get }
   /// History of the pockets the ball landed in
-  var pocketHistory: [EndpointIndicatorView] { get set }
+  var pocketHistory: [PocketView] { get set }
 }
 
 protocol GameProtocol {
