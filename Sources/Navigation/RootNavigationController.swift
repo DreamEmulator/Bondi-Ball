@@ -15,7 +15,7 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
 
   private let splashScreen: SplashViewController = .init()
   private var gameVC: GameVC = .init()
-  private let scoreVC: ScoreVC = .init()
+  private var scoreVC: ScoreVC = .init()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -38,18 +38,17 @@ extension RootNavigationController {
   func subscribe() {
     // MARK: - Navigation is managed here and not in the viewcontrollers themselves
 
-    unsubscribe = App.shared.game.state.subscribe { [weak self] state in
+    self.unsubscribe = App.shared.game.state.subscribe { [weak self] state in
       if let self {
         switch state {
         case .Scored:
           self.hold(for: 1.75) {
-            self.pushViewController(self.scoreVC, animated: true)
+            self.presentScoreVC()
           }
         case .Playing:
-          self.popViewController(animated: true)
-          self.pushViewController(GameVC(), animated: true)
+          self.presentGameVC()
         case .Failed:
-          self.popViewController(animated: true)
+          self.presentGameVC()
         default:
           break
         }
@@ -73,5 +72,17 @@ extension RootNavigationController {
     Timer.scheduledTimer(withTimeInterval: time, repeats: false) { _ in
       completion()
     }
+  }
+
+  private func presentGameVC() {
+    self.gameVC.unsubscribe?()
+    self.gameVC = GameVC()
+    self.pushViewController(self.gameVC, animated: true)
+  }
+
+  private func presentScoreVC() {
+    self.scoreVC.unsubscribe?()
+    self.scoreVC = ScoreVC()
+    self.pushViewController(self.scoreVC, animated: true)
   }
 }
