@@ -72,6 +72,7 @@ extension GameVC {
     state = .interaction(with: gesture, from: startPoint)
 
     fingerOnBallHaptic()
+    App.shared.game.state.touchingBall()
   }
 
   /// Updates the ongoing interactive transition driven by the specified pan

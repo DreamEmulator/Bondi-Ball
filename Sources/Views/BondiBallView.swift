@@ -55,11 +55,3 @@ internal final class BondiBallView: UIView {
     context.drawLinearGradient(gradient, start: CGPoint(x: bounds.midX, y: bounds.minY), end: CGPoint(x: bounds.midX, y: bounds.maxY), options: [])
   }
 }
-
-// MARK: - Interactions
-
-extension BondiBallView {
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    App.shared.game.state.touchingBall()
-  }
-}

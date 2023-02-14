@@ -31,10 +31,11 @@ extension GameVC {
           self.play(sound: .scoredSound)
         case .Failed:
           self.play(sound: .failedSound)
+          // MARK: - Sound Test #1 - 15 Fwb.
         case .TouchBall:
-          self.play(sound: .touchedSound)
-        case .FlickedBall:
           self.play(sound: .flickedSound)
+        case .FlickedBall:
+          self.play(sound: .touchedSound)
         default:
           break
         }
