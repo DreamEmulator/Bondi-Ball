@@ -39,6 +39,7 @@ extension GameVC {
     gridCollectionView
       .register(UICollectionViewCell.self,
                 forCellWithReuseIdentifier: "cell")
+    gridCollectionView.backgroundColor = .clear
 
     gridCollectionView.delegate = self
     gridCollectionView.dataSource = self

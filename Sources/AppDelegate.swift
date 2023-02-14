@@ -31,7 +31,7 @@ internal class AppDelegate: UIResponder, UIApplicationDelegate {
   public func application(_ application: UIApplication, didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     let window = UIWindow()
 
-    window.backgroundColor = .systemBackground
+    window.backgroundColor = UIColor(named: "Paper & Chalk")
     window.rootViewController = RootNavigationController(rootViewController: SplashViewController())
 
     self.window = window
