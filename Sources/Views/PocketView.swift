@@ -67,11 +67,15 @@ internal final class PocketView: UIView, StateSubscriber {
 extension PocketView {
   func subscribe() {
     unsubscribe = App.shared.game.state.subscribe { [weak self] state in
-      switch state {
-      case .Scored:
-        self?.userScored = true
-      default:
-        self?.userScored = false
+      if let self {
+        switch state {
+        case .Scored:
+          self.userScored = true
+        case .LevelingUp:
+          self.unsubscribe?()
+        default:
+          self.userScored = false
+        }
       }
       self?.setNeedsDisplay()
     }
