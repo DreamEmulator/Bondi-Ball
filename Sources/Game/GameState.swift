@@ -62,7 +62,7 @@ extension GameStateMachine {
 
   func touchingBall() {
     switch state {
-    case .Playing, .Missed, .DraggingBall, .FlickedBall:
+    case .Playing, .Missed, .TouchBall, .DraggingBall, .FlickedBall:
       state = .TouchBall
     default:
       break
@@ -89,7 +89,7 @@ extension GameStateMachine {
 
   func score() {
     switch state {
-    case .FlickedBall, .DraggingBall:
+    case .FlickedBall:
       state = .Scored
     default:
       break
