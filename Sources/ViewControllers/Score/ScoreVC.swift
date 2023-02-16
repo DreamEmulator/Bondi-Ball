@@ -67,6 +67,6 @@ extension ScoreVC {
   }
 
   func updateUI() {
-    pointsLabel.text = "Total Points: \(App.shared.game.totalPoints)"
+    pointsLabel.text = "Punten: \(App.shared.game.totalPoints)"
   }
 }
