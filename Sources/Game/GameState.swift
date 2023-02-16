@@ -38,8 +38,11 @@ class GameStateMachine {
 
   func subscribe(_ sub: @escaping StateSubscription) -> AnonymousClosure {
     stateSubscriptions.append(sub)
-    return { self.stateSubscriptions.remove(at: self.stateSubscriptions.count - 1) }
-    // TODO: Return a remove so subscribers can invoke an unsubscribe
+    print("🤝 Subscribed, sub-count: \(self.stateSubscriptions.count)")
+    return {
+      print("👋 Unsubscribed, sub-count: \(self.stateSubscriptions.count)")
+      self.stateSubscriptions.remove(at: self.stateSubscriptions.count - 1)
+    }
   }
 }
 

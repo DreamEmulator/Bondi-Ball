@@ -47,7 +47,7 @@ extension RootNavigationController {
           }
         case .Playing:
           self.presentGameVC()
-        case .Failed:
+        case .RetryingLevel:
           self.presentGameVC()
         default:
           break
