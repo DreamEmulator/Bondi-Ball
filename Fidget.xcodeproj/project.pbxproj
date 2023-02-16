@@ -250,8 +250,8 @@
 			children = (
 				AA73B08C299130C800AAE41E /* Game.xib */,
 				AA73B08E299132F000AAE41E /* GameVC.swift */,
-				AA3092AF2999061E00EABFF6 /* Game+Gestures.swift */,
 				AA3092B32999072300EABFF6 /* Game+Logic.swift */,
+				AA3092AF2999061E00EABFF6 /* Game+Gestures.swift */,
 				AA3092B12999069000EABFF6 /* Game+UI.swift */,
 				AA3092B52999076500EABFF6 /* Game+Haptics.swift */,
 				AA3092B72999078C00EABFF6 /* Game+Sounds.swift */,
