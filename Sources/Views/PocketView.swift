@@ -71,7 +71,7 @@ extension PocketView {
         switch state {
         case .Scored:
           self.userScored = true
-        case .LevelingUp:
+        case .LevelingUp, .RetryingLevel:
           self.unsubscribe?()
         default:
           self.userScored = false
