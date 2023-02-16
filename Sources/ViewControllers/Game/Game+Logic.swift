@@ -32,9 +32,9 @@ extension GameVC {
         case .Failed:
           self.play(sound: .failedSound)
         case .TouchBall:
-          self.play(sound: .flickedSound)
-        case .FlickedBall:
           self.play(sound: .touchedSound)
+        case .FlickedBall:
+          self.play(sound: .flickedSound)
         case .RetryingLevel:
           self.unsubscribe?()
         }
