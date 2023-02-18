@@ -13,9 +13,14 @@ None. A fun fidget app.
 A great way to learn.
  
  
-## The Well 
+## Sources
 The basis for this project is this [**phenomenal** post](https://medium.com/@nathangitter/building-fluid-interfaces-ios-swift-9732bb934bf5)
 [Apple Haptics](https://developer.apple.com/documentation/corehaptics/delivering_rich_app_experiences_with_haptics)
+
+_Shaders_
+[ShaderKit](https://github.com/twostraws/ShaderKit)
+[Creating Fragment Shaders](https://developer.apple.com/documentation/spritekit/skshader/creating_a_custom_fragment_shader)
+[ShaderToy Tutorial](https://inspirnathan.com/posts/47-shadertoy-tutorial-part-1/)
 
 ## Learnings
 State machines are cool, but you have to be discplined. 

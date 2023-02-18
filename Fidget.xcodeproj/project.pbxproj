@@ -55,6 +55,8 @@
 		AA86120829977B9100E9BEA7 /* missed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AA86120629977B9100E9BEA7 /* missed.m4a */; };
 		AA86120929977B9100E9BEA7 /* scored.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AA86120729977B9100E9BEA7 /* scored.m4a */; };
 		AA86120B29977C2700E9BEA7 /* Sounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86120A29977C2700E9BEA7 /* Sounds.swift */; };
+		AA916B0C29A0E9B70062A2DE /* ScoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA916B0B29A0E9B70062A2DE /* ScoreScene.swift */; };
+		AA916B0E29A0EAB90062A2DE /* water.fsh in Resources */ = {isa = PBXBuildFile; fileRef = AA916B0D29A0EAB90062A2DE /* water.fsh */; };
 		AAEB9E9F298F9458000F44C2 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEB9E9E298F9458000F44C2 /* UIColor+Extensions.swift */; };
 		AAEC69E12980675500DE89E3 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E02980675500DE89E3 /* GameState.swift */; };
 		AAEC69E3298067C900DE89E3 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E2298067C900DE89E3 /* Badge.swift */; };
@@ -113,6 +115,8 @@
 		AA86120629977B9100E9BEA7 /* missed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = missed.m4a; sourceTree = "<group>"; };
 		AA86120729977B9100E9BEA7 /* scored.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = scored.m4a; sourceTree = "<group>"; };
 		AA86120A29977C2700E9BEA7 /* Sounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sounds.swift; sourceTree = "<group>"; };
+		AA916B0B29A0E9B70062A2DE /* ScoreScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreScene.swift; sourceTree = "<group>"; };
+		AA916B0D29A0EAB90062A2DE /* water.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = water.fsh; sourceTree = "<group>"; };
 		AAEB9E9E298F9458000F44C2 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		AAEC69E02980675500DE89E3 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		AAEC69E2298067C900DE89E3 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
@@ -185,8 +189,10 @@
 		AA35E0332987A2C900275C93 /* Score */ = {
 			isa = PBXGroup;
 			children = (
-				AA35E0342987A31100275C93 /* ScoreVC.swift */,
 				AA35E0352987A31100275C93 /* Score.xib */,
+				AA35E0342987A31100275C93 /* ScoreVC.swift */,
+				AA916B0B29A0E9B70062A2DE /* ScoreScene.swift */,
+				AA916B0D29A0EAB90062A2DE /* water.fsh */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -392,6 +398,7 @@
 				AA86120929977B9100E9BEA7 /* scored.m4a in Resources */,
 				AA4CE8E12961C6AB00AD289F /* SetupController.xib in Resources */,
 				AA4246A02997975B007DAE70 /* failed.m4a in Resources */,
+				AA916B0E29A0EAB90062A2DE /* water.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +432,7 @@
 				CB0556A620D05B8A00095934 /* AppDelegate.swift in Sources */,
 				AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */,
 				AAEC69E52980697400DE89E3 /* App.swift in Sources */,
+				AA916B0C29A0E9B70062A2DE /* ScoreScene.swift in Sources */,
 				AA4CE8C92961A41C00AD289F /* BondiBallView.swift in Sources */,
 				AA1E7C022975310F0082FB53 /* Level.swift in Sources */,
 				AA00761E2969F15F00380FFF /* RootNavigationController.swift in Sources */,
