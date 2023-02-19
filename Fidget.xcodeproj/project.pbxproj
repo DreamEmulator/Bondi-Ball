@@ -150,6 +150,7 @@
 		AA0076212969F9D300380FFF /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				AA916B1129A20E330062A2DE /* Shaders */,
 				AA0076222969F9E200380FFF /* Animations.swift */,
 				AA00762E296AD3B000380FFF /* Scenes */,
 				AA007627296A15CB00380FFF /* Assets.xcassets */,
@@ -192,7 +193,6 @@
 				AA35E0352987A31100275C93 /* Score.xib */,
 				AA35E0342987A31100275C93 /* ScoreVC.swift */,
 				AA916B0B29A0E9B70062A2DE /* ScoreScene.swift */,
-				AA916B0D29A0EAB90062A2DE /* water.fsh */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -276,6 +276,14 @@
 				AA3092BF299917E900EABFF6 /* touched.m4a */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		AA916B1129A20E330062A2DE /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				AA916B0D29A0EAB90062A2DE /* water.fsh */,
+			);
+			path = Shaders;
 			sourceTree = "<group>";
 		};
 		CB05569920D05B8A00095934 = {

@@ -13,7 +13,7 @@ import UIKit
 class ScoreVC: UIViewController, StateSubscriber {
   internal var unsubscribe: AnonymousClosure?
 
-  @IBOutlet var spriteKitView: SKView!
+  @IBOutlet var skView: SKView!
   @IBOutlet var continueButton: UIButton!
   @IBOutlet var pointsLabel: UILabel!
 
@@ -82,18 +82,18 @@ extension ScoreVC {
   func setupSpriteKit() {
     // Setup SpriteKit
 
-    spriteKitView.translatesAutoresizingMaskIntoConstraints = false
-    spriteKitView.scene?.backgroundColor = .clear
-    spriteKitView.scene?.view?.frame = view.frame
-    spriteKitView.backgroundColor = .clear
-    spriteKitView.allowsTransparency = true
+    skView.translatesAutoresizingMaskIntoConstraints = false
+    skView.scene?.backgroundColor = .clear
+    skView.scene?.view?.frame = view.frame
+    skView.backgroundColor = .clear
+    skView.allowsTransparency = true
 
     NSLayoutConstraint.activate([
-      spriteKitView.topAnchor.constraint(equalTo: view.topAnchor),
-      spriteKitView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-      spriteKitView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      spriteKitView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      skView.topAnchor.constraint(equalTo: view.topAnchor),
+      skView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      skView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      skView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
     ])
-    spriteKitView.presentScene(ScoreScene(size: view.frame.size))
+    skView.presentScene(ScoreScene(size: view.frame.size))
   }
 }

@@ -12,7 +12,7 @@
             <connections>
                 <outlet property="continueButton" destination="QIe-2N-kTk" id="g4o-eY-ocB"/>
                 <outlet property="pointsLabel" destination="WT7-TY-Sdh" id="Ni7-a5-vAS"/>
-                <outlet property="spriteKitView" destination="GQJ-Qr-aPt" id="p5n-zM-vGw"/>
+                <outlet property="skView" destination="GQJ-Qr-aPt" id="HB2-It-zTP"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
