@@ -1,0 +1,23 @@
+//
+//  ScoreScene.swift
+//  Bondi Ball
+//
+//  Created by Sebastiaan Hols on 18/02/2023.
+//  Copyright © 2023 Dream Emulator. All rights reserved.
+//
+
+import SpriteKit
+import UIKit
+
+class LinesScene: SKScene {
+  private let mainNode: SKSpriteNode = .init(imageNamed: "SuccessBunny")
+  override func didMove(to view: SKView) {
+    backgroundColor = .clear
+    let spriteSize = vector_float2(Float(frame.size.width),
+                                   Float(frame.size.height))
+    mainNode.shader = SKShader(fileNamed: "lines.fsh")
+    mainNode.shader!.uniforms.append(SKUniform(name: "u_sprite_size", vectorFloat2: spriteSize))
+    mainNode.position = frame.center
+    addChild(mainNode)
+  }
+}

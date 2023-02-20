@@ -58,6 +58,10 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate, StateSubscriber {
     true
   }
 
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    setupUI()
+  }
+
   deinit {
     unsubscribe?()
   }
