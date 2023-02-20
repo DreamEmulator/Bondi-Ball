@@ -12,7 +12,7 @@ import SpriteKit
 
 extension GameVC {
   func setupSFX() {
-    let scene = traitCollection.userInterfaceStyle == .dark ? LinesScene(size: view.frame.size) : MagicParticlesScene(size: view.frame.size)
+    let scene = traitCollection.userInterfaceStyle == .dark ? WormholeScene(size: view.frame.size) : MagicParticlesScene(size: view.frame.size)
     setupSpriteKit(skView: skView, scene: scene)
   }
 }

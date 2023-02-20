@@ -65,7 +65,7 @@ extension ScoreVC {
 
     if let score = UINib.score.firstView(owner: self) {
       view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-      let scene = traitCollection.userInterfaceStyle == .dark ? PurpleLightsScene(size: view.frame.size) : ScoreScene(size: view.frame.size)
+      let scene = traitCollection.userInterfaceStyle == .dark ? PurpleLightsScene(size: view.frame.size) : GlassScene(size: view.frame.size)
       setupSpriteKit(skView: skView, scene: scene)
       view.addSubview(score, pinTo: .safeArea)
     }
