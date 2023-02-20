@@ -62,6 +62,8 @@
 		AA916B1729A3B6470062A2DE /* PurpleLightsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA916B1629A3B6470062A2DE /* PurpleLightsScene.swift */; };
 		AA916B1929A3C8440062A2DE /* LinesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA916B1829A3C8440062A2DE /* LinesScene.swift */; };
 		AA916B1D29A3C87D0062A2DE /* lines.fsh in Resources */ = {isa = PBXBuildFile; fileRef = AA916B1C29A3C87D0062A2DE /* lines.fsh */; };
+		AA916B1F29A3CFC40062A2DE /* Beehive.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA916B1E29A3CFC40062A2DE /* Beehive.swift */; };
+		AA916B2129A3CFDA0062A2DE /* beehive.fsh in Resources */ = {isa = PBXBuildFile; fileRef = AA916B2029A3CFDA0062A2DE /* beehive.fsh */; };
 		AAEB9E9F298F9458000F44C2 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEB9E9E298F9458000F44C2 /* UIColor+Extensions.swift */; };
 		AAEC69E12980675500DE89E3 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E02980675500DE89E3 /* GameState.swift */; };
 		AAEC69E3298067C900DE89E3 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E2298067C900DE89E3 /* Badge.swift */; };
@@ -127,6 +129,8 @@
 		AA916B1629A3B6470062A2DE /* PurpleLightsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleLightsScene.swift; sourceTree = "<group>"; };
 		AA916B1829A3C8440062A2DE /* LinesScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesScene.swift; sourceTree = "<group>"; };
 		AA916B1C29A3C87D0062A2DE /* lines.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = lines.fsh; sourceTree = "<group>"; };
+		AA916B1E29A3CFC40062A2DE /* Beehive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beehive.swift; sourceTree = "<group>"; };
+		AA916B2029A3CFDA0062A2DE /* beehive.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = beehive.fsh; sourceTree = "<group>"; };
 		AAEB9E9E298F9458000F44C2 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		AAEC69E02980675500DE89E3 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		AAEC69E2298067C900DE89E3 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
@@ -171,6 +175,7 @@
 		AA00762E296AD3B000380FFF /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				AA916B1E29A3CFC40062A2DE /* Beehive.swift */,
 				AA916B1829A3C8440062A2DE /* LinesScene.swift */,
 				AA007633296B01EA00380FFF /* MagicParticles.sks */,
 				AA00762F296AD3D800380FFF /* MagicParticlesScene.swift */,
@@ -297,6 +302,7 @@
 				AA916B0D29A0EAB90062A2DE /* water.fsh */,
 				AA916B1429A3B55F0062A2DE /* purple_lights.fsh */,
 				AA916B1C29A3C87D0062A2DE /* lines.fsh */,
+				AA916B2029A3CFDA0062A2DE /* beehive.fsh */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -424,6 +430,7 @@
 				AA916B0E29A0EAB90062A2DE /* water.fsh in Resources */,
 				AA916B1529A3B55F0062A2DE /* purple_lights.fsh in Resources */,
 				AA916B1D29A3C87D0062A2DE /* lines.fsh in Resources */,
+				AA916B2129A3CFDA0062A2DE /* beehive.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +448,7 @@
 				AA73B0912991340F00AAE41E /* UINib+Extensions.swift in Sources */,
 				AA4CE8C82961A41C00AD289F /* PocketView.swift in Sources */,
 				AA3092B02999061E00EABFF6 /* Game+Gestures.swift in Sources */,
+				AA916B1F29A3CFC40062A2DE /* Beehive.swift in Sources */,
 				AA3092BA299907B500EABFF6 /* Game+SFX.swift in Sources */,
 				AA35E0312986A4F700275C93 /* LevelCollection.swift in Sources */,
 				AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */,
