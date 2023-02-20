@@ -96,7 +96,7 @@ extension GameVC {
     guard case .interaction(with: gesture, from: _) = state else { return }
 
     let velocity = CGVector(to: gesture.velocity(in: view))
-    if abs(velocity.dx) + abs(velocity.dy) > 500 {
+    if abs(velocity.dx) + abs(velocity.dy) > 250 {
       App.shared.game.state.flickedBall()
     }
 

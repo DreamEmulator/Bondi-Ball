@@ -12,7 +12,7 @@ import SpriteKit
 
 extension GameVC {
   func setupSFX() {
-    let scene = MagicParticlesScene(size: view.frame.size)
+    let scene = PurpleLightsScene(size: view.frame.size)
     setupSpriteKit(skView: skView, scene: scene)
   }
 }

@@ -114,7 +114,7 @@ extension PocketView {
     }
 
     if isGoal, userScored {
-      context.setStrokeColor(UIColor.green.withAlphaComponent(0.5).cgColor)
+      context.setStrokeColor(UIColor.systemMint.withAlphaComponent(0.5).cgColor)
       stopRotating()
       rotate(duration: 20)
     }
