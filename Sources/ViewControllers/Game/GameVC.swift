@@ -28,7 +28,6 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate, StateSubscriber {
   internal var pockets: [PocketView] = .init()
 
   internal var skView = SKView()
-  internal let magicParticles = SKEmitterNode(fileNamed: "MagicParticles")
 
   internal var player: AVAudioPlayer?
 

@@ -65,35 +65,13 @@ extension ScoreVC {
 
     if let score = UINib.score.firstView(owner: self) {
       view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+      setupSpriteKit(skView: skView, scene: ScoreScene(size: view.frame.size))
       view.addSubview(score, pinTo: .safeArea)
-      setupSpriteKit()
     }
     updateUI()
   }
 
   func updateUI() {
     pointsLabel.text = "Punten: \(App.shared.game.totalPoints)"
-  }
-}
-
-// MARK: - Animations
-
-extension ScoreVC {
-  func setupSpriteKit() {
-    // Setup SpriteKit
-
-    skView.translatesAutoresizingMaskIntoConstraints = false
-    skView.scene?.backgroundColor = .clear
-    skView.scene?.view?.frame = view.frame
-    skView.backgroundColor = .clear
-    skView.allowsTransparency = true
-
-    NSLayoutConstraint.activate([
-      skView.topAnchor.constraint(equalTo: view.topAnchor),
-      skView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-      skView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      skView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-    ])
-    skView.presentScene(ScoreScene(size: view.frame.size))
   }
 }

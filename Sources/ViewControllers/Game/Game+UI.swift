@@ -11,9 +11,10 @@ import UIKit
 // MARK: - Setup UI
 
 extension GameVC {
-  internal func setupUI() {
+  func setupUI() {
     navigationController?.setNavigationBarHidden(true, animated: false)
     view.subviews.forEach { $0.removeFromSuperview() }
+    setupSFX()
     if let game = UINib.game.firstView(owner: self) {
       view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
       view.addSubview(game, pinTo: .layoutMargins)
@@ -21,7 +22,7 @@ extension GameVC {
     createListOfPockets()
   }
 
-  internal func createListOfPockets() {
+  func createListOfPockets() {
     pockets = .init()
     for row in 1 ... App.shared.game.level.board.rows {
       for column in 1 ... App.shared.game.level.board.columns {
@@ -35,6 +36,7 @@ extension GameVC {
   }
 
   private func setUpCollectionView() {
+    
     gridCollectionView.isScrollEnabled = false
     gridCollectionView
       .register(UICollectionViewCell.self,
@@ -52,10 +54,10 @@ extension GameVC {
     gridCollectionView
       .setCollectionViewLayout(layout, animated: false)
 
-    setupParticles()
+
   }
 
-  internal func setupBall(level: Level) {
+  func setupBall(level: Level) {
     let startingPocketIndex = level.startPocket.0 * level.startPocket.1 - 1
     let startingPocketCenter = centerPoint(pocketIndex: startingPocketIndex)
 
@@ -107,8 +109,8 @@ extension GameVC: UICollectionViewDataSource {
 
 extension GameVC: UICollectionViewDelegateFlowLayout {
   internal func collectionView(_ collectionView: UICollectionView,
-                      layout collectionViewLayout: UICollectionViewLayout,
-                      sizeForItemAt indexPath: IndexPath) -> CGSize
+                               layout collectionViewLayout: UICollectionViewLayout,
+                               sizeForItemAt indexPath: IndexPath) -> CGSize
   {
     let lay = collectionViewLayout as! UICollectionViewFlowLayout
     let widthPerItem = collectionView.frame.width / CGFloat(App.shared.game.level.board.columns) - lay.minimumInteritemSpacing

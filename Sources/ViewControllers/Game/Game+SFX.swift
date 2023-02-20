@@ -11,40 +11,8 @@ import SpriteKit
 // MARK: - Particle effects
 
 extension GameVC {
-  func setupParticles() {
-    skView.removeFromSuperview()
-    skView = SKView(frame: view.frame)
-    skView.translatesAutoresizingMaskIntoConstraints = false
-    skView.isUserInteractionEnabled = false
-    skView.scene?.view?.isUserInteractionEnabled = false
-    magicParticles?.position = skView.center
-
-    view.backgroundColor = .clear
-    view.addSubview(skView)
-
-    NSLayoutConstraint.activate([
-      skView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      skView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      skView.topAnchor.constraint(equalTo: view.topAnchor),
-      skView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-    ])
-
-    setupSceneView()
-    setupScene()
-  }
-
-  func setupSceneView() {
-    skView.translatesAutoresizingMaskIntoConstraints = false
-    skView.scene?.backgroundColor = .clear
-    skView.scene?.view?.frame = view.frame
-    skView.backgroundColor = .clear
-    skView.allowsTransparency = true
-  }
-
-  func setupScene() {
+  func setupSFX() {
     let scene = MagicParticlesScene(size: view.frame.size)
-    scene.scaleMode = .aspectFill
-    scene.backgroundColor = .clear
-    skView.presentScene(scene)
+    setupSpriteKit(skView: skView, scene: scene)
   }
 }
