@@ -18,6 +18,7 @@ class LinesScene: SKScene {
     mainNode.shader = SKShader(fileNamed: "lines.fsh")
     mainNode.shader!.uniforms.append(SKUniform(name: "u_sprite_size", vectorFloat2: spriteSize))
     mainNode.position = frame.center
+    mainNode.size = frame.size
     addChild(mainNode)
   }
 }
