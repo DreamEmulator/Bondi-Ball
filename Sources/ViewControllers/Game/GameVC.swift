@@ -28,6 +28,7 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate, StateSubscriber {
   internal var pockets: [PocketView] = .init()
 
   internal var skView = SKView()
+  internal var scene = SKScene()
 
   internal var player: AVAudioPlayer?
 

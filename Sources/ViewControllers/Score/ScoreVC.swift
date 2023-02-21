@@ -17,6 +17,8 @@ class ScoreVC: UIViewController, StateSubscriber {
   @IBOutlet var continueButton: UIButton!
   @IBOutlet var pointsLabel: UILabel!
 
+  internal var scene = SKScene()
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
@@ -34,11 +36,15 @@ class ScoreVC: UIViewController, StateSubscriber {
 extension ScoreVC {
   func subscribe() {
     unsubscribe = App.shared.game.state.subscribe { [weak self] state in
-      switch state {
-      case .Scored:
-        self?.updateUI()
-      default:
-        break
+      if let self {
+        switch state {
+        case .Playing:
+          self.scene.isPaused = true
+        case .Scored:
+          self.updateUI()
+        default:
+          break
+        }
       }
     }
   }
@@ -65,7 +71,7 @@ extension ScoreVC {
 
     if let score = UINib.score.firstView(owner: self) {
       view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-      let scene = traitCollection.userInterfaceStyle == .dark ? PurpleLightsScene(size: view.frame.size) : GlassScene(size: view.frame.size)
+      scene = traitCollection.userInterfaceStyle == .dark ? PurpleLightsScene(size: view.frame.size) : GlassScene(size: view.frame.size)
       setupSpriteKit(skView: skView, scene: scene)
       view.addSubview(score, pinTo: .safeArea)
     }

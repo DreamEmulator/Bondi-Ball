@@ -18,6 +18,7 @@ extension GameVC {
         let progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
         switch state {
         case .LevelingUp:
+          self.scene.isPaused = true
           self.createListOfPockets()
         case .Playing:
           self.setupUI()
@@ -36,6 +37,7 @@ extension GameVC {
         case .FlickedBall:
           self.play(sound: .flickedSound)
         case .RetryingLevel:
+          self.scene.isPaused = true
           self.unsubscribe?()
         }
       }
