@@ -28,5 +28,17 @@ extension UIViewController {
       skView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
     ])
     skView.presentScene(scene)
+
+    // Remove skview to save resources
+    var unsubscribe: AnonymousClosure? = nil
+    unsubscribe = App.shared.game.state.subscribe { state in
+      switch state {
+      case .LevelingUp, .RetryingLevel:
+        skView.removeFromSuperview()
+        unsubscribe?()
+      default:
+        break
+      }
+    }
   }
 }
