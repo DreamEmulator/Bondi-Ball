@@ -11,34 +11,27 @@ import UIKit
 // MARK: - Subscribe
 
 extension GameVC {
-  func subscribe() {
-    unsubscribe = App.shared.game.state.subscribe { [weak self] state in
+  func subscribeLevel() {
+    unsubscribeLevel = App.shared.game.state.subscribe { [weak self] state in
       print(state)
       if let self {
         let progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
         switch state {
         case .LevelingUp:
-          self.scene.isPaused = true
-          self.createListOfPockets()
-        case .Playing:
           self.setupUI()
+          App.shared.game.state.start()
+        case .Playing:
           self.gridCollectionView.reloadData()
+          self.setupUI()
         case .DraggingBall:
           self.costMeter.setProgress(progress, animated: true)
         case .Missed:
           self.costMeter.setProgress(progress, animated: true)
-          self.play(sound: .missedSound)
-        case .Scored:
-          self.play(sound: .scoredSound)
-        case .Failed:
-          self.play(sound: .failedSound)
-        case .TouchBall:
-          self.play(sound: .touchedSound)
-        case .FlickedBall:
-          self.play(sound: .flickedSound)
         case .RetryingLevel:
           self.scene.isPaused = true
           self.unsubscribe?()
+        default:
+          break
         }
       }
     }

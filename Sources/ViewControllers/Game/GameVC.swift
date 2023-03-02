@@ -14,6 +14,8 @@ typealias GameCallback = (_ level: Level) -> Void
 
 class GameVC: UIViewController, UIGestureRecognizerDelegate, StateSubscriber {
   internal var unsubscribe: AnonymousClosure?
+  internal var unsubscribeSoundEffects: AnonymousClosure?
+  internal var unsubscribeLevel: AnonymousClosure?
 
   // MARK: - Outlets
 
@@ -65,5 +67,14 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate, StateSubscriber {
 
   deinit {
     unsubscribe?()
+  }
+}
+
+// MARK: - Subscribe is called on viewDidLoad and wires up the VC to the states of the game
+
+extension GameVC {
+  func subscribe() {
+    subscribeLevel()
+    subscribeSoundEffects()
   }
 }

@@ -29,3 +29,29 @@ extension GameVC {
     }
   }
 }
+
+// MARK: - Subscribe sound effects
+
+extension GameVC {
+  func subscribeSoundEffects() {
+    unsubscribeSoundEffects = App.shared.game.state.subscribe { [weak self] state in
+      print(state)
+      if let self {
+        switch state {
+        case .Missed:
+          self.play(sound: .missedSound)
+        case .Scored:
+          self.play(sound: .scoredSound)
+        case .Failed:
+          self.play(sound: .failedSound)
+        case .TouchBall:
+          self.play(sound: .touchedSound)
+        case .FlickedBall:
+          self.play(sound: .flickedSound)
+        default:
+          break
+        }
+      }
+    }
+  }
+}

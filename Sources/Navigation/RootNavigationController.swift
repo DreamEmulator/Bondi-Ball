@@ -24,7 +24,7 @@ class RootNavigationController: UINavigationController, UINavigationControllerDe
 
     setupUI()
     hold { self.pushViewController(self.gameVC, animated: true) }
-    subscribe()
+//    subscribe()
   }
 
   deinit {

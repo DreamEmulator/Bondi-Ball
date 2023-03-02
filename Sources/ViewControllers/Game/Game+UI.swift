@@ -32,6 +32,7 @@ extension GameVC {
         pockets.append(pocket)
       }
     }
+    print("Pockets count: \(pockets.count)")
     setUpCollectionView()
   }
 
@@ -53,8 +54,6 @@ extension GameVC {
 
     gridCollectionView
       .setCollectionViewLayout(layout, animated: false)
-
-
   }
 
   func setupBall(level: Level) {

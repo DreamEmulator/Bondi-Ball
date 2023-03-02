@@ -5,6 +5,7 @@
 //  Created by Sebastiaan Hols on 29/01/2023.
 //  Copyright © 2023 Dream Emulator. All rights reserved.
 //
+import Foundation
 
 class GameController: StateSubscriber {
   // MARK: - Properties
@@ -33,22 +34,33 @@ class GameController: StateSubscriber {
 extension GameController {
   func subscribe() {
     unsubscribe = state.subscribe { [weak self] state in
-      switch state {
-      case .Missed:
-        self?.deductPointsForMissing()
-        self?.checkIfFailed()
-      case .DraggingBall:
-        self?.deductPointsForDragging()
-        self?.checkIfFailed()
-      case .Scored:
-        self?.addPointsForScoring()
-      case .LevelingUp:
-        self?.goToNextLevel()
-      case .Failed:
-        self?.retryLevel()
-      default:
-        break
+      if let self {
+        switch state {
+        case .Missed:
+          self.deductPointsForMissing()
+          self.checkIfFailed()
+        case .DraggingBall:
+          self.deductPointsForDragging()
+          self.checkIfFailed()
+        case .Scored:
+          self.addPointsForScoring()
+          self.hold {
+            App.shared.game.state.levelUp()
+          }
+        case .LevelingUp:
+          self.goToNextLevel()
+        case .Failed:
+          self.retryLevel()
+        default:
+          break
+        }
       }
+    }
+  }
+
+  internal func hold(for time: TimeInterval = 1.0, _ completion: @escaping AnonymousClosure) {
+    Timer.scheduledTimer(withTimeInterval: time, repeats: false) { _ in
+      completion()
     }
   }
 }
@@ -88,17 +100,17 @@ extension GameController {
     })!
 
     guard currentLevelIndex + 1 < LevelCollection.levels.count else {
-      self.level = LevelCollection.levels.first!
+      level = LevelCollection.levels.first!
       print("😃 We need more levels!")
       return
     }
 
-    self.level = LevelCollection.levels[currentLevelIndex + 1]
+    level = LevelCollection.levels[currentLevelIndex + 1]
   }
 
-  func retryLevel(){
-    self.totalPoints += self.level.costIncurred
-    self.level.costIncurred = 0
+  func retryLevel() {
+    totalPoints += level.costIncurred
+    level.costIncurred = 0
     App.shared.game.state.start()
   }
 }

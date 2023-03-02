@@ -27,6 +27,8 @@ State machines are cool, but you have to be discplined.
 - Make sure not to put the side effects in the state machine
 - Handle side-effects in the subscribe functions of your classes
 - Hide the state so you encourage yourself not to use it in comparison
+- Keep your subscriptions scoped to a certain domain. For instance sound effects should not be mixed with level changes.
+  You want to be able to think of an aspect of the game and then op one small file where there is a simple switch that says: if this -> then that
 
 It's a cool way to think though...
 Each class that subscribes has a responsibility (showing something, updating UI, playing a sound), you go to the class 
