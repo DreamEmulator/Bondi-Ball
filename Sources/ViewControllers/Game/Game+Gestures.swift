@@ -51,7 +51,11 @@ extension GameVC {
 extension GameVC {
   /// Get the center position of the pocket in the view coordinatespace
   func centerPoint(pocketIndex: Int) -> CGPoint {
-    pockets[pocketIndex].globalCenter
+    print("pocketIndex")
+    print(pocketIndex)
+    print("pocketViewData.count")
+    print(pocketViewData.count)
+    return pocketViewData[pocketIndex].displayPosition
   }
 
   /// Initiates a new interactive transition that will be driven by the
@@ -149,8 +153,12 @@ extension GameVC {
 
   /// Returns the endpoint closest to the specified point.
   func endpoint(closestTo point: CGPoint) -> PocketView? {
-    pockets.min { pocket in
-      pocket.globalCenter.distance(to: point)
+    let viewData = pocketViewData.min { pocket in
+      pocket.displayPosition.distance(to: point)
     }
+    guard let viewData, let gridCollectionView else { return nil }
+    return collectionView(gridCollectionView, cellForItemAt: viewData.id).subviews.first {
+      $0.tag == viewData.id.row
+    } as? PocketView
   }
 }

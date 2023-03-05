@@ -39,3 +39,16 @@ protocol GameProtocol {
   var levelHistory: [Level] { get }
   var score: Int { get set }
 }
+
+enum Position {
+  case row, column
+}
+
+protocol PocketProtocol {
+  var id: IndexPath { get }
+  var position: [Position: Int] { get set }
+  var displayPosition: CGPoint { get set }
+  var isGoal: Bool { get }
+  var isStartPocket: Bool { get }
+  var scored: Bool { get set }
+}

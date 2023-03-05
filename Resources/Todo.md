@@ -13,7 +13,11 @@ They way I have built the app now involves multiple VC's, a navigationcontroller
 4. Document the states in a storyform
 
 ### Todo's
-- [ ] Refactor the row grid key
+- [ ] Finish current pocket -> pocketViewData refactor
+-> - Migrate to pocketViewData
+   - Create a new array to store the global position of the pockets
+   - Remove the in view data
+   - Connect the functions to the viewdata storage
 - [ ] Remove subscriptions
 - [ ] Write down the flow of the game
 - [ ] Hightlight the states

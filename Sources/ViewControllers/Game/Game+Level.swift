@@ -18,11 +18,9 @@ extension GameVC {
         let progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
         switch state {
         case .LevelingUp:
-          self.setupUI()
-          App.shared.game.state.start()
+          break
         case .Playing:
-          self.gridCollectionView.reloadData()
-          self.setupUI()
+          App.shared.game.state.start()
         case .DraggingBall:
           self.costMeter.setProgress(progress, animated: true)
         case .Missed:

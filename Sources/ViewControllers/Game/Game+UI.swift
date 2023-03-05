@@ -11,7 +11,7 @@ import UIKit
 // MARK: - Setup UI
 
 extension GameVC {
-  func setupUI() {
+  func setupUI(pocketSize: CGRect) {
     navigationController?.setNavigationBarHidden(true, animated: false)
     view.subviews.forEach { $0.removeFromSuperview() }
     setupSFX()
@@ -19,25 +19,26 @@ extension GameVC {
       view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
       view.addSubview(game, pinTo: .layoutMargins)
     }
-    createListOfPockets()
+    setUpCollectionView(pocketSize: pocketSize)
   }
 
-  func createListOfPockets() {
-    pockets = .init()
-    for row in 1 ... App.shared.game.level.board.rows {
-      for column in 1 ... App.shared.game.level.board.columns {
-        let pocket = PocketView()
-        pocket.row = row
-        pocket.column = column
-        pockets.append(pocket)
-      }
+//  func populatePocketViewData(_ pocketViewData: PocketViewData) {
+//    pockets = .init()
+//    for row in 1 ... App.shared.game.level.board.rows {
+//      for column in 1 ... App.shared.game.level.board.columns {
+//        let pocket = PocketView(frame: pocketSize, viewData: pocketViewData)
+//        pocket.row = row
+//        pocket.column = column
+//        pockets.append(pocket)
+//      }
+//    }
+//    print("Pockets count: \(pockets.count)")
+//  }
+
+  private func setUpCollectionView(pocketSize: CGRect) {
+    guard let gridCollectionView else {
+      return
     }
-    print("Pockets count: \(pockets.count)")
-    setUpCollectionView()
-  }
-
-  private func setUpCollectionView() {
-    
     gridCollectionView.isScrollEnabled = false
     gridCollectionView
       .register(UICollectionViewCell.self,
@@ -57,11 +58,11 @@ extension GameVC {
   }
 
   func setupBall(level: Level) {
+    print(level.startPocket)
     let startingPocketIndex = level.startPocket.0 * level.startPocket.1 - 1
     let startingPocketCenter = centerPoint(pocketIndex: startingPocketIndex)
 
-    let ballSize = pocktetSize * 0.8
-    paintBall.frame = CGRect(x: 0, y: 0, width: ballSize, height: ballSize)
+    paintBall.frame = pocktetSize.insetBy(dx: 42, dy: 42)
 
     paintBall.center = startingPocketCenter
     springConfigurationButton.center = startingPocketCenter
@@ -82,7 +83,20 @@ extension GameVC: UICollectionViewDataSource {
   internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
 
-    let pocket = pockets.remove(at: indexPath.row)
+    guard let gridCollectionView else {
+      print("⚠️ gridCollectionView is nil")
+      return cell
+    }
+
+    let viewData = PocketViewData(
+      id: indexPath,
+      displayPosition: gridCollectionView.convert(cell.center, to: view)
+    )
+
+    updatePocketViewData(viewData)
+
+    let pocket = PocketView(frame: pocktetSize, viewData: viewData)
+    pocket.tag = viewData.id.row
 
     pocket.translatesAutoresizingMaskIntoConstraints = false
     pocket.globalCenter = gridCollectionView.convert(cell.center, to: view)
@@ -92,8 +106,8 @@ extension GameVC: UICollectionViewDataSource {
     containerView.addSubview(pocket)
 
     NSLayoutConstraint.activate([
-      pocket.heightAnchor.constraint(equalToConstant: pocktetSize),
-      pocket.widthAnchor.constraint(equalToConstant: pocktetSize),
+      pocket.heightAnchor.constraint(equalToConstant: pocktetSize.height),
+      pocket.widthAnchor.constraint(equalToConstant: pocktetSize.width),
       pocket.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
       pocket.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
     ])
@@ -101,7 +115,6 @@ extension GameVC: UICollectionViewDataSource {
     cell.contentView.subviews.forEach { $0.removeFromSuperview() }
     cell.contentView.addSubview(containerView, pinTo: .viewEdges)
 
-    pockets.insert(pocket, at: indexPath.row)
     return cell
   }
 }
@@ -115,5 +128,13 @@ extension GameVC: UICollectionViewDelegateFlowLayout {
     let widthPerItem = collectionView.frame.width / CGFloat(App.shared.game.level.board.columns) - lay.minimumInteritemSpacing
     let heightPerItem = collectionView.frame.height / CGFloat(App.shared.game.level.board.rows) - lay.minimumInteritemSpacing
     return CGSize(width: widthPerItem, height: heightPerItem)
+  }
+}
+
+// - MARK: QOL Functions
+extension GameVC {
+  func updatePocketViewData(_ viewData: PocketViewData) {
+    pocketViewData.removeAll { $0.id == viewData.id }
+    pocketViewData.append(viewData)
   }
 }

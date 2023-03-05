@@ -25,6 +25,9 @@
 import UIKit
 
 internal final class PocketView: UIView, StateSubscriber {
+
+  var viewData: PocketViewData
+
   internal var unsubscribe: AnonymousClosure?
 
   // TODO: Stop abusing the UIView and wrap it with something that contains the properties
@@ -33,7 +36,8 @@ internal final class PocketView: UIView, StateSubscriber {
 
   private var userScored = false
 
-  override public init(frame: CGRect) {
+  public init(frame: CGRect, viewData: PocketViewData) {
+    self.viewData = viewData
     super.init(frame: frame)
     self.isOpaque = false
     subscribe()

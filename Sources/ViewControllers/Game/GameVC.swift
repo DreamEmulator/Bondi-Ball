@@ -20,14 +20,14 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate, StateSubscriber {
   // MARK: - Outlets
 
   @IBOutlet var costMeter: UIProgressView!
-  @IBOutlet var gridCollectionView: UICollectionView!
+  @IBOutlet var gridCollectionView: UICollectionView? = nil
 
   // MARK: - Vars
 
   internal var level: Level { App.shared.game.level }
   internal var spring: DampedHarmonicSpring { App.shared.game.level.board.spring }
   internal let paintBall: BondiBallView = .init()
-  internal var pockets: [PocketView] = .init()
+  internal var pocketViewData: [PocketViewData] = .init()
 
   internal var skView = SKView()
   internal var scene = SKScene()
@@ -37,9 +37,9 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate, StateSubscriber {
   internal let panGestureRecognizer: UIPanGestureRecognizer = PanGestureRecognizer()
   internal let springConfigurationButton: UIButton = .init(style: .alpha)
 
-  internal var cellWidth: CGFloat { gridCollectionView.frame.width / CGFloat(App.shared.game.level.board.columns) }
-  internal var cellHeight: CGFloat { gridCollectionView.frame.height / CGFloat(App.shared.game.level.board.rows) }
-  internal var pocktetSize: CGFloat { min(cellHeight, cellWidth) * 0.9 }
+  internal var cellWidth: CGFloat { if let gridCollectionView { return gridCollectionView.frame.width / CGFloat(App.shared.game.level.board.columns) } else { return 0 } }
+  internal var cellHeight: CGFloat { if let gridCollectionView { return gridCollectionView.frame.height / CGFloat(App.shared.game.level.board.rows) } else { return 0 } }
+  internal var pocktetSize: CGRect { let ps = min(cellHeight, cellWidth) * 0.9; return CGRect(x: 0, y: 0, width: ps, height: ps) }
 
   // MARK: - Ball state
 
@@ -49,12 +49,12 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate, StateSubscriber {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    setupUI()
-    subscribe()
+    setupUI(pocketSize: pocktetSize)
+//    subscribe()
   }
 
   override func viewDidLayoutSubviews() {
-    setupBall(level: level)
+//    setupBall(level: level)
   }
 
   override var prefersHomeIndicatorAutoHidden: Bool {
@@ -62,7 +62,7 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate, StateSubscriber {
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    setupUI()
+    setupUI(pocketSize: pocktetSize)
   }
 
   deinit {

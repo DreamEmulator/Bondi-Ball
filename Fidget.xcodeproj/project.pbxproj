@@ -68,6 +68,7 @@
 		AA916B2729A3D2DF0062A2DE /* wormhole.fsh in Resources */ = {isa = PBXBuildFile; fileRef = AA916B2629A3D2DF0062A2DE /* wormhole.fsh */; };
 		AA916B2B29A3DD530062A2DE /* glass.fsh in Resources */ = {isa = PBXBuildFile; fileRef = AA916B2A29A3DD530062A2DE /* glass.fsh */; };
 		AA916B2D29A3DE660062A2DE /* GlassScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA916B2C29A3DE660062A2DE /* GlassScene.swift */; };
+		AAC3032C29B1BAB100E65D03 /* PocketVD.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC3032B29B1BAB100E65D03 /* PocketVD.swift */; };
 		AAEB9E9F298F9458000F44C2 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEB9E9E298F9458000F44C2 /* UIColor+Extensions.swift */; };
 		AAEC69E12980675500DE89E3 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E02980675500DE89E3 /* GameState.swift */; };
 		AAEC69E3298067C900DE89E3 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC69E2298067C900DE89E3 /* Badge.swift */; };
@@ -139,6 +140,8 @@
 		AA916B2629A3D2DF0062A2DE /* wormhole.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = wormhole.fsh; sourceTree = "<group>"; };
 		AA916B2A29A3DD530062A2DE /* glass.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = glass.fsh; sourceTree = "<group>"; };
 		AA916B2C29A3DE660062A2DE /* GlassScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlassScene.swift; sourceTree = "<group>"; };
+		AAC3032B29B1BAB100E65D03 /* PocketVD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketVD.swift; sourceTree = "<group>"; };
+		AAE8550729B46CC700554AB4 /* Todo.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Todo.md; sourceTree = "<group>"; };
 		AAEB9E9E298F9458000F44C2 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		AAEC69E02980675500DE89E3 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		AAEC69E2298067C900DE89E3 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
@@ -266,12 +269,10 @@
 		AA4CE8C62961A41C00AD289F /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				AA00761F2969F93F00380FFF /* Aliases.swift */,
 				AA007637296BECD500380FFF /* Board.swift */,
 				AA4CE8D02961A48900AD289F /* DampedHarmonicSpring.swift */,
 				AA1E7C012975310F0082FB53 /* Level.swift */,
 				AA4CE8C72961A41C00AD289F /* PanGestureRecognizer.swift */,
-				AA1E7C04297538F20082FB53 /* Protocols.swift */,
 				AAEC69E2298067C900DE89E3 /* Badge.swift */,
 				AA73B09229918B3E00AAE41E /* BondiBall.swift */,
 				AA86120A29977C2700E9BEA7 /* Sounds.swift */,
@@ -319,6 +320,23 @@
 			path = Shaders;
 			sourceTree = "<group>";
 		};
+		AAC3032929B1B74200E65D03 /* Definitions */ = {
+			isa = PBXGroup;
+			children = (
+				AA1E7C04297538F20082FB53 /* Protocols.swift */,
+				AA00761F2969F93F00380FFF /* Aliases.swift */,
+			);
+			path = Definitions;
+			sourceTree = "<group>";
+		};
+		AAC3032A29B1BA9900E65D03 /* ViewData */ = {
+			isa = PBXGroup;
+			children = (
+				AAC3032B29B1BAB100E65D03 /* PocketVD.swift */,
+			);
+			path = ViewData;
+			sourceTree = "<group>";
+		};
 		CB05569920D05B8A00095934 = {
 			isa = PBXGroup;
 			children = (
@@ -339,15 +357,17 @@
 		CB0556A420D05B8A00095934 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				AA00761C2969F12500380FFF /* Navigation */,
-				AA35E02F2986A4E400275C93 /* Game */,
-				CB0556A520D05B8A00095934 /* AppDelegate.swift */,
 				AAEC69E42980697400DE89E3 /* App.swift */,
+				CB0556A520D05B8A00095934 /* AppDelegate.swift */,
 				AA0076212969F9D300380FFF /* Animations */,
+				AAC3032929B1B74200E65D03 /* Definitions */,
 				AA4CE8C62961A41C00AD289F /* Domain */,
 				AA4CE8C32961A41C00AD289F /* Extensions */,
-				AA4CE8C42961A41C00AD289F /* ViewControllers */,
+				AA35E02F2986A4E400275C93 /* Game */,
+				AA00761C2969F12500380FFF /* Navigation */,
 				AA4CE8C02961A41C00AD289F /* Views */,
+				AA4CE8C42961A41C00AD289F /* ViewControllers */,
+				AAC3032A29B1BA9900E65D03 /* ViewData */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -361,6 +381,7 @@
 				CB0556AC20D05B8B00095934 /* Assets.xcassets */,
 				AA43E4142961A0CB001EF225 /* Philoshophy.md */,
 				AA4CE8CC2961A42A00AD289F /* Original ReadMe.md */,
+				AAE8550729B46CC700554AB4 /* Todo.md */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -496,6 +517,7 @@
 				AA73B09329918B3E00AAE41E /* BondiBall.swift in Sources */,
 				AA73B0952991914900AAE41E /* Collection+Extensions.swift in Sources */,
 				AAEC69E3298067C900DE89E3 /* Badge.swift in Sources */,
+				AAC3032C29B1BAB100E65D03 /* PocketVD.swift in Sources */,
 				AA35E0362987A31100275C93 /* ScoreVC.swift in Sources */,
 				AA4CE8E02961C6AB00AD289F /* SetupController.swift in Sources */,
 				AA4CE8D62961A48900AD289F /* CGPoint+Extensions.swift in Sources */,

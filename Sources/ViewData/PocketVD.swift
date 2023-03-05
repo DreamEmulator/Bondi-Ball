@@ -9,14 +9,16 @@
 import Foundation
 
 struct PocketViewData: PocketProtocol {
-  var position: [Position : Int]
 
-  var displayPosition: CGPoint
+  var id: IndexPath = .init()
 
-  var isGoal: Bool
+  var position: [Position : Int] = .init()
 
-  var isStartPocket: Bool
+  var displayPosition: CGPoint = .init()
 
-  var scored: Bool
+  var isGoal: Bool = .init()
 
+  var isStartPocket: Bool = .init()
+
+  var scored: Bool = .init()
 }
