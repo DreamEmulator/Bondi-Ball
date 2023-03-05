@@ -40,8 +40,11 @@ extension GameVC {
 
 extension GameVC {
   func updateGame(_ endpoint: PocketView?) {
-    guard let endpoint, !endpoint.isStartPocket else { return }
-    if endpoint.isGoal {
+    guard let viewData = pocketViewData.first(where: { $0.id.row == endpoint?.tag }) else {
+      return
+    }
+    guard !viewData.isStartPocket else { return }
+    if viewData.isGoal {
       App.shared.game.state.score()
     } else {
       App.shared.game.state.missed()

@@ -14,7 +14,7 @@ They way I have built the app now involves multiple VC's, a navigationcontroller
 
 ### Todo's
 - [ ] Finish current pocket -> pocketViewData refactor
--> - Migrate to pocketViewData
+-> - Migrate to pocketViewData ✅
    - Create a new array to store the global position of the pockets
    - Remove the in view data
    - Connect the functions to the viewdata storage

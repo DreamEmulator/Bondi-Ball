@@ -55,7 +55,10 @@ extension GameVC {
     print(pocketIndex)
     print("pocketViewData.count")
     print(pocketViewData.count)
-    return pocketViewData[pocketIndex].displayPosition
+    guard let viewData = pocketViewData[safe:pocketIndex] else {
+      return .init()
+    }
+    return viewData.displayPosition
   }
 
   /// Initiates a new interactive transition that will be driven by the
@@ -148,7 +151,7 @@ extension GameVC {
 
     let endpoint = self.endpoint(closestTo: projectedPosition)
 
-    return endpoint?.globalCenter
+    return endpoint?.center
   }
 
   /// Returns the endpoint closest to the specified point.

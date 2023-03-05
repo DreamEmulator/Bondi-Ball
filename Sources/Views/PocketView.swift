@@ -25,16 +25,9 @@
 import UIKit
 
 internal final class PocketView: UIView, StateSubscriber {
-
   var viewData: PocketViewData
 
   internal var unsubscribe: AnonymousClosure?
-
-  // TODO: Stop abusing the UIView and wrap it with something that contains the properties
-  var row = 0
-  var column = 0
-
-  private var userScored = false
 
   public init(frame: CGRect, viewData: PocketViewData) {
     self.viewData = viewData
@@ -47,19 +40,6 @@ internal final class PocketView: UIView, StateSubscriber {
   public required init?(coder: NSCoder) {
     fatalError()
   }
-
-  var index: Int?
-  var isGoal: Bool {
-    let (row, column) = App.shared.game.level.endPocket
-    return row == self.row && column == self.column
-  }
-
-  var isStartPocket: Bool {
-    let (row, column) = App.shared.game.level.startPocket
-    return row == self.row && column == self.column
-  }
-
-  var globalCenter: CGPoint = .init()
 
   deinit {
     // unsubscribe?() TODO: Learn why this deinit is called unexpectedly
@@ -74,11 +54,9 @@ extension PocketView {
       if let self {
         switch state {
         case .Scored:
-          self.userScored = true
-        case .LevelingUp, .RetryingLevel:
-          self.unsubscribe?()
+          self.viewData.scored = true
         default:
-          self.userScored = false
+          self.viewData.scored = false
         }
       }
       self?.setNeedsDisplay()
@@ -108,16 +86,16 @@ extension PocketView {
       context.setStrokeColor(UIColor.blue.withAlphaComponent(0.15).cgColor)
     }
 
-    if isStartPocket {
+    if viewData.isStartPocket {
       rotate(duration: 500)
     }
 
-    if isGoal {
+    if viewData.isGoal {
       context.setStrokeColor(UIColor.magenta.withAlphaComponent(0.5).cgColor)
       rotate(duration: 100)
     }
 
-    if isGoal, userScored {
+    if viewData.isGoal, viewData.scored {
       context.setStrokeColor(UIColor.systemMint.withAlphaComponent(0.5).cgColor)
       stopRotating()
       rotate(duration: 20)

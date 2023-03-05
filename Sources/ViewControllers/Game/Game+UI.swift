@@ -55,9 +55,12 @@ extension GameVC {
 
     gridCollectionView
       .setCollectionViewLayout(layout, animated: false)
+
+    setupBall()
   }
 
-  func setupBall(level: Level) {
+  func setupBall() {
+    let level = App.shared.game.level
     print(level.startPocket)
     let startingPocketIndex = level.startPocket.0 * level.startPocket.1 - 1
     let startingPocketCenter = centerPoint(pocketIndex: startingPocketIndex)
@@ -96,11 +99,10 @@ extension GameVC: UICollectionViewDataSource {
     updatePocketViewData(viewData)
 
     let pocket = PocketView(frame: pocktetSize, viewData: viewData)
+    // TODO: make nice functions to set and fish up views using tags
     pocket.tag = viewData.id.row
 
     pocket.translatesAutoresizingMaskIntoConstraints = false
-    pocket.globalCenter = gridCollectionView.convert(cell.center, to: view)
-    pocket.index = indexPath.row
 
     let containerView = UIView()
     containerView.addSubview(pocket)
