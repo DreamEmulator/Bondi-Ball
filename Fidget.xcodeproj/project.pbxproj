@@ -24,7 +24,6 @@
 		AA3092B42999072300EABFF6 /* Game+Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3092B32999072300EABFF6 /* Game+Level.swift */; };
 		AA3092B62999076500EABFF6 /* Game+Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3092B52999076500EABFF6 /* Game+Haptics.swift */; };
 		AA3092B82999078C00EABFF6 /* Game+Sounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3092B72999078C00EABFF6 /* Game+Sounds.swift */; };
-		AA3092BA299907B500EABFF6 /* Game+SFX.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3092B9299907B500EABFF6 /* Game+SFX.swift */; };
 		AA3092C0299917E900EABFF6 /* touched.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AA3092BF299917E900EABFF6 /* touched.m4a */; };
 		AA3092C2299922E500EABFF6 /* flicked.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AA3092C1299922E500EABFF6 /* flicked.m4a */; };
 		AA35E02C2986670300275C93 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA35E02B2986670300275C93 /* GameController.swift */; };
@@ -57,7 +56,6 @@
 		AA86120B29977C2700E9BEA7 /* Sounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86120A29977C2700E9BEA7 /* Sounds.swift */; };
 		AA916B0C29A0E9B70062A2DE /* ScoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA916B0B29A0E9B70062A2DE /* ScoreScene.swift */; };
 		AA916B0E29A0EAB90062A2DE /* water.fsh in Resources */ = {isa = PBXBuildFile; fileRef = AA916B0D29A0EAB90062A2DE /* water.fsh */; };
-		AA916B1329A3B2F80062A2DE /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA916B1229A3B2F80062A2DE /* UIViewController+Extensions.swift */; };
 		AA916B1529A3B55F0062A2DE /* purple_lights.fsh in Resources */ = {isa = PBXBuildFile; fileRef = AA916B1429A3B55F0062A2DE /* purple_lights.fsh */; };
 		AA916B1729A3B6470062A2DE /* PurpleLightsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA916B1629A3B6470062A2DE /* PurpleLightsScene.swift */; };
 		AA916B1929A3C8440062A2DE /* LinesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA916B1829A3C8440062A2DE /* LinesScene.swift */; };
@@ -96,7 +94,6 @@
 		AA3092B32999072300EABFF6 /* Game+Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+Level.swift"; sourceTree = "<group>"; };
 		AA3092B52999076500EABFF6 /* Game+Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+Haptics.swift"; sourceTree = "<group>"; };
 		AA3092B72999078C00EABFF6 /* Game+Sounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+Sounds.swift"; sourceTree = "<group>"; };
-		AA3092B9299907B500EABFF6 /* Game+SFX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+SFX.swift"; sourceTree = "<group>"; };
 		AA3092BF299917E900EABFF6 /* touched.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = touched.m4a; sourceTree = "<group>"; };
 		AA3092C1299922E500EABFF6 /* flicked.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = flicked.m4a; sourceTree = "<group>"; };
 		AA35E02B2986670300275C93 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
@@ -129,7 +126,6 @@
 		AA86120A29977C2700E9BEA7 /* Sounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sounds.swift; sourceTree = "<group>"; };
 		AA916B0B29A0E9B70062A2DE /* ScoreScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreScene.swift; sourceTree = "<group>"; };
 		AA916B0D29A0EAB90062A2DE /* water.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = water.fsh; sourceTree = "<group>"; };
-		AA916B1229A3B2F80062A2DE /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		AA916B1429A3B55F0062A2DE /* purple_lights.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = purple_lights.fsh; sourceTree = "<group>"; };
 		AA916B1629A3B6470062A2DE /* PurpleLightsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleLightsScene.swift; sourceTree = "<group>"; };
 		AA916B1829A3C8440062A2DE /* LinesScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesScene.swift; sourceTree = "<group>"; };
@@ -250,7 +246,6 @@
 				AAEB9E9E298F9458000F44C2 /* UIColor+Extensions.swift */,
 				AA73B0902991340F00AAE41E /* UINib+Extensions.swift */,
 				AA73B0942991914900AAE41E /* Collection+Extensions.swift */,
-				AA916B1229A3B2F80062A2DE /* UIViewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -290,7 +285,6 @@
 				AA3092B12999069000EABFF6 /* Game+UI.swift */,
 				AA3092B52999076500EABFF6 /* Game+Haptics.swift */,
 				AA3092B72999078C00EABFF6 /* Game+Sounds.swift */,
-				AA3092B9299907B500EABFF6 /* Game+SFX.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -484,10 +478,8 @@
 				AA73B0912991340F00AAE41E /* UINib+Extensions.swift in Sources */,
 				AA4CE8C82961A41C00AD289F /* PocketView.swift in Sources */,
 				AA3092B02999061E00EABFF6 /* Game+Gestures.swift in Sources */,
-				AA3092BA299907B500EABFF6 /* Game+SFX.swift in Sources */,
 				AA35E0312986A4F700275C93 /* LevelCollection.swift in Sources */,
 				AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */,
-				AA916B1329A3B2F80062A2DE /* UIViewController+Extensions.swift in Sources */,
 				AA4CE8CB2961A41C00AD289F /* PanGestureRecognizer.swift in Sources */,
 				AAEC69E12980675500DE89E3 /* GameState.swift in Sources */,
 				AA4CE8D32961A48900AD289F /* CGVector+Extensions.swift in Sources */,

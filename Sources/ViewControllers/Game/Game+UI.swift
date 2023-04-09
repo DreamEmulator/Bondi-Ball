@@ -14,7 +14,6 @@ extension GameVC {
   func setupUI(pocketSize: CGRect) {
     navigationController?.setNavigationBarHidden(true, animated: false)
     view.subviews.forEach { $0.removeFromSuperview() }
-    setupSFX()
     if let game = UINib.game.firstView(owner: self) {
       view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
       view.addSubview(game, pinTo: .layoutMargins)
@@ -61,7 +60,6 @@ extension GameVC {
 
   func setupBall() {
     let level = App.shared.game.level
-    print(level.startPocket)
     let startingPocketIndex = level.startPocket.0 * level.startPocket.1 - 1
     let startingPocketCenter = centerPoint(pocketIndex: startingPocketIndex)
 

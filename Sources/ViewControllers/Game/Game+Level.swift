@@ -12,7 +12,7 @@ import UIKit
 
 extension GameVC {
   func subscribeLevel() {
-    unsubscribeLevel = App.shared.game.state.subscribe("Game View Controller 🎴") { [weak self] state in
+    let subscription = App.shared.game.state.subscribe("Game View Controller 🎴") { [weak self] state in
       print(state)
       if let self {
         let progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
@@ -27,13 +27,13 @@ extension GameVC {
         case .Missed:
           self.costMeter.setProgress(progress, animated: true)
         case .RetryingLevel:
-          self.scene.isPaused = true
           self.unsubscribe?()
         default:
           break
         }
       }
     }
+    subscriptions.append(subscription)
   }
 }
 

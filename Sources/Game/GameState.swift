@@ -1,12 +1,12 @@
-//
-//  Game.swift
-//  Bondi Ball
-//
-//  Created by Sebastiaan Hols on 24/01/2023.
-//  Copyright © 2023 Dream Emulator. All rights reserved.
-//
+  //
+  //  Game.swift
+  //  Bondi Ball
+  //
+  //  Created by Sebastiaan Hols on 24/01/2023.
+  //  Copyright © 2023 Dream Emulator. All rights reserved.
+  //
 
-// MARK: - The statemachine setup
+  // MARK: - The statemachine setup
 
 enum GameState {
   case LevelingUp, RetryingLevel, Playing, Scored, Missed, TouchBall, DraggingBall, FlickedBall, Failed
@@ -21,22 +21,27 @@ protocol StateSubscriber {
 }
 
 class GameStateMachine {
+  
+  init(){
+    state = .Playing
+  }
+  
   private var state: GameState? { didSet {
     guard let state else {
       return
     }
     stateDidChange(state)
   }}
-
+  
   private func stateDidChange(_ state: GameState) {
     stateSubscriptions.forEach { callBack in
       callBack(state)
     }
   }
-
+  
   private var stateSubscriptions: StateSubscriptions = .init()
-
-    func subscribe(_ subscriber: String, _ sub: @escaping StateSubscription) -> AnonymousClosure {
+  
+  func subscribe(_ subscriber: String, _ sub: @escaping StateSubscription) -> AnonymousClosure {
     stateSubscriptions.append(sub)
     print("🤝 Subscribed \(subscriber), sub-count: \(self.stateSubscriptions.count)")
     return {
@@ -49,71 +54,73 @@ class GameStateMachine {
 extension GameStateMachine {
   func start() {
     switch state {
-    default:
-      state = .Playing
+      case .LevelingUp, .RetryingLevel:
+        state = .Playing
+      default:
+        break
     }
   }
-
+  
   func levelUp() {
     switch state {
-    case .Scored:
-      state = .LevelingUp
-    default:
-      break
+      case .Scored:
+        state = .LevelingUp
+      default:
+        break
     }
   }
-
+  
   func touchingBall() {
     switch state {
-    case .Playing, .Missed, .TouchBall, .DraggingBall, .FlickedBall:
-      state = .TouchBall
-    default:
-      break
+      case .Playing, .Missed, .TouchBall, .DraggingBall, .FlickedBall:
+        state = .TouchBall
+      default:
+        break
     }
   }
-
+  
   func dragging() {
     switch state {
-    case .Playing, .Missed, .TouchBall, .DraggingBall:
-      state = .DraggingBall
-    default:
-      break
+      case .Playing, .Missed, .TouchBall, .DraggingBall:
+        state = .DraggingBall
+      default:
+        break
     }
   }
-
+  
   func flickedBall() {
     switch state {
-    case .DraggingBall:
-      state = .FlickedBall
-    default:
-      break
+      case .DraggingBall:
+        state = .FlickedBall
+      default:
+        break
     }
   }
-
+  
   func score() {
     switch state {
-    case .FlickedBall:
-      state = .Scored
-    default:
-      break
+      case .FlickedBall:
+        state = .Scored
+      default:
+        break
     }
   }
-
+  
   func missed() {
     switch state {
-    case .FlickedBall:
-      state = .Missed
-    default:
-      break
+      case .FlickedBall:
+        state = .Missed
+      default:
+        break
     }
   }
-
+  
   func failed() {
     switch state {
-    case .FlickedBall, .DraggingBall:
-      state = .Failed
-    default:
-      break
+      case .FlickedBall, .DraggingBall:
+        state = .Failed
+      default:
+        break
     }
   }
 }

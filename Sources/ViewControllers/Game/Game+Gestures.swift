@@ -51,10 +51,6 @@ extension GameVC {
 extension GameVC {
   /// Get the center position of the pocket in the view coordinatespace
   func centerPoint(pocketIndex: Int) -> CGPoint {
-    print("pocketIndex")
-    print(pocketIndex)
-    print("pocketViewData.count")
-    print(pocketViewData.count)
     guard let viewData = pocketViewData[safe:pocketIndex] else {
       return .init()
     }
@@ -176,9 +172,6 @@ extension GameVC {
       let cellView = collectionView(gridCollectionView, cellForItemAt: viewDataClosestPocket.indexPath)
       
       let pocketView: PocketView? = getSubviewsOf(view: cellView).first
-      
-      print("viewDataClosestPocket")
-      print(viewDataClosestPocket)
       
     return pocketView
   }
