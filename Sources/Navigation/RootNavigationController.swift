@@ -38,7 +38,7 @@ extension RootNavigationController {
   func subscribe() {
     // MARK: - Navigation is managed here and not in the viewcontrollers themselves
 
-    self.unsubscribe = App.shared.game.state.subscribe { [weak self] state in
+    self.unsubscribe = App.shared.game.state.subscribe("Root Navigator 🎋") { [weak self] state in
       if let self {
         switch state {
         case .Scored:

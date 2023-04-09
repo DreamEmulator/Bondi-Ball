@@ -13,12 +13,10 @@ They way I have built the app now involves multiple VC's, a navigationcontroller
 4. Document the states in a storyform
 
 ### Todo's
-- [ ] Finish current pocket -> pocketViewData refactor
+- [x] Finish current pocket -> pocketViewData refactor
 -> - Migrate to pocketViewData ✅
-   - Create a new array to store the global position of the pockets
+   - Create a new array to store the global position of the pockets -> This became fishing in the grid collection
    - Remove the in view data
    - Connect the functions to the viewdata storage
-- [ ] Remove subscriptions
-- [ ] Write down the flow of the game
-- [ ] Hightlight the states
-- [ ] Make pseudo code out of the story 
+- [x] Give subscriptions names so you can follow who's doing what
+- [ ] Implement the leveling up logic in Game VC

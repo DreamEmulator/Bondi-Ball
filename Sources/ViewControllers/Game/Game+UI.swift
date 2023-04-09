@@ -90,17 +90,29 @@ extension GameVC: UICollectionViewDataSource {
       print("⚠️ gridCollectionView is nil")
       return cell
     }
+    
+    // Ghetto way of determining pocket's grid position
+    let pocketPosition = gridCollectionView.convert(cell.center, to: view)
+      
+    let pocketHeight = gridCollectionView.frame.height / CGFloat(level.board.rows)
+    let pocketWidth = gridCollectionView.frame.width / CGFloat(level.board.columns)
+      
+    let pocketRow = Int(pocketPosition.y / pocketHeight) + 1
+    let pocketColumn = Int(pocketPosition.x / pocketWidth) + 1
 
+      
     let viewData = PocketViewData(
-      id: indexPath,
-      displayPosition: gridCollectionView.convert(cell.center, to: view)
+      indexPath: indexPath,
+      displayPosition: pocketPosition,
+      isGoal: level.endPocket.0 == pocketRow && level.endPocket.1 == pocketColumn,
+      isStartPocket: level.startPocket.0 == pocketRow && level.startPocket.1 == pocketColumn
     )
 
     updatePocketViewData(viewData)
 
     let pocket = PocketView(frame: pocktetSize, viewData: viewData)
     // TODO: make nice functions to set and fish up views using tags
-    pocket.tag = viewData.id.row
+    pocket.tag = viewData.tag
 
     pocket.translatesAutoresizingMaskIntoConstraints = false
 
@@ -136,7 +148,7 @@ extension GameVC: UICollectionViewDelegateFlowLayout {
 // - MARK: QOL Functions
 extension GameVC {
   func updatePocketViewData(_ viewData: PocketViewData) {
-    pocketViewData.removeAll { $0.id == viewData.id }
+    pocketViewData.removeAll { $0.indexPath == viewData.indexPath }
     pocketViewData.append(viewData)
   }
 }

@@ -36,11 +36,11 @@ class GameStateMachine {
 
   private var stateSubscriptions: StateSubscriptions = .init()
 
-  func subscribe(_ sub: @escaping StateSubscription) -> AnonymousClosure {
+    func subscribe(_ subscriber: String, _ sub: @escaping StateSubscription) -> AnonymousClosure {
     stateSubscriptions.append(sub)
-    print("🤝 Subscribed, sub-count: \(self.stateSubscriptions.count)")
+    print("🤝 Subscribed \(subscriber), sub-count: \(self.stateSubscriptions.count)")
     return {
-      print("👋 Unsubscribed, sub-count: \(self.stateSubscriptions.count)")
+      print("👋 Unsubscribed \(subscriber), sub-count: \(self.stateSubscriptions.count)")
       self.stateSubscriptions.remove(at: self.stateSubscriptions.count - 1)
     }
   }

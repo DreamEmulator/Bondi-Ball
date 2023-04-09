@@ -35,7 +35,7 @@ class ScoreVC: UIViewController, StateSubscriber {
 
 extension ScoreVC {
   func subscribe() {
-    unsubscribe = App.shared.game.state.subscribe { [weak self] state in
+    unsubscribe = App.shared.game.state.subscribe("Score View Controller 🥅") { [weak self] state in
       if let self {
         switch state {
         case .Playing:

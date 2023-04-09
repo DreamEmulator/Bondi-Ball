@@ -10,7 +10,7 @@ import Foundation
 
 struct PocketViewData: PocketProtocol {
 
-  var id: IndexPath = .init()
+  var indexPath: IndexPath = .init()
 
   var position: [Position : Int] = .init()
 
@@ -21,4 +21,6 @@ struct PocketViewData: PocketProtocol {
   var isStartPocket: Bool = .init()
 
   var scored: Bool = .init()
+    
+  var tag: Int { Int(displayPosition.x + displayPosition.y) }
 }

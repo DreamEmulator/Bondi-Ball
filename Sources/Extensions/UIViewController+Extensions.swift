@@ -31,7 +31,7 @@ extension UIViewController {
 
     // Remove skview to save resources
     var unsubscribe: AnonymousClosure? = nil
-    unsubscribe = App.shared.game.state.subscribe { state in
+    unsubscribe = App.shared.game.state.subscribe("Sprite Kit 🏃‍♂️") { state in
       switch state {
       case .LevelingUp, .RetryingLevel:
         skView.removeFromSuperview()

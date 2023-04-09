@@ -151,17 +151,35 @@ extension GameVC {
 
     let endpoint = self.endpoint(closestTo: projectedPosition)
 
-    return endpoint?.center
+    return endpoint?.viewData.displayPosition
   }
 
   /// Returns the endpoint closest to the specified point.
   func endpoint(closestTo point: CGPoint) -> PocketView? {
-    let viewData = pocketViewData.min { pocket in
+    let viewDataClosestPocket = pocketViewData.min { pocket in
       pocket.displayPosition.distance(to: point)
     }
-    guard let viewData, let gridCollectionView else { return nil }
-    return collectionView(gridCollectionView, cellForItemAt: viewData.id).subviews.first {
-      $0.tag == viewData.id.row
-    } as? PocketView
+      
+    func getSubviewsOf<T : UIView>(view:UIView) -> [T] {
+          var subviews = [T]()
+          for subview in view.subviews {
+              subviews += getSubviewsOf(view: subview) as [T]
+              if let subview = subview as? T {
+                  subviews.append(subview)
+              }
+          }
+          return subviews
+      }
+      
+    guard let viewDataClosestPocket, let gridCollectionView else { return nil }
+      
+      let cellView = collectionView(gridCollectionView, cellForItemAt: viewDataClosestPocket.indexPath)
+      
+      let pocketView: PocketView? = getSubviewsOf(view: cellView).first
+      
+      print("viewDataClosestPocket")
+      print(viewDataClosestPocket)
+      
+    return pocketView
   }
 }

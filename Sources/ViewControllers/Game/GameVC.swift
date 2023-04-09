@@ -50,11 +50,12 @@ class GameVC: UIViewController, UIGestureRecognizerDelegate, StateSubscriber {
     super.viewDidLoad()
 
     setupUI(pocketSize: pocktetSize)
-//    subscribe()
+    subscribe()
   }
 
   override func viewDidLayoutSubviews() {
 //    setupBall(level: level)
+      setupBall()
   }
 
   override var prefersHomeIndicatorAutoHidden: Bool {

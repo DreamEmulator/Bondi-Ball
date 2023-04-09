@@ -33,7 +33,7 @@ class GameController: StateSubscriber {
 
 extension GameController {
   func subscribe() {
-    unsubscribe = state.subscribe { [weak self] state in
+      unsubscribe = state.subscribe("GameController 👾") { [weak self] state in
       if let self {
         switch state {
         case .Missed:

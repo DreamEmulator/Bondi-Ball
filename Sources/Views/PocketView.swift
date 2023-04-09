@@ -33,7 +33,7 @@ internal final class PocketView: UIView, StateSubscriber {
     self.viewData = viewData
     super.init(frame: frame)
     self.isOpaque = false
-    subscribe()
+//    subscribe() // TODO: Fix that this subscribe gets called when fishing for the view from the grid collection
   }
 
   @available(*, unavailable)
@@ -50,7 +50,7 @@ internal final class PocketView: UIView, StateSubscriber {
 
 extension PocketView {
   func subscribe() {
-    unsubscribe = App.shared.game.state.subscribe { [weak self] state in
+    unsubscribe = App.shared.game.state.subscribe("Pocket View 👖") { [weak self] state in
       if let self {
         switch state {
         case .Scored:

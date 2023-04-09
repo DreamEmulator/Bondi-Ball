@@ -12,13 +12,13 @@ import UIKit
 
 extension GameVC {
   func subscribeLevel() {
-    unsubscribeLevel = App.shared.game.state.subscribe { [weak self] state in
+    unsubscribeLevel = App.shared.game.state.subscribe("Game View Controller 🎴") { [weak self] state in
       print(state)
       if let self {
         let progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
         switch state {
         case .LevelingUp:
-          break
+          // TODO: Replace the level instead of the Root View Navigator
         case .Playing:
           App.shared.game.state.start()
         case .DraggingBall:
@@ -40,14 +40,14 @@ extension GameVC {
 
 extension GameVC {
   func updateGame(_ endpoint: PocketView?) {
-    guard let viewData = pocketViewData.first(where: { $0.id.row == endpoint?.tag }) else {
-      return
-    }
-    guard !viewData.isStartPocket else { return }
-    if viewData.isGoal {
-      App.shared.game.state.score()
-    } else {
-      App.shared.game.state.missed()
-    }
+      if let viewData = endpoint?.viewData {
+          if viewData.isGoal {
+              App.shared.game.state.score()
+          } else if viewData.isStartPocket {
+              return
+          } else {
+              App.shared.game.state.missed()
+          }
+      }
   }
 }

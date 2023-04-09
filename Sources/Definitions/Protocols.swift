@@ -45,7 +45,7 @@ enum Position {
 }
 
 protocol PocketProtocol {
-  var id: IndexPath { get }
+  var indexPath: IndexPath { get }
   var position: [Position: Int] { get set }
   var displayPosition: CGPoint { get set }
   var isGoal: Bool { get }
