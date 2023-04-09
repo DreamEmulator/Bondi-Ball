@@ -18,6 +18,7 @@ extension GameVC {
         let progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
         switch state {
         case .LevelingUp:
+          break
           // TODO: Replace the level instead of the Root View Navigator
         case .Playing:
           App.shared.game.state.start()
