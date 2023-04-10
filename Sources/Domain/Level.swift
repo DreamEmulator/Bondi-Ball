@@ -19,6 +19,8 @@ struct Level: LevelProtocol {
   var costIncurred: Int
   var points: Int
   var pocketCount: Int { board.rows * board.columns }
+  var backgroundLight: String
+  var backgroundDark: String
 
   init(id: String,
        board: Board,
@@ -28,7 +30,9 @@ struct Level: LevelProtocol {
        startPocket: (Int, Int),
        endPocket: (Int, Int),
        costIncurred: Int,
-       points: Int)
+       points: Int,
+       backgroundLight: String,
+       backgroundDark: String)
   {
     self.id = id
     self.board = board
@@ -39,5 +43,7 @@ struct Level: LevelProtocol {
     self.endPocket = endPocket
     self.costIncurred = costIncurred
     self.points = points
+    self.backgroundLight = backgroundLight
+    self.backgroundDark = backgroundDark
   }
 }

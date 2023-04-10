@@ -21,7 +21,9 @@ enum LevelCollection {
       startPocket: (2, 1),
       endPocket: (1, 1),
       costIncurred: 0,
-      points: 100
+      points: 100,
+      backgroundLight: "water.fsh",
+      backgroundDark: "purple_lights.fsh"
     ),
     Level(
       id: "level_02",
@@ -36,7 +38,9 @@ enum LevelCollection {
       startPocket: (3, 1),
       endPocket: (1, 1),
       costIncurred: 0,
-      points: 200
+      points: 200,
+      backgroundLight: "lines.fsh",
+      backgroundDark: "beehive.fsh"
     ),
     Level(
       id: "level_03",
@@ -51,7 +55,9 @@ enum LevelCollection {
       startPocket: (2, 2),
       endPocket: (1, 1),
       costIncurred: 0,
-      points: 300
+      points: 300,
+      backgroundLight: "wormhole.fsh",
+      backgroundDark: "glass.fsh"
     ),
      Level(
        id: "level_04",
@@ -66,7 +72,9 @@ enum LevelCollection {
        startPocket: (3, 3),
        endPocket: (2, 2),
        costIncurred: 0,
-       points: 300
+       points: 300,
+       backgroundLight: "water.fsh",
+       backgroundDark: "purple_lights.fsh"
      ),
      Level(
        id: "level_05",
@@ -81,7 +89,9 @@ enum LevelCollection {
        startPocket: (4, 3),
        endPocket: (2, 3),
        costIncurred: 0,
-       points: 400
+       points: 400,
+       backgroundLight: "lines.fsh",
+       backgroundDark: "beehive.fsh"
      )]
   }
 }

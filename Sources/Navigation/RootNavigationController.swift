@@ -52,6 +52,8 @@ extension RootNavigationController {
             self.presentGameVC()
           case .RetryingLevel:
             self.presentGameVC()
+          case .LevelingUp:
+            self.setupBackgroundEffects()
           default:
             break
         }
@@ -102,8 +104,7 @@ extension RootNavigationController {
 
 extension RootNavigationController {
   private func setupBackgroundEffects(){
-    scene = traitCollection.userInterfaceStyle == .dark ? WormholeScene(size: view.frame.size) : MagicParticlesScene(size: view.frame.size)
-    scene.backgroundColor = .clear
+    scene = BackgroundScene(shaderFile: traitCollection.userInterfaceStyle == .dark ? App.shared.game.level.backgroundDark : App.shared.game.level.backgroundLight, shaderFrame: view.frame) 
     backgroundEffects.presentScene(scene)
   }
 }
