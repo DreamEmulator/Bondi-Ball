@@ -63,7 +63,7 @@ extension GameVC {
     let startingPocketIndex = level.startPocket.0 * level.startPocket.1 - 1
     let startingPocketCenter = centerPoint(pocketIndex: startingPocketIndex)
 
-    paintBall.frame = pocktetSize.insetBy(dx: 42, dy: 42)
+    paintBall.frame = pocktetSize.insetBy(dx: pocktetSize.width * 0.05, dy: pocktetSize.height * 0.05)
 
     paintBall.center = startingPocketCenter
     springConfigurationButton.center = startingPocketCenter

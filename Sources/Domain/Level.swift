@@ -21,6 +21,7 @@ struct Level: LevelProtocol {
   var pocketCount: Int { board.rows * board.columns }
   var backgroundLight: String
   var backgroundDark: String
+  var levelNumber: Int {LevelCollection.levels.firstIndex(where: {App.shared.game.level.id == $0.id}) ?? -1 }
 
   init(id: String,
        board: Board,

@@ -33,7 +33,7 @@ internal final class PocketView: UIView, StateSubscriber {
     self.viewData = viewData
     super.init(frame: frame)
     self.isOpaque = false
-//    subscribe() // TODO: Fix that this subscribe gets called when fishing for the view from the grid collection
+    subscribe() // TODO: Fix that this subscribe gets called when fishing for the view from the grid collection
   }
 
   @available(*, unavailable)
@@ -42,7 +42,7 @@ internal final class PocketView: UIView, StateSubscriber {
   }
 
   deinit {
-    // unsubscribe?() TODO: Learn why this deinit is called unexpectedly
+     unsubscribe?()// TODO: Learn why this deinit is called unexpectedly
   }
 }
 

@@ -104,7 +104,14 @@ extension RootNavigationController {
 
 extension RootNavigationController {
   private func setupBackgroundEffects(){
-    scene = BackgroundScene(shaderFile: traitCollection.userInterfaceStyle == .dark ? App.shared.game.level.backgroundDark : App.shared.game.level.backgroundLight, shaderFrame: view.frame) 
-    backgroundEffects.presentScene(scene)
+    scene = BackgroundScene(shaderFile: traitCollection.userInterfaceStyle == .dark ? App.shared.game.level.backgroundDark : App.shared.game.level.backgroundLight, shaderFrame: view.frame)
+    let doorway = SKTransition.doorway(withDuration: 1)
+    let reveal = SKTransition.reveal(with: .up, duration: 1)
+    let flipVertical = SKTransition.flipVertical(withDuration: 1)
+    
+    let transition = App.shared.game.level.levelNumber % 2 == 0 ? doorway :
+    App.shared.game.level.levelNumber % 3 == 0 ? reveal : flipVertical
+    
+    backgroundEffects.presentScene(scene, transition: transition)
   }
 }
