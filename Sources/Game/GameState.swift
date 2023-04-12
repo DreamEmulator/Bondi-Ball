@@ -31,6 +31,7 @@ class GameStateMachine {
       return
     }
     stateDidChange(state)
+    print(state)
   }}
   
   private func stateDidChange(_ state: GameState) {

@@ -35,7 +35,6 @@ extension GameVC {
 extension GameVC {
   func subscribeSoundEffects() {
       let subscription = App.shared.game.state.subscribe("SoundEffects 🪩") { [weak self] state in
-      print(state)
       if let self {
         switch state {
         case .Missed:

@@ -13,13 +13,11 @@ import UIKit
 extension GameVC {
   func subscribeLevel() {
     let subscription = App.shared.game.state.subscribe("Game View Controller 🎴") { [weak self] state in
-      print(state)
       if let self {
         let progress = 1 - Float(App.shared.game.level.costIncurred) / Float(App.shared.game.level.points)
         switch state {
         case .LevelingUp:
           break
-          // TODO: Replace the level instead of the Root View Navigator
         case .Playing:
           App.shared.game.state.start()
         case .DraggingBall:
