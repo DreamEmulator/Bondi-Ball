@@ -5,17 +5,19 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DC1E83B8-6200-41CC-B5D5-4073C27CCFB6"
+            uuid = "AC9CED96-C1FB-4304-A2F8-BA33CCCEC6D6"
             shouldBeEnabled = "Yes"
-            nameForDebugger = "NSInvalidArgumentException"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            symbolName = "NSInvalidArgumentException"
-            moduleName = "">
-            <Locations>
-            </Locations>
+            filePath = "Sources/Game/SideEffects/GameController+SoundtrackProgression.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "playSoundtrack()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

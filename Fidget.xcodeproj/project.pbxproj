@@ -16,6 +16,10 @@
 		AA007635296B01EA00380FFF /* MagicParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA007633296B01EA00380FFF /* MagicParticles.sks */; };
 		AA007636296B01EA00380FFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA007634296B01EA00380FFF /* Assets.xcassets */; };
 		AA007638296BECD500380FFF /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA007637296BECD500380FFF /* Board.swift */; };
+		AA01712329FF81C600D32281 /* GameController+GamePoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01712029FF81C600D32281 /* GameController+GamePoints.swift */; };
+		AA01712429FF81C600D32281 /* GameController+LevelProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01712129FF81C600D32281 /* GameController+LevelProgress.swift */; };
+		AA01712529FF81C600D32281 /* GameController+SoundtrackProgression.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01712229FF81C600D32281 /* GameController+SoundtrackProgression.swift */; };
+		AA01712B29FF8A9900D32281 /* 🏰 Q-Locked 🗝️.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AA01712A29FF8A9900D32281 /* 🏰 Q-Locked 🗝️.m4a */; };
 		AA1E7C022975310F0082FB53 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E7C012975310F0082FB53 /* Level.swift */; };
 		AA1E7C05297538F20082FB53 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E7C04297538F20082FB53 /* Protocols.swift */; };
 		AA3092B02999061E00EABFF6 /* Game+Gestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3092AF2999061E00EABFF6 /* Game+Gestures.swift */; };
@@ -80,6 +84,10 @@
 		AA007633296B01EA00380FFF /* MagicParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MagicParticles.sks; sourceTree = "<group>"; };
 		AA007634296B01EA00380FFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA007637296BECD500380FFF /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		AA01712029FF81C600D32281 /* GameController+GamePoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameController+GamePoints.swift"; sourceTree = "<group>"; };
+		AA01712129FF81C600D32281 /* GameController+LevelProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameController+LevelProgress.swift"; sourceTree = "<group>"; };
+		AA01712229FF81C600D32281 /* GameController+SoundtrackProgression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameController+SoundtrackProgression.swift"; sourceTree = "<group>"; };
+		AA01712A29FF8A9900D32281 /* 🏰 Q-Locked 🗝️.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "🏰 Q-Locked 🗝️.m4a"; sourceTree = "<group>"; };
 		AA1E7C012975310F0082FB53 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		AA1E7C04297538F20082FB53 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		AA3092AF2999061E00EABFF6 /* Game+Gestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+Gestures.swift"; sourceTree = "<group>"; };
@@ -177,11 +185,38 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
+		AA01711F29FF81C600D32281 /* SideEffects */ = {
+			isa = PBXGroup;
+			children = (
+				AA01712029FF81C600D32281 /* GameController+GamePoints.swift */,
+				AA01712129FF81C600D32281 /* GameController+LevelProgress.swift */,
+				AA01712229FF81C600D32281 /* GameController+SoundtrackProgression.swift */,
+			);
+			path = SideEffects;
+			sourceTree = "<group>";
+		};
+		AA01712629FF826600D32281 /* Soundtrack */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Soundtrack;
+			sourceTree = "<group>";
+		};
+		AA01712929FF8A9900D32281 /* Soundtrack */ = {
+			isa = PBXGroup;
+			children = (
+				AA01712A29FF8A9900D32281 /* 🏰 Q-Locked 🗝️.m4a */,
+			);
+			name = Soundtrack;
+			path = Sounds/Soundtrack;
+			sourceTree = "<group>";
+		};
 		AA35E02F2986A4E400275C93 /* Game */ = {
 			isa = PBXGroup;
 			children = (
 				AAEC69E02980675500DE89E3 /* GameState.swift */,
 				AA35E02B2986670300275C93 /* GameController.swift */,
+				AA01711F29FF81C600D32281 /* SideEffects */,
 				AA35E0302986A4F700275C93 /* LevelCollection.swift */,
 			);
 			path = Game;
@@ -279,6 +314,7 @@
 				AA86120629977B9100E9BEA7 /* missed.m4a */,
 				AA42469F29978FAA007DAE70 /* failed.m4a */,
 				AA3092BF299917E900EABFF6 /* touched.m4a */,
+				AA01712629FF826600D32281 /* Soundtrack */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -351,6 +387,7 @@
 		CBB6FE3620DA892B0099567C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AA01712929FF8A9900D32281 /* Soundtrack */,
 				AA86120529977B9100E9BEA7 /* Sounds */,
 				CB0556B120D05B8B00095934 /* Info.plist */,
 				CB0556AE20D05B8B00095934 /* LaunchScreen.storyboard */,
@@ -435,6 +472,7 @@
 				AA3092C0299917E900EABFF6 /* touched.m4a in Resources */,
 				AA86120929977B9100E9BEA7 /* scored.m4a in Resources */,
 				AA4CE8E12961C6AB00AD289F /* SetupController.xib in Resources */,
+				AA01712B29FF8A9900D32281 /* 🏰 Q-Locked 🗝️.m4a in Resources */,
 				AA4246A02997975B007DAE70 /* failed.m4a in Resources */,
 				AA916B0E29A0EAB90062A2DE /* water.fsh in Resources */,
 				AA916B1529A3B55F0062A2DE /* purple_lights.fsh in Resources */,
@@ -453,6 +491,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA0076172968C16900380FFF /* UIView+Extensions.swift in Sources */,
+				AA01712529FF81C600D32281 /* GameController+SoundtrackProgression.swift in Sources */,
 				AA1E7C05297538F20082FB53 /* Protocols.swift in Sources */,
 				AA3092B62999076500EABFF6 /* Game+Haptics.swift in Sources */,
 				AA4CE8D92961A69A00AD289F /* Sequence+Extensions.swift in Sources */,
@@ -471,6 +510,7 @@
 				AA007638296BECD500380FFF /* Board.swift in Sources */,
 				AA35E02C2986670300275C93 /* GameController.swift in Sources */,
 				AA4CE8D52961A48900AD289F /* DampedHarmonicSpring.swift in Sources */,
+				AA01712429FF81C600D32281 /* GameController+LevelProgress.swift in Sources */,
 				CB0556A620D05B8A00095934 /* AppDelegate.swift in Sources */,
 				AA43E4132961A0B6001EF225 /* UIButton+Extensions.swift in Sources */,
 				AAEC69E52980697400DE89E3 /* App.swift in Sources */,
@@ -488,6 +528,7 @@
 				AAC3032C29B1BAB100E65D03 /* PocketVD.swift in Sources */,
 				AA35E0362987A31100275C93 /* ScoreVC.swift in Sources */,
 				AA4CE8E02961C6AB00AD289F /* SetupController.swift in Sources */,
+				AA01712329FF81C600D32281 /* GameController+GamePoints.swift in Sources */,
 				AA4CE8D62961A48900AD289F /* CGPoint+Extensions.swift in Sources */,
 				AA3092B42999072300EABFF6 /* Game+Level.swift in Sources */,
 				AA73B08F299132F000AAE41E /* GameVC.swift in Sources */,
