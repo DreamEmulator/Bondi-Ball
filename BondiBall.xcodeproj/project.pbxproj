@@ -435,7 +435,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CB05569D20D05B8A00095934 /* Build configuration list for PBXProject "Fidget" */;
+			buildConfigurationList = CB05569D20D05B8A00095934 /* Build configuration list for PBXProject "BondiBall" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -640,7 +640,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.dream-emulator.bondi-ball";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -669,7 +669,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.dream-emulator.bondi-ball";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -684,7 +684,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CB05569D20D05B8A00095934 /* Build configuration list for PBXProject "Fidget" */ = {
+		CB05569D20D05B8A00095934 /* Build configuration list for PBXProject "BondiBall" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CB0556B220D05B8B00095934 /* Debug */,

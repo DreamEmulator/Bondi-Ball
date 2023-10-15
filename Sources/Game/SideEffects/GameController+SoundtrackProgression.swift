@@ -34,7 +34,7 @@ extension GameController {
   func subscribeSoundtrackProgression(state: GameState) {
     switch state {
     case .FlickedBall:
-      playSoundtrack()
+      print("Add success music")
     default:
       break
     }
