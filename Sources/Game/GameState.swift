@@ -55,7 +55,7 @@ class GameStateMachine {
 extension GameStateMachine {
   func start() {
     switch state {
-      case .LevelingUp, .RetryingLevel:
+    case .LevelingUp, .RetryingLevel, .Failed:
         state = .Playing
       default:
         break
