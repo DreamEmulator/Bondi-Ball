@@ -12,8 +12,8 @@ class GameController: StateSubscriber {
   var soundtrackPlayer: AVPlayer? = nil
 
   // MARK: - Properties
-  internal(set) var totalPoints = 0
-  internal(set) var level: Level = LevelCollection.levels.first!
+  var totalPoints = 0
+  var level: Level = LevelCollection.levels.first!
   internal var unsubscribe: AnonymousClosure?
 
   // MARK: - Game state

@@ -12,20 +12,20 @@ import AVFoundation
 
 extension GameVC {
   func play(sound file: Sounds) {
-    guard let url = Bundle.main.url(forResource: file.rawValue, withExtension: "m4a") else { return }
+    DispatchQueue.global(qos: .userInitiated).async {
+      guard let url = Bundle.main.url(forResource: file.rawValue, withExtension: "m4a") else { return }
 
-    do {
-      try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
-      try AVAudioSession.sharedInstance().setActive(true)
+      do {
 
-      player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+        let player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
 
-      guard let player = player else { return }
-
-      player.play()
-
-    } catch {
-      print(error.localizedDescription)
+        DispatchQueue.main.async {
+          self.player = player
+          self.player?.play()
+        }
+      } catch {
+        print(error.localizedDescription)
+      }
     }
   }
 }
@@ -34,24 +34,33 @@ extension GameVC {
 
 extension GameVC {
   func subscribeSoundEffects() {
+    do {
+      try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
+      try AVAudioSession.sharedInstance().setActive(true)
+
+      let touchedPlayer = try AVAudioPlayer(contentsOf: Sounds.touchedSound.url, fileTypeHint: AVFileType.mp3.rawValue)
       let subscription = App.shared.game.state.subscribe("SoundEffects 🪩") { [weak self] state in
-      if let self {
-        switch state {
-        case .Missed:
-          self.play(sound: .missedSound)
-        case .Scored:
-          self.play(sound: .scoredSound)
-        case .Failed:
-          self.play(sound: .failedSound)
-        case .TouchBall:
-          self.play(sound: .touchedSound)
-        case .FlickedBall:
-          self.play(sound: .flickedSound)
-        default:
-          break
+        if let self {
+          switch state {
+          case .Missed:
+            self.play(sound: .missedSound)
+          case .Scored:
+            self.play(sound: .scoredSound)
+          case .Failed:
+            self.play(sound: .failedSound)
+          case .TouchBall:
+            touchedPlayer.play()
+          case .FlickedBall:
+            self.play(sound: .flickedSound)
+          default:
+            break
+          }
         }
       }
+      subscriptions.append(subscription)
+    }  catch {
+      print(error.localizedDescription)
     }
-    subscriptions.append(subscription)
+
   }
 }
