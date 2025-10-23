@@ -12,7 +12,6 @@
 		AA00761E2969F15F00380FFF /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00761D2969F15F00380FFF /* RootNavigationController.swift */; };
 		AA0076202969F93F00380FFF /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00761F2969F93F00380FFF /* Aliases.swift */; };
 		AA0076232969F9E200380FFF /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0076222969F9E200380FFF /* Animations.swift */; };
-		AA007629296A15CB00380FFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA007627296A15CB00380FFF /* Assets.xcassets */; };
 		AA007630296AD3D800380FFF /* MagicParticlesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00762F296AD3D800380FFF /* MagicParticlesScene.swift */; };
 		AA007635296B01EA00380FFF /* MagicParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA007633296B01EA00380FFF /* MagicParticles.sks */; };
 		AA007636296B01EA00380FFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA007634296B01EA00380FFF /* Assets.xcassets */; };
@@ -70,7 +69,6 @@
 		AA00761D2969F15F00380FFF /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		AA00761F2969F93F00380FFF /* Aliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
 		AA0076222969F9E200380FFF /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
-		AA007627296A15CB00380FFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA00762F296AD3D800380FFF /* MagicParticlesScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicParticlesScene.swift; sourceTree = "<group>"; };
 		AA007633296B01EA00380FFF /* MagicParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MagicParticles.sks; sourceTree = "<group>"; };
 		AA007634296B01EA00380FFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -148,7 +146,6 @@
 			children = (
 				AA0076222969F9E200380FFF /* Animations.swift */,
 				AA00762E296AD3B000380FFF /* Scenes */,
-				AA007627296A15CB00380FFF /* Assets.xcassets */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -383,7 +380,6 @@
 				AA4CE8CD2961A42A00AD289F /* Original ReadMe.md in Resources */,
 				AA43E4152961A0CB001EF225 /* Philoshophy.md in Resources */,
 				CB0556AD20D05B8B00095934 /* Assets.xcassets in Resources */,
-				AA007629296A15CB00380FFF /* Assets.xcassets in Resources */,
 				AA007635296B01EA00380FFF /* MagicParticles.sks in Resources */,
 				CB0556B020D05B8B00095934 /* LaunchScreen.storyboard in Resources */,
 				AA3092C2299922E500EABFF6 /* flicked.m4a in Resources */,
