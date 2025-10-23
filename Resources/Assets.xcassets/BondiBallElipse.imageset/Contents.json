@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "BondiBallElipse.png",
+      "filename" : "Dino Ball App Icon Circle.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "BondiBallElipse 1.png",
+      "filename" : "Dino Ball App Icon Circle@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "BondiBallElipse 2.png",
+      "filename" : "Dino Ball App Icon Circle@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
