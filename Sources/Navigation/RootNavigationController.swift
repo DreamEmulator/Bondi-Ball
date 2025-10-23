@@ -75,13 +75,13 @@ extension RootNavigationController {
   }
 
   private func presentGameVC() {
-    self.gameVC.unsubscribe?()
+    self.gameVC.removeFromParent()
     self.gameVC = GameVC()
     self.pushViewController(self.gameVC, animated: true)
   }
 
   private func presentScoreVC() {
-    self.scoreVC.unsubscribe?()
+    self.scoreVC.removeFromParent()
     self.scoreVC = ScoreVC()
     self.pushViewController(self.scoreVC, animated: true)
   }
